@@ -1,5 +1,5 @@
 .idea/*
-target/*
+*/target/*
 PazarBG.iml
 .project
 .classpath
