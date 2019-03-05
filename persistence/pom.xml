@@ -12,7 +12,6 @@
     <artifactId>persistence</artifactId>
     <packaging>jar</packaging>
 
-
     <dependencies>
         <dependency>
             <groupId>com.ivan.pazar</groupId>
