@@ -1,3 +1,8 @@
-/.idea
-/target
+.idea/*
+target/*
 PazarBG.iml
+.project
+.classpath
+*.zip
+*.war
+*.log

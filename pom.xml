@@ -7,6 +7,12 @@
     <groupId>com.ivan.pazar</groupId>
     <artifactId>pazar-bg</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>domain</module>
+        <module>persistence</module>
+        <module>web</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
