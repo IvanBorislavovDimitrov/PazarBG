@@ -1,10 +1,14 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.dto.service.RegionServiceModel;
+import com.ivan.pazar.domain.model.dto.service.rest.RegionRestServiceModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.service.api.RegionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RegionServiceImp implements RegionService {
@@ -20,5 +24,13 @@ public class RegionServiceImp implements RegionService {
     @Override
     public RegionServiceModel save(RegionServiceModel regionServiceModel) {
         return null;
+    }
+
+    @Override
+    public List<RegionRestServiceModel> getAllRegionsRest() {
+        return regionRepository.findAll()
+                .stream()
+                .map(region -> modelMapper.map(region, RegionRestServiceModel.class))
+                .collect(Collectors.toList());
     }
 }
