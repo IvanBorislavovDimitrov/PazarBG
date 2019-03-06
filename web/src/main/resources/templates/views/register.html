@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <head>
     <title>Register</title>
+    <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ajax/user-register.js"></script>
 </head>
 <body xmlns:th="http://www.thymeleaf.org">
 <div class="mt-3">
     <hr class="w-25 hr-2"/>
     <h1 class="text-center">Register</h1>
     <hr class="w-25 hr-2"/>
-    <form class="mx-auto w-25" method="post" th:action="@{/user-register}">
+    <form class="mx-auto w-25" method="post" th:action="@{/register}">
         <fieldset>
             <div class="form-group">
                 <label for="email">Email address</label>
@@ -46,7 +48,20 @@
             </div>
             <div class="form-group">
                 <label for="exampleTextarea">Example textarea</label>
-                <textarea class="form-control" placeholder="Enter short description (optional)" id="exampleTextarea" rows="3"></textarea>
+                <textarea class="form-control" placeholder="Enter short description (optional)" id="exampleTextarea"
+                          rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="regions">Select a region</label>
+                <select class="form-control" id="regions">
+                    <option disabled="disabled" selected="selected">Region</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="towns">Select a town</label>
+                <select class="form-control" id="towns">
+                    <option disabled="disabled" selected="selected">Town</option>
+                </select>
             </div>
             <hr class="w-100 hr-2"/>
             <div class="button-holder mt-4 d-flex justify-content-center">

@@ -11,6 +11,6 @@ public class UserRegisterController extends BaseController {
 
     @GetMapping("/register")
     public ModelAndView register(Model model) {
-        return renderView(ViewConstants.VIEW_USER_REGISTER, model);
+        return renderView(ViewConstants.VIEWS_REGISTER, model);
     }
 }

@@ -22,7 +22,7 @@ public class TownRestController {
         this.modelMapper = modelMapper;
     }
 
-    @RequestMapping(value = "/all")
+    @RequestMapping(value = "/all", produces = "application/json")
     public List<TownRestViewModel> getTownsByRegion(@RequestParam(name = "region", defaultValue = "") String region) {
         return townService.getAllByRegionRest(region)
                 .stream()
