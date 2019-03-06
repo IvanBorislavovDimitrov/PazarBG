@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+    <title>Register</title>
+</head>
+<body xmlns:th="http://www.thymeleaf.org">
+<div class="mt-3">
+    <hr class="w-25 hr-2"/>
+    <h1 class="text-center">Register</h1>
+    <hr class="w-25 hr-2"/>
+    <form class="mx-auto w-25" method="post" th:action="@{/user-register}">
+        <fieldset>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                       placeholder="Enter email...">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username...">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password...">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password...">
+            </div>
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First name...">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Last name...">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone number</label>
+                <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number...">
+            </div>
+            <div class="form-group">
+                <label for="websiteAddress">Website address</label>
+                <input type="text" class="form-control" id="websiteAddress" placeholder="Website address...">
+            </div>
+            <div class="form-group">
+                <label for="exampleTextarea">Example textarea</label>
+                <textarea class="form-control" placeholder="Enter short description (optional)" id="exampleTextarea" rows="3"></textarea>
+            </div>
+            <hr class="w-100 hr-2"/>
+            <div class="button-holder mt-4 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
