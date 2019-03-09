@@ -1,5 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
+import com.ivan.pazar.domain.model.entity.Category;
+import com.ivan.pazar.persistence.dto.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.dto.service.CategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
 import com.ivan.pazar.persistence.service.api.CategoryService;
@@ -20,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryServiceModel save(CategoryServiceModel categoryServiceModel) {
-        return null;
+    public CategoryServiceModel save(CategoryAddServiceModel categoryAddServiceModel) {
+        return modelMapper.map(categoryRepository.save(modelMapper.map(categoryAddServiceModel, Category.class)), CategoryServiceModel.class);
     }
 }

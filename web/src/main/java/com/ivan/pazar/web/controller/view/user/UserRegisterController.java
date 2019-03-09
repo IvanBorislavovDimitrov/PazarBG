@@ -52,7 +52,7 @@ public class UserRegisterController extends BaseController {
             model.addAttribute(ViewConstants.ERRORS, Collections.EMPTY_LIST);
         }
 
-        return renderView(ViewConstants.VIEWS_REGISTER, model);
+        return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
     }
 
     @PostMapping("/register")
@@ -62,7 +62,7 @@ public class UserRegisterController extends BaseController {
             redirectAttributes.addFlashAttribute(ViewConstants.INVALID_USER_FORM, userRegisterBindingModel);
             redirectAttributes.addFlashAttribute(ViewConstants.ERRORS, mapErrors(bindingResult.getAllErrors()));
 
-            return redirect(ViewConstants.USERS_REGISTER);
+            return redirect(ViewConstants.REDIRECT_USERS_REGISTER);
         }
 
         try {
@@ -72,7 +72,7 @@ public class UserRegisterController extends BaseController {
             redirectAttributes.addFlashAttribute(ViewConstants.INVALID_USER_FORM, userRegisterBindingModel);
             redirectAttributes.addFlashAttribute(ViewConstants.ERROR_MESSAGE, e.getMessage());
 
-            return redirect(ViewConstants.USERS_REGISTER);
+            return redirect(ViewConstants.REDIRECT_USERS_REGISTER);
         }
 
         return redirect(ViewConstants.REDIRECT_INDEX);

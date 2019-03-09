@@ -21,7 +21,7 @@ public class UserLoginLogoutController extends BaseController {
 
     @GetMapping("/login")
     public ModelAndView login(Model model) {
-        return renderView(ViewConstants.USER_LOGIN, model);
+        return renderView(ViewConstants.VIEWS_USER_LOGIN, model);
     }
 
     @GetMapping(value = "/logout")

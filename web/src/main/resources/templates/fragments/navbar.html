@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/bazar-logo.svg}" alt="pazar-logo"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
             aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,14 +10,23 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="isAnonymous()" class="nav-item">
                 <a class="nav-link" th:href="@{/users/login}">Login</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="isAnonymous()" class="nav-item">
                 <a class="nav-link" th:href="@{/users/register}">Register</a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item">
+                <a class="nav-link" th:href="@{/users/profile}">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/about}">About</a>
+            </li>
+            <li sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" class="nav-item moderator">
+                <a class="nav-link" th:href="@{/categories/new}">New Category</a>
+            </li>
+            <li sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" class="nav-item moderator">
+                <a class="nav-link" th:href="@{/subcategories/new}">New Subcategory</a>
             </li>
             <li class="nav-item">
                 <button type="button" class="btn btn-warning">+Add</button>

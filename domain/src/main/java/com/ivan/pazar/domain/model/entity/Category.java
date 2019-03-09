@@ -17,6 +17,10 @@ public class Category extends IdEntity {
     @OneToMany(mappedBy = "category", targetEntity = Subcategory.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Subcategory> subcategories;
 
+    @Column(name = "picture")
+    @Lob
+    private byte[] picture;
+
     public Category() {
         advertisements = new ArrayList<>();
         subcategories =  new ArrayList<>();
@@ -44,5 +48,13 @@ public class Category extends IdEntity {
 
     public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 }

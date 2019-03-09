@@ -36,15 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/users/login")
-                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/users/login")
                 .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .and()
-                .csrf();
+                .invalidateHttpSession(true);
     }
 
     @Override
