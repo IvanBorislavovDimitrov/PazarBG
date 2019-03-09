@@ -73,8 +73,6 @@ public class Advertisement extends IdEntity {
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private Subcategory subcategory;
 
-    @OneToMany(mappedBy = "advertisement", targetEntity = Notification.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Notification> notifications;
 
     @ElementCollection
     @CollectionTable(name = "pictures", joinColumns = @JoinColumn(name = "picture_id", referencedColumnName = "id"))
@@ -85,7 +83,6 @@ public class Advertisement extends IdEntity {
         usersSearches = new ArrayList<>();
         comments = new ArrayList<>();
         tags = new ArrayList<>();
-        notifications = new ArrayList<>();
         pictures = new ArrayList<>();
     }
 
@@ -207,14 +204,6 @@ public class Advertisement extends IdEntity {
 
     public void setSubcategory(Subcategory subcategory) {
         this.subcategory = subcategory;
-    }
-
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
     }
 
     public State getState() {

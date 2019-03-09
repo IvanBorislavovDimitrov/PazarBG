@@ -5,12 +5,14 @@ import com.ivan.pazar.persistence.dto.service.rest.TownRestServiceModel;
 import com.ivan.pazar.persistence.repository.TownRepository;
 import com.ivan.pazar.persistence.service.api.TownService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
+@Transactional
 public class TownServiceImpl implements TownService {
 
     private final TownRepository townRepository;

@@ -4,9 +4,11 @@ import com.ivan.pazar.persistence.dto.service.CommentServiceModel;
 import com.ivan.pazar.persistence.repository.CommentRepository;
 import com.ivan.pazar.persistence.service.api.CommentService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;

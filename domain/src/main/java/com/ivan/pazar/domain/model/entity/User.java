@@ -67,14 +67,11 @@ public class User extends IdEntity {
     @ManyToMany(mappedBy = "usersFavourites", targetEntity = Advertisement.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Advertisement> favouriteAdvertisements;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
-
-    @OneToMany(mappedBy = "user", targetEntity = Notification.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Notification> notifications;
 
     public User() {
         advertisements = new ArrayList<>();
@@ -83,8 +80,29 @@ public class User extends IdEntity {
         searchedAdvertisements = new ArrayList<>();
         comments = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
-        notifications = new ArrayList<>();
         roles = new HashSet<>();
+    }
+
+    public User(User user) {
+        setUsername(user.username);
+        setEmail(user.email);
+        setPassword(user.password);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setPhoneNumber(user.phoneNumber);
+        setWebsiteAddress(user.websiteAddress);
+        setRegion(user.region);
+        setTown(user.town);
+        setDescription(user.description);
+        setAdvertisements(user.advertisements);
+        setRoles(user.roles);
+        setFavouriteAdvertisements(user.favouriteAdvertisements);
+        setComments(user.comments);
+        setProfilePicture(user.profilePicture);
+        setSearchedAdvertisements(user.searchedAdvertisements);
+        setReceivedMessages(user.receivedMessages);
+        setSentMessages(user.sentMessages);
+        setRating(user.rating);
     }
 
     public String getEmail() {
@@ -229,14 +247,6 @@ public class User extends IdEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
     }
 
     public String getPassword() {

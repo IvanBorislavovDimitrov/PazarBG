@@ -1,4 +1,4 @@
-package com.ivan.pazar.web.controller.view;
+package com.ivan.pazar.web.controller.view.user;
 
 import com.ivan.pazar.persistence.dto.binding.UserRegisterBindingModel;
 import com.ivan.pazar.persistence.dto.service.register.UserRegisterServiceModel;
@@ -6,8 +6,11 @@ import com.ivan.pazar.persistence.dto.view.UserRegisterError;
 import com.ivan.pazar.persistence.exceptions.UserException;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.controller.view.BaseController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,11 +35,14 @@ public class UserRegisterController extends BaseController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRegisterController(UserService userService, ModelMapper modelMapper) {
+    public UserRegisterController(UserService userService, ModelMapper modelMapper,
+                                  @Qualifier(value = "sha256PasswordEncoder") PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -60,6 +66,7 @@ public class UserRegisterController extends BaseController {
         }
 
         try {
+            encodePasswords(userRegisterBindingModel);
             userService.save(modelMapper.map(userRegisterBindingModel, UserRegisterServiceModel.class));
         } catch (UserException e) {
             redirectAttributes.addFlashAttribute(ViewConstants.INVALID_USER_FORM, userRegisterBindingModel);
@@ -78,5 +85,10 @@ public class UserRegisterController extends BaseController {
                     setErrorMessage(objectError.getDefaultMessage());
                 }})
                 .collect(Collectors.toSet());
+    }
+
+    private void encodePasswords(UserRegisterBindingModel userRegisterBindingModel) {
+        userRegisterBindingModel.setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
+        userRegisterBindingModel.setConfirmPassword(passwordEncoder.encode(userRegisterBindingModel.getConfirmPassword()));
     }
 }

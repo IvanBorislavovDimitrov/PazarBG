@@ -4,9 +4,11 @@ import com.ivan.pazar.persistence.dto.service.SubcategoryServiceModel;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
 import com.ivan.pazar.persistence.service.api.SubcategoryService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@Transactional
 public class SubcategoryServiceImpl implements SubcategoryService {
 
     private final SubcategoryRepository subcategoryRepository;

@@ -1,17 +1,19 @@
 package com.ivan.pazar.persistence.service.impl;
 
+import com.ivan.pazar.domain.model.entity.Region;
 import com.ivan.pazar.persistence.dto.service.RegionServiceModel;
 import com.ivan.pazar.persistence.dto.service.rest.RegionRestServiceModel;
-import com.ivan.pazar.domain.model.entity.Region;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.service.api.RegionService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
+@Transactional
 public class RegionServiceImp implements RegionService {
 
     private final RegionRepository regionRepository;

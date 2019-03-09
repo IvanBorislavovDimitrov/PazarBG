@@ -4,9 +4,11 @@ import com.ivan.pazar.persistence.dto.service.TagServiceModel;
 import com.ivan.pazar.persistence.repository.TagRepository;
 import com.ivan.pazar.persistence.service.api.TagService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@Transactional
 public class TagServiceImpl implements TagService {
 
     private final TagRepository tagRepository;

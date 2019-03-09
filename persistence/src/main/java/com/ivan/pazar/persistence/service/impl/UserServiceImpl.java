@@ -1,9 +1,9 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.persistence.dto.service.UserServiceModel;
-import com.ivan.pazar.persistence.dto.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
+import com.ivan.pazar.persistence.dto.service.UserServiceModel;
+import com.ivan.pazar.persistence.dto.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.exceptions.UsernameTakenException;
@@ -15,9 +15,11 @@ import com.ivan.pazar.persistence.service.api.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -39,9 +41,10 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel save(UserRegisterServiceModel userRegisterServiceModel) {
         checkUserServiceModelValid(userRegisterServiceModel);
         User user = modelMapper.map(userRegisterServiceModel, User.class);
-        user.setPassword(DigestUtils.sha256Hex(userRegisterServiceModel.getPassword()));
         if (userRepository.count() == 0) {
-            user.setRole(roleRepository.getByUserRole(UserRole.ROLE_ADMIN));
+            user.getRoles().add(roleRepository.getByUserRole(UserRole.ROLE_ADMIN));
+        } else {
+            user.getRoles().add(roleRepository.getByUserRole(UserRole.ROLE_USER));
         }
         user.setRegion(regionRepository.findByName(userRegisterServiceModel.getRegion()));
         user.setTown(townRepository.findByName(userRegisterServiceModel.getTown()));

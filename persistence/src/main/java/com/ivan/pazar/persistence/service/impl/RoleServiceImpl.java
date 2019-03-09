@@ -1,16 +1,18 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.persistence.dto.service.RoleServiceModel;
 import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.enums.UserRole;
+import com.ivan.pazar.persistence.dto.service.RoleServiceModel;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.service.api.RoleService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 
-@Component
+@Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;

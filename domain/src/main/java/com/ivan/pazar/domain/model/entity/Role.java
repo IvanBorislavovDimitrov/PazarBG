@@ -13,6 +13,7 @@ import java.util.Set;
 public class Role extends IdEntity {
 
     @Column(name = "name", unique = true, nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     @ManyToMany(mappedBy = "roles", targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -34,7 +35,6 @@ public class Role extends IdEntity {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-
 
     public Set<User> getUsers() {
         return users;

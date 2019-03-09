@@ -49,8 +49,6 @@ public class UserServiceModel extends IdServiceModel {
 
     private Role role;
 
-    private List<NotificationServiceModel> notifications;
-
     public UserServiceModel() {
         advertisements = new ArrayList<>();
         sentMessages = new ArrayList<>();
@@ -58,7 +56,6 @@ public class UserServiceModel extends IdServiceModel {
         searchedAdvertisements = new ArrayList<>();
         comments = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
-        notifications = new ArrayList<>();
     }
 
     public String getEmail() {
@@ -203,14 +200,6 @@ public class UserServiceModel extends IdServiceModel {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public List<NotificationServiceModel> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<NotificationServiceModel> notifications) {
-        this.notifications = notifications;
     }
 
     public String getPassword() {

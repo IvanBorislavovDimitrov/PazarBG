@@ -4,9 +4,11 @@ import com.ivan.pazar.persistence.dto.service.VideoServiceModel;
 import com.ivan.pazar.persistence.repository.VideoRepository;
 import com.ivan.pazar.persistence.service.api.VideoService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@Transactional
 public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository videoRepository;

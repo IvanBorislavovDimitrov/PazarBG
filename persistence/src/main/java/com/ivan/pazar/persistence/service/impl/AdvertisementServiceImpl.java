@@ -4,9 +4,11 @@ import com.ivan.pazar.persistence.dto.service.AdvertisementServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@Transactional
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
