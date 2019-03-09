@@ -1,8 +1,6 @@
-package com.ivan.pazar.domain.model.dto.view.rest;
+package com.ivan.pazar.persistence.dto.service.rest;
 
-import java.util.Objects;
-
-public class TownRestViewModel implements Comparable<TownRestViewModel> {
+public class RegionRestServiceModel {
 
     private String id;
 
@@ -22,10 +20,5 @@ public class TownRestViewModel implements Comparable<TownRestViewModel> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public int compareTo(TownRestViewModel townRestViewModel) {
-        return this.name.compareTo(townRestViewModel.name);
     }
 }

@@ -12,4 +12,6 @@ public interface TownRepository extends JpaRepository<Town, String> {
 
     @Query(value = "select t from Town t join t.region r where r.name like %?1%")
     List<Town> findAllByRegionNameLike(String region);
+
+    Town findByName(String name);
 }

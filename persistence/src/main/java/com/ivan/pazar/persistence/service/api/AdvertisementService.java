@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.domain.model.dto.service.AdvertisementServiceModel;
+import com.ivan.pazar.persistence.dto.service.AdvertisementServiceModel;
 
 public interface AdvertisementService {
 

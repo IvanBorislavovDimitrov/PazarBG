@@ -1,4 +1,4 @@
-package com.ivan.pazar.domain.model.dto.service;
+package com.ivan.pazar.persistence.dto.service;
 
 public class MessageServiceModel extends IdServiceModel {
 

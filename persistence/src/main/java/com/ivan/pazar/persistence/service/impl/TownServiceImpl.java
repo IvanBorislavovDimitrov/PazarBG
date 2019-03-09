@@ -1,7 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.domain.model.dto.service.TownServiceModel;
-import com.ivan.pazar.domain.model.dto.service.rest.TownRestServiceModel;
+import com.ivan.pazar.persistence.dto.service.TownServiceModel;
+import com.ivan.pazar.persistence.dto.service.rest.TownRestServiceModel;
 import com.ivan.pazar.persistence.repository.TownRepository;
 import com.ivan.pazar.persistence.service.api.TownService;
 import org.modelmapper.ModelMapper;

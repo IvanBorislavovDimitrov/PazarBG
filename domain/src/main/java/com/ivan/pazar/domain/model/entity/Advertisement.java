@@ -76,11 +76,17 @@ public class Advertisement extends IdEntity {
     @OneToMany(mappedBy = "advertisement", targetEntity = Notification.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
+    @ElementCollection
+    @CollectionTable(name = "pictures", joinColumns = @JoinColumn(name = "picture_id", referencedColumnName = "id"))
+    @Column(name = "id")
+    private List<byte[]> pictures;
+
     public Advertisement() {
         usersSearches = new ArrayList<>();
         comments = new ArrayList<>();
         tags = new ArrayList<>();
         notifications = new ArrayList<>();
+        pictures = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -217,5 +223,13 @@ public class Advertisement extends IdEntity {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public List<byte[]> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<byte[]> pictures) {
+        this.pictures = pictures;
     }
 }

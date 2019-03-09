@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.domain.model.dto.service.MessageServiceModel;
+import com.ivan.pazar.persistence.dto.service.MessageServiceModel;
 import com.ivan.pazar.persistence.repository.MessageRepository;
 import com.ivan.pazar.persistence.service.api.MessageService;
 import org.modelmapper.ModelMapper;

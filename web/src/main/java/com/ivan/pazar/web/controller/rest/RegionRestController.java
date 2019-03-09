@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.rest;
 
-import com.ivan.pazar.domain.model.dto.view.rest.RegionRestViewModel;
+import com.ivan.pazar.persistence.dto.view.rest.RegionRestViewModel;
 import com.ivan.pazar.persistence.service.api.RegionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

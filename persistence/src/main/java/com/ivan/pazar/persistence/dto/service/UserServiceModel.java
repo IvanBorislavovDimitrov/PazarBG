@@ -1,4 +1,4 @@
-package com.ivan.pazar.domain.model.dto.service;
+package com.ivan.pazar.persistence.dto.service;
 
 import com.ivan.pazar.domain.model.entity.Region;
 import com.ivan.pazar.domain.model.entity.Role;
@@ -13,6 +13,10 @@ public class UserServiceModel extends IdServiceModel {
 
     private String username;
 
+    private String password;
+
+    private String confirmPassword;
+
     private String firstName;
 
     private String lastName;
@@ -20,8 +24,6 @@ public class UserServiceModel extends IdServiceModel {
     private String phoneNumber;
 
     private String websiteAddress;
-
-    private String skype;
 
     private Region region;
 
@@ -105,14 +107,6 @@ public class UserServiceModel extends IdServiceModel {
 
     public void setWebsiteAddress(String websiteAddress) {
         this.websiteAddress = websiteAddress;
-    }
-
-    public String getSkype() {
-        return skype;
-    }
-
-    public void setSkype(String skype) {
-        this.skype = skype;
     }
 
     public Region getRegion() {
@@ -217,5 +211,21 @@ public class UserServiceModel extends IdServiceModel {
 
     public void setNotifications(List<NotificationServiceModel> notifications) {
         this.notifications = notifications;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

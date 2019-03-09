@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.domain.model.dto.service.VideoServiceModel;
+import com.ivan.pazar.persistence.dto.service.VideoServiceModel;
 import com.ivan.pazar.persistence.repository.VideoRepository;
 import com.ivan.pazar.persistence.service.api.VideoService;
 import org.modelmapper.ModelMapper;

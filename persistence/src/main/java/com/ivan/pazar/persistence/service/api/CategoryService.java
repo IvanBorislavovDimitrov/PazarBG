@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.domain.model.dto.service.CategoryServiceModel;
+import com.ivan.pazar.persistence.dto.service.CategoryServiceModel;
 
 public interface CategoryService {
 

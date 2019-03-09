@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.domain.model.dto.service.NotificationServiceModel;
+import com.ivan.pazar.persistence.dto.service.NotificationServiceModel;
 import com.ivan.pazar.persistence.repository.NotificationRepository;
 import com.ivan.pazar.persistence.service.api.NotificationService;
 import org.modelmapper.ModelMapper;

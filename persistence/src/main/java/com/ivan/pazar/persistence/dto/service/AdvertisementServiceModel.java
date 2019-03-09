@@ -1,4 +1,4 @@
-package com.ivan.pazar.domain.model.dto.service;
+package com.ivan.pazar.persistence.dto.service;
 
 import com.ivan.pazar.domain.model.enums.Shipment;
 import com.ivan.pazar.domain.model.enums.State;

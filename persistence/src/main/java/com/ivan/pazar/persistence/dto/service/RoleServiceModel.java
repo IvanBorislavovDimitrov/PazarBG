@@ -1,11 +1,13 @@
-package com.ivan.pazar.domain.model.dto.service;
+package com.ivan.pazar.persistence.dto.service;
+
+import com.ivan.pazar.domain.model.enums.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoleServiceModel extends IdServiceModel {
 
-    private String name;
+    private UserRole userRole;
 
     private List<UserServiceModel> users;
 
@@ -13,12 +15,12 @@ public class RoleServiceModel extends IdServiceModel {
         users = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public List<UserServiceModel> getUsers() {

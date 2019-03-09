@@ -1,6 +1,6 @@
-package com.ivan.pazar.domain.model.dto.service.rest;
+package com.ivan.pazar.persistence.dto.view.rest;
 
-public class TownRestServiceModel {
+public class RegionRestViewModel {
 
     private String id;
 

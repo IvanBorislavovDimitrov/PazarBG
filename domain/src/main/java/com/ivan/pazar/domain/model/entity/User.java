@@ -2,7 +2,9 @@ package com.ivan.pazar.domain.model.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -13,6 +15,9 @@ public class User extends IdEntity {
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -25,9 +30,6 @@ public class User extends IdEntity {
 
     @Column(name = "website_address")
     private String websiteAddress;
-
-    @Column(name = "skype")
-    private String skype;
 
     @ManyToOne
     @JoinColumn(name = "region_id", referencedColumnName = "id")
@@ -65,9 +67,11 @@ public class User extends IdEntity {
     @ManyToMany(mappedBy = "usersFavourites", targetEntity = Advertisement.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Advertisement> favouriteAdvertisements;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "user", targetEntity = Notification.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Notification> notifications;
@@ -80,6 +84,7 @@ public class User extends IdEntity {
         comments = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
         notifications = new ArrayList<>();
+        roles = new HashSet<>();
     }
 
     public String getEmail() {
@@ -128,14 +133,6 @@ public class User extends IdEntity {
 
     public void setWebsiteAddress(String websiteAddress) {
         this.websiteAddress = websiteAddress;
-    }
-
-    public String getSkype() {
-        return skype;
-    }
-
-    public void setSkype(String skype) {
-        this.skype = skype;
     }
 
     public Region getRegion() {
@@ -226,12 +223,12 @@ public class User extends IdEntity {
         this.favouriteAdvertisements = favouriteAdvertisements;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public List<Notification> getNotifications() {
@@ -240,5 +237,13 @@ public class User extends IdEntity {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
