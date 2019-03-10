@@ -49,7 +49,7 @@ public class UserRegisterController extends BaseController {
     public ModelAndView register(Model model) {
         if (!model.containsAttribute(ViewConstants.INVALID_USER_FORM)) {
             model.addAttribute(ViewConstants.INVALID_USER_FORM, new UserRegisterBindingModel());
-            model.addAttribute(ViewConstants.ERRORS, Collections.EMPTY_LIST);
+            model.addAttribute(ViewConstants.ERRORS, Collections.emptyList());
         }
 
         return renderView(ViewConstants.VIEWS_USER_REGISTER, model);

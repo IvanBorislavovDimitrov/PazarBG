@@ -7,6 +7,8 @@ public class CategoryServiceModel extends IdServiceModel {
 
     private String name;
 
+    private byte[] picture;
+
     private List<AdvertisementServiceModel> advertisements;
 
     private List<SubcategoryServiceModel> subcategories;
@@ -38,5 +40,13 @@ public class CategoryServiceModel extends IdServiceModel {
 
     public void setSubcategories(List<SubcategoryServiceModel> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 }

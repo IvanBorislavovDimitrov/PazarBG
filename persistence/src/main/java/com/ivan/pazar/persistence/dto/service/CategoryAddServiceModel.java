@@ -1,5 +1,7 @@
 package com.ivan.pazar.persistence.dto.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CategoryAddServiceModel {
 
     private String name;

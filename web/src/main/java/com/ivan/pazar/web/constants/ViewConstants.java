@@ -15,5 +15,5 @@ public class ViewConstants {
 
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";
-    public static final String REDIRECT_CATEGORY_ADD = "categories/new";
+    public static final String REDIRECT_CATEGORY_ADD = "categories/new  ";
 }

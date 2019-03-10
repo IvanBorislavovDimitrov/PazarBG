@@ -1,16 +1,18 @@
-package com.ivan.pazar.persistence.dto.binding;
+package com.ivan.pazar.persistence.dto.view.rest;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+public class CategoryRestViewModel {
 
-public class CategoryAddBindingModel {
-
-    @NotNull
-    @NotEmpty
     private String name;
 
-    @NotNull
     private byte[] picture;
+
+    public CategoryRestViewModel() {
+    }
+
+    public CategoryRestViewModel(String name, byte[] picture) {
+        this.name = name;
+        this.picture = picture;
+    }
 
     public String getName() {
         return name;

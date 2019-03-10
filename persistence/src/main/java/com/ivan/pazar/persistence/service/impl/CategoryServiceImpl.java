@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
@@ -24,5 +27,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryServiceModel save(CategoryAddServiceModel categoryAddServiceModel) {
         return modelMapper.map(categoryRepository.save(modelMapper.map(categoryAddServiceModel, Category.class)), CategoryServiceModel.class);
+    }
+
+    @Override
+    public List<CategoryServiceModel> getAll() {
+        return categoryRepository.findAll().stream()
+                .map(category -> modelMapper.map(category, CategoryServiceModel.class))
+                .collect(Collectors.toList());
     }
 }
