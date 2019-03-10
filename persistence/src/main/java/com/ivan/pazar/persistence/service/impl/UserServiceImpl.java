@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -41,6 +43,12 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel save(UserRegisterServiceModel userRegisterServiceModel) {
         checkUserServiceModelValid(userRegisterServiceModel);
         User user = modelMapper.map(userRegisterServiceModel, User.class);
+        try {
+            user.setProfilePicture(userRegisterServiceModel.getProfilePicture().getBytes());
+        } catch (IOException e) {
+            throw new IllegalStateException();
+        }
+
         if (userRepository.count() == 0) {
             user.getRoles().add(roleRepository.getByUserRole(UserRole.ROLE_ADMIN));
         } else {

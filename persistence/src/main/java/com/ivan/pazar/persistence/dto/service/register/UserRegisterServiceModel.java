@@ -1,5 +1,7 @@
 package com.ivan.pazar.persistence.dto.service.register;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserRegisterServiceModel {
 
     private String email;
@@ -24,7 +26,7 @@ public class UserRegisterServiceModel {
 
     private String town;
 
-    private byte[] profilePicture;
+    private MultipartFile profilePicture;
 
     public String getEmail() {
         return email;
@@ -114,11 +116,11 @@ public class UserRegisterServiceModel {
         this.town = town;
     }
 
-    public byte[] getProfilePicture() {
+    public MultipartFile getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
+    public void setProfilePicture(MultipartFile profilePicture) {
         this.profilePicture = profilePicture;
     }
 }

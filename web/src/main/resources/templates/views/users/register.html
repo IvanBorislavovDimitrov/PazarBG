@@ -10,7 +10,7 @@
         <hr class="w-25"/>
         <h1 class="text-center">Register</h1>
         <hr class="w-25"/>
-        <form class="mx-auto w-25" method="post" th:action="@{/users/register}">
+        <form class="mx-auto w-25" method="post" th:action="@{/users/register}" enctype="multipart/form-data">
             <fieldset>
                 <div class="form-group">
                     <label for="email">Email address</label>
@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label for="profilePicture">Profile Picture</label>
                     <input type="file" class="form-control-file" id="profilePicture" aria-describedby="fileHelp"
-                           name="profilePicture">
+                           name="profilePicture" multiple>
                     <small id="fileHelp" class="form-text text-muted">Your avatar</small>
                 </div>
                 <div th:each="error : ${errors}">
