@@ -6,13 +6,13 @@ import com.ivan.pazar.persistence.dto.service.UserServiceModel;
 import com.ivan.pazar.persistence.dto.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
+import com.ivan.pazar.persistence.exceptions.PhoneNumberTakenException;
 import com.ivan.pazar.persistence.exceptions.UsernameTakenException;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.repository.TownRepository;
 import com.ivan.pazar.persistence.repository.UserRepository;
 import com.ivan.pazar.persistence.service.api.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +60,9 @@ public class UserServiceImpl implements UserService {
         }
         if (userRepository.existsByUsername(userRegisterServiceModel.getUsername())) {
             throw new UsernameTakenException();
+        }
+        if (userRepository.existsByPhoneNumber(userRegisterServiceModel.getPhoneNumber())) {
+            throw new PhoneNumberTakenException();
         }
 
         if (!userRegisterServiceModel.getPassword().equals(userRegisterServiceModel.getConfirmPassword())) {
