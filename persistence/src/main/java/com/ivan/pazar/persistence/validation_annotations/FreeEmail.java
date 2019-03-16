@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.validation_annotations;
 
-import validators.FreeEmailValidator;
+import com.ivan.pazar.persistence.validators.FreeEmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

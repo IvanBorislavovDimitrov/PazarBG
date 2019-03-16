@@ -1,4 +1,4 @@
-package validators;
+package com.ivan.pazar.persistence.validators;
 
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.persistence.validation_annotations.FreeUsername;

@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.validation_annotations;
 
-import validators.FreePhoneNumberValidator;
+import com.ivan.pazar.persistence.validators.FreePhoneNumberValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

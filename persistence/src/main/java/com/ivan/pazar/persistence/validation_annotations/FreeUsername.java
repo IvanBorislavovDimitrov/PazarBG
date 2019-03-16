@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.validation_annotations;
 
-import validators.FreeUsernameValidator;
+import com.ivan.pazar.persistence.validators.FreeUsernameValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
