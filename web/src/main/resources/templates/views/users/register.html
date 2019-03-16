@@ -16,7 +16,8 @@
                 <div class="form-group">
                     <label for="email">*Email address</label>
                     <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
-                           placeholder="Enter email..." name="email" th:value="*{email}">
+                           placeholder="Enter email..." name="email" th:value="*{email}"
+                           th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
                     </small>
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('email')}"
@@ -26,7 +27,7 @@
                 <div class="form-group">
                     <label for="username">*Username</label>
                     <input type="text" class="form-control" id="username" placeholder="Username..." name="username"
-                           th:value="*{username}">
+                           th:value="*{username}" th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('username')}"
                            th:text="${error}">
                     </small>
@@ -34,7 +35,8 @@
 
                 <div class="form-group">
                     <label for="password">*Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
+                    <input type="password" class="form-control" id="password" placeholder="Password..." name="password"
+                           th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('password')}"
                            th:text="${error}">
                     </small>
@@ -42,7 +44,8 @@
                 <div class="form-group">
                     <label for="confirmPassword">*Confirm password</label>
                     <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password..."
-                           name="confirmPassword">
+                           name="confirmPassword"
+                           th:classappend="${#fields.hasErrors('confirmPassword') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('confirmPassword')}"
                            th:text="${error}">
                     </small>
@@ -50,7 +53,8 @@
                 <div class="form-group">
                     <label for="firstName">*First name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="First name..." name="firstName"
-                           th:value="*{firstName}">
+                           th:value="*{firstName}"
+                           th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('firstName')}"
                            th:text="${error}">
                     </small>
@@ -58,7 +62,7 @@
                 <div class="form-group">
                     <label for="lastName">*Last name</label>
                     <input type="text" class="form-control" id="lastName" placeholder="Last name..." name="lastName"
-                           th:value="*{lastName}">
+                           th:value="*{lastName}" th:classappend="${#fields.hasErrors('lastName') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('lastName')}"
                            th:text="${error}">
                     </small>
@@ -66,7 +70,8 @@
                 <div class="form-group">
                     <label for="phoneNumber">*Phone number</label>
                     <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number..."
-                           name="phoneNumber" th:value="*{phoneNumber}">
+                           name="phoneNumber" th:value="*{phoneNumber}"
+                           th:classappend="${#fields.hasErrors('phoneNumber') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('phoneNumber')}"
                            th:text="${error}">
                     </small>
@@ -91,7 +96,8 @@
                 </div>
                 <div class="form-group">
                     <label for="regions">*Select a region</label>
-                    <select class="form-control" id="regions" name="region">
+                    <select class="form-control" id="regions" name="region"
+                            th:classappend="${#fields.hasErrors('region') ? 'is-invalid' : ''}">
                         <option th:if="*{region != null}" th:text="*{region}"></option>
                         <option th:if="*{region == null}" disabled="disabled" selected="selected">Region
                         </option>
@@ -102,7 +108,8 @@
                 </div>
                 <div class="form-group">
                     <label for="towns">*Select a town</label>
-                    <select class="form-control" id="towns" name="town">
+                    <select class="form-control" id="towns" name="town"
+                            th:classappend="${#fields.hasErrors('town') ? 'is-invalid' : ''}">
                         <option th:if="*{town != null}" th:text="*{town}"></option>
                         <option th:if="*{town == null}" disabled="disabled" selected="selected">Town
                         </option>
