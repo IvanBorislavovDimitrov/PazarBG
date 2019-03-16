@@ -53,35 +53,25 @@ public class UserRegisterController extends UserBaseController {
     }
 
     @PostMapping("/register")
-    public ModelAndView registerConfirm(@ModelAttribute @Valid UserRegisterBindingModel userRegisterBindingModel,
-                                        BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public ModelAndView registerConfirm(@ModelAttribute("user") @Valid UserRegisterBindingModel userRegisterBindingModel,
+                                        BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute(ViewConstants.INVALID_USER_FORM, userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute(ViewConstants.ERRORS, mapErrors(bindingResult.getAllErrors()));
-
-            return redirect(ViewConstants.REDIRECT_USERS_REGISTER);
+            return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
         }
 
         try {
             encodePasswords(userRegisterBindingModel);
             userService.save(modelMapper.map(userRegisterBindingModel, UserRegisterServiceModel.class));
         } catch (UserException e) {
-            redirectAttributes.addFlashAttribute(ViewConstants.INVALID_USER_FORM, userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute(ViewConstants.ERROR_MESSAGE, e.getMessage());
-
-            return redirect(ViewConstants.REDIRECT_USERS_REGISTER);
+            return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
         }
 
         return redirect(ViewConstants.REDIRECT_INDEX);
     }
 
-    private Set<UserRegisterError> mapErrors(List<ObjectError> allErrors) {
-        return allErrors.stream()
-                .map(objectError -> new UserRegisterError() {{
-                    setFieldName(((FieldError) objectError).getField());
-                    setErrorMessage(objectError.getDefaultMessage());
-                }})
-                .collect(Collectors.toSet());
+    @ModelAttribute("user")
+    public UserRegisterBindingModel userRegisterBindingModel() {
+        return new UserRegisterBindingModel();
     }
 
     private void encodePasswords(UserRegisterBindingModel userRegisterBindingModel) {

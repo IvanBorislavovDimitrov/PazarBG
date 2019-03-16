@@ -62,17 +62,22 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(user, UserServiceModel.class);
     }
 
-    private void checkUserServiceModelValid(UserRegisterServiceModel userRegisterServiceModel) {
-        if (userRepository.existsByEmail(userRegisterServiceModel.getEmail())) {
-            throw new EmailTakenException();
-        }
-        if (userRepository.existsByUsername(userRegisterServiceModel.getUsername())) {
-            throw new UsernameTakenException();
-        }
-        if (userRepository.existsByPhoneNumber(userRegisterServiceModel.getPhoneNumber())) {
-            throw new PhoneNumberTakenException();
-        }
+    @Override
+    public boolean isEmailFree(String email) {
+        return !userRepository.existsByEmail(email);
+    }
 
+    @Override
+    public boolean isUsernameFree(String username) {
+        return !userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean isPhoneNumberFree(String phoneNumber) {
+        return !userRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    private void checkUserServiceModelValid(UserRegisterServiceModel userRegisterServiceModel) {
         if (!userRegisterServiceModel.getPassword().equals(userRegisterServiceModel.getConfirmPassword())) {
             throw new PasswordsMismatchException();
         }

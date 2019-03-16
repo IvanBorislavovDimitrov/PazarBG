@@ -1,56 +1,61 @@
 package com.ivan.pazar.persistence.dto.binding;
 
+import com.ivan.pazar.persistence.validation_annotations.FreeEmail;
+import com.ivan.pazar.persistence.validation_annotations.FreePhoneNumber;
+import com.ivan.pazar.persistence.validation_annotations.FreeUsername;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
 
-    @Pattern(regexp = "^[A-Za-z][A-Za-z.0-9]+@([A-Za-z]+(\\.)){1,}[A-Za-z0-9]+$")
-    @NotNull
-    @NotEmpty
+    private static final String INVALID_EMAIL = "Invalid email";
+    private static final String INVALID_USERNAME = "Invalid username";
+    private static final String INVALID_PASSWORD = "Invalid password";
+    private static final String INVALID_CONFIRM_PASSWORD = "Invalid confirm password";
+    private static final String INVALID_FIRST_NAME = "Invalid first name";
+    private static final String INVALID_LAST_NAME = "Invalid last name";
+    private static final String INVALID_PHONE_NUMBER = "Invalid phone number";
+    private static final String INVALID_REGION = "Invalid region";
+    private static final String INVALID_TOWN = "Invalid town";
+    private static final String EMAIL_TAKEN = "The email is already taken";
+    private static final String USERNAME_TAKEN = "The username is already taken";
+    private static final String PHONE_NUMBER_TAKEN = "The phone number is already taken";
+
+    @Pattern(regexp = "^[A-Za-z][A-Za-z.0-9]+@([A-Za-z]+(\\.)){1,}[A-Za-z0-9]+$", message = INVALID_EMAIL)
+    @FreeEmail(message = EMAIL_TAKEN)
     private String email;
 
-    @NotNull
-    @NotEmpty
+    @NotEmpty(message = INVALID_USERNAME)
+    @FreeUsername(message = USERNAME_TAKEN)
     private String username;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 8, max = 32)
+    @Size(min = 8, max = 32, message = INVALID_PASSWORD)
     private String password;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 8, max = 32)
+    @Size(min = 8, max = 32, message = INVALID_CONFIRM_PASSWORD)
     private String confirmPassword;
 
-    @NotNull
-    @NotEmpty
+    @NotEmpty(message = INVALID_FIRST_NAME)
     private String firstName;
 
-    @NotNull
-    @NotEmpty
+    @NotEmpty(message = INVALID_LAST_NAME)
     private String lastName;
 
-    @NotNull
-    @NotEmpty
-    @Pattern(regexp = "^\\+\\d+$")
+    @Pattern(regexp = "^\\+\\d+$", message = INVALID_PHONE_NUMBER)
+    @FreePhoneNumber(message = PHONE_NUMBER_TAKEN)
     private String phoneNumber;
 
     private String websiteAddress;
 
     private String description;
 
-    @NotNull
-    @NotEmpty
+    @NotEmpty(message = INVALID_REGION)
     private String region;
 
-    @NotNull
-    @NotEmpty
+    @NotEmpty(message = INVALID_TOWN)
     private String town;
 
     private MultipartFile profilePicture;

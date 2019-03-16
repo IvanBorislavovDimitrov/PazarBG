@@ -10,83 +10,112 @@
         <hr class="w-25"/>
         <h1 class="text-center">Register</h1>
         <hr class="w-25"/>
-        <form class="mx-auto w-25" method="post" th:action="@{/users/register}" enctype="multipart/form-data">
+        <form class="mx-auto w-25" method="post" th:action="@{/users/register}" enctype="multipart/form-data"
+              th:object="${user}">
             <fieldset>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                           placeholder="Enter email..." name="email" th:value="${invalidUserForm.email}">
+                    <label for="email">*Email address</label>
+                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
+                           placeholder="Enter email..." name="email" th:value="*{email}">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                    </small>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('email')}"
+                           th:text="${error}">
                     </small>
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">*Username</label>
                     <input type="text" class="form-control" id="username" placeholder="Username..." name="username"
-                           th:value="${invalidUserForm.username}">
+                           th:value="*{username}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('username')}"
+                           th:text="${error}">
+                    </small>
                 </div>
+
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">*Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('password')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm password</label>
+                    <label for="confirmPassword">*Confirm password</label>
                     <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password..."
                            name="confirmPassword">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('confirmPassword')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="firstName">First name</label>
+                    <label for="firstName">*First name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="First name..." name="firstName"
-                           th:value="${invalidUserForm.firstName}">
+                           th:value="*{firstName}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('firstName')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last name</label>
+                    <label for="lastName">*Last name</label>
                     <input type="text" class="form-control" id="lastName" placeholder="Last name..." name="lastName"
-                           th:value="${invalidUserForm.lastName}">
+                           th:value="*{lastName}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('lastName')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="phoneNumber">Phone number</label>
+                    <label for="phoneNumber">*Phone number</label>
                     <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number..."
-                           name="phoneNumber" th:value="${invalidUserForm.phoneNumber}">
+                           name="phoneNumber" th:value="*{phoneNumber}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('phoneNumber')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
                     <label for="websiteAddress">Website address</label>
                     <input type="text" class="form-control" id="websiteAddress"
                            placeholder="Website address (optional)..."
-                           name="websiteAddress" th:value="${invalidUserForm.websiteAddress}">
+                           name="websiteAddress" th:value="*{websiteAddress}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('websiteAddress')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
                     <label for="exampleTextarea">Short description</label>
                     <textarea class="form-control" placeholder="Enter short description (optional)..."
                               id="exampleTextarea"
-                              rows="3" name="description" th:text="${invalidUserForm.description}"></textarea>
+                              rows="3" name="description" th:text="*{description}"></textarea>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('description')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="regions">Select a region</label>
+                    <label for="regions">*Select a region</label>
                     <select class="form-control" id="regions" name="region">
-                        <option th:if="${invalidUserForm.region != null}" th:text="${invalidUserForm.region}"></option>
-                        <option th:if="${invalidUserForm.region == null}" disabled="disabled" selected="selected">Region
+                        <option th:if="*{region != null}" th:text="*{region}"></option>
+                        <option th:if="*{region == null}" disabled="disabled" selected="selected">Region
                         </option>
                     </select>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('region')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="towns">Select a town</label>
+                    <label for="towns">*Select a town</label>
                     <select class="form-control" id="towns" name="town">
-                        <option th:if="${invalidUserForm.town != null}" th:text="${invalidUserForm.town}"></option>
-                        <option th:if="${invalidUserForm.town == null}" disabled="disabled" selected="selected">Town
+                        <option th:if="*{town != null}" th:text="*{town}"></option>
+                        <option th:if="*{town == null}" disabled="disabled" selected="selected">Town
                         </option>
                     </select>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('town')}"
+                           th:text="${error}">
+                    </small>
                 </div>
                 <div class="form-group">
                     <label for="profilePicture">Profile Picture</label>
                     <input type="file" class="form-control-file" id="profilePicture" aria-describedby="fileHelp"
                            name="profilePicture" multiple>
                     <small id="fileHelp" class="form-text text-muted">Your avatar</small>
-                </div>
-                <div th:each="error : ${errors}">
-                    <h6 style="color: red" th:text="'Enter a valid ' + ${error.fieldName}"></h6>
-                </div>
-                <div th:if="${errorMessage != null}">
-                    <h6 style="color: red" th:text="${errorMessage}"></h6>
                 </div>
                 <hr class="w-100 hr-2"/>
                 <div class="button-holder mt-4 d-flex justify-content-center">
