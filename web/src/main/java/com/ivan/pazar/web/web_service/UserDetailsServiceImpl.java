@@ -2,7 +2,7 @@ package com.ivan.pazar.web.web_service;
 
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.persistence.repository.UserRepository;
-import com.ivan.pazar.web.model.CustomUserDetails;
+import com.ivan.pazar.web.model.details.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

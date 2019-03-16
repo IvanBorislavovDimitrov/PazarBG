@@ -12,4 +12,6 @@ public interface UserService {
     boolean isUsernameFree(String username);
 
     boolean isPhoneNumberFree(String phoneNumber);
+
+    UserServiceModel findUserByUsername(String username);
 }

@@ -2,9 +2,9 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
+import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
-import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.repository.TownRepository;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -72,6 +73,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isPhoneNumberFree(String phoneNumber) {
         return !userRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public UserServiceModel findUserByUsername(String username) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+
+        return optionalUser.map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
 
     private void checkUserServiceModelValid(UserRegisterServiceModel userRegisterServiceModel) {

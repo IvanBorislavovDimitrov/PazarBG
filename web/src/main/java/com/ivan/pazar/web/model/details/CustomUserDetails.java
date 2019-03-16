@@ -1,4 +1,4 @@
-package com.ivan.pazar.web.model;
+package com.ivan.pazar.web.model.details;
 
 import com.ivan.pazar.domain.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;
