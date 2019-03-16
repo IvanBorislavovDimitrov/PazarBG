@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.persistence.dto.service.CommentServiceModel;
+import com.ivan.pazar.persistence.model.service.CommentServiceModel;
 import com.ivan.pazar.persistence.repository.CommentRepository;
 import com.ivan.pazar.persistence.service.api.CommentService;
 import org.modelmapper.ModelMapper;

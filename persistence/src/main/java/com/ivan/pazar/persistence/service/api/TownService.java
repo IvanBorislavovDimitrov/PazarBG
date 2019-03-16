@@ -1,7 +1,7 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.persistence.dto.service.TownServiceModel;
-import com.ivan.pazar.persistence.dto.service.rest.TownRestServiceModel;
+import com.ivan.pazar.persistence.model.service.TownServiceModel;
+import com.ivan.pazar.persistence.model.service.rest.TownRestServiceModel;
 
 import java.util.List;
 

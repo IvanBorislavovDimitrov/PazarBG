@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.rest;
 
-import com.ivan.pazar.persistence.dto.view.rest.TownRestViewModel;
+import com.ivan.pazar.web.model.view.rest.TownRestViewModel;
 import com.ivan.pazar.persistence.service.api.TownService;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RequestMapping;

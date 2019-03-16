@@ -1,8 +1,8 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Subcategory;
-import com.ivan.pazar.persistence.dto.service.SubcategoryAddServiceModel;
-import com.ivan.pazar.persistence.dto.service.SubcategoryServiceModel;
+import com.ivan.pazar.persistence.model.service.SubcategoryAddServiceModel;
+import com.ivan.pazar.persistence.model.service.SubcategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
 import com.ivan.pazar.persistence.service.api.SubcategoryService;

@@ -1,7 +1,7 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.persistence.dto.service.CategoryAddServiceModel;
-import com.ivan.pazar.persistence.dto.service.CategoryServiceModel;
+import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
+import com.ivan.pazar.persistence.model.service.CategoryServiceModel;
 
 import java.util.List;
 

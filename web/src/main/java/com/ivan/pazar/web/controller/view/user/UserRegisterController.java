@@ -1,8 +1,7 @@
 package com.ivan.pazar.web.controller.view.user;
 
-import com.ivan.pazar.persistence.dto.binding.UserRegisterBindingModel;
-import com.ivan.pazar.persistence.dto.service.register.UserRegisterServiceModel;
-import com.ivan.pazar.persistence.dto.view.UserRegisterError;
+import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
+import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.persistence.exceptions.UserException;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.constants.ViewConstants;
@@ -13,19 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserRegisterController extends UserBaseController {

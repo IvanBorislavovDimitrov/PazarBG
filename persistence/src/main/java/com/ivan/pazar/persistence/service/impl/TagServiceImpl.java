@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.persistence.dto.service.TagServiceModel;
+import com.ivan.pazar.persistence.model.service.TagServiceModel;
 import com.ivan.pazar.persistence.repository.TagRepository;
 import com.ivan.pazar.persistence.service.api.TagService;
 import org.modelmapper.ModelMapper;

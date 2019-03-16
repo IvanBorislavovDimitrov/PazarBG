@@ -2,7 +2,7 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.enums.UserRole;
-import com.ivan.pazar.persistence.dto.service.RoleServiceModel;
+import com.ivan.pazar.persistence.model.service.RoleServiceModel;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.service.api.RoleService;
 import org.modelmapper.ModelMapper;

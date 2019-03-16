@@ -1,7 +1,7 @@
 package com.ivan.pazar.web.controller.view.subcategory;
 
-import com.ivan.pazar.persistence.dto.binding.SubcategoryAddBindingModel;
-import com.ivan.pazar.persistence.dto.service.SubcategoryAddServiceModel;
+import com.ivan.pazar.web.model.binding.SubcategoryAddBindingModel;
+import com.ivan.pazar.persistence.model.service.SubcategoryAddServiceModel;
 import com.ivan.pazar.persistence.service.api.SubcategoryService;
 import com.ivan.pazar.web.constants.ViewConstants;
 import com.ivan.pazar.web.controller.view.BaseController;

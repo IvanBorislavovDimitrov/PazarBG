@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.view.category;
 
-import com.ivan.pazar.persistence.dto.service.CategoryAddServiceModel;
+import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.service.api.CategoryService;
 import com.ivan.pazar.web.constants.ViewConstants;
 import com.ivan.pazar.web.controller.view.BaseController;
@@ -9,13 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller

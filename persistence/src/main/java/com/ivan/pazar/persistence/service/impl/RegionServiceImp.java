@@ -1,8 +1,8 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Region;
-import com.ivan.pazar.persistence.dto.service.RegionServiceModel;
-import com.ivan.pazar.persistence.dto.service.rest.RegionRestServiceModel;
+import com.ivan.pazar.persistence.model.service.RegionServiceModel;
+import com.ivan.pazar.persistence.model.service.rest.RegionRestServiceModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.service.api.RegionService;
 import org.modelmapper.ModelMapper;

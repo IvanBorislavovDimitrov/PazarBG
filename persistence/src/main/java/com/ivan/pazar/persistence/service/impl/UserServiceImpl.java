@@ -2,12 +2,9 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
-import com.ivan.pazar.persistence.dto.service.UserServiceModel;
-import com.ivan.pazar.persistence.dto.service.register.UserRegisterServiceModel;
-import com.ivan.pazar.persistence.exceptions.EmailTakenException;
+import com.ivan.pazar.persistence.model.service.UserServiceModel;
+import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
-import com.ivan.pazar.persistence.exceptions.PhoneNumberTakenException;
-import com.ivan.pazar.persistence.exceptions.UsernameTakenException;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.repository.TownRepository;

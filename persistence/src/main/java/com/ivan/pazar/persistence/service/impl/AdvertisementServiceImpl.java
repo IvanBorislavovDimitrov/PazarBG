@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
-import com.ivan.pazar.persistence.dto.service.AdvertisementServiceModel;
+import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
 import org.modelmapper.ModelMapper;

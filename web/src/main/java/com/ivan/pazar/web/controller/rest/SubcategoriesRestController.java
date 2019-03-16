@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.rest;
 
-import com.ivan.pazar.persistence.dto.view.rest.SubcategoryRestViewModel;
+import com.ivan.pazar.web.model.view.rest.SubcategoryRestViewModel;
 import com.ivan.pazar.persistence.service.api.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

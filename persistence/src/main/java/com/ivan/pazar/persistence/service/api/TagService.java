@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.persistence.dto.service.TagServiceModel;
+import com.ivan.pazar.persistence.model.service.TagServiceModel;
 
 public interface TagService {
 
