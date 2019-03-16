@@ -20,7 +20,7 @@ public class UserProfileViewModel {
     private List<MessageViewModel> sentMessages;
     private List<MessageViewModel> receivedMessages;
     private List<AdvertisementViewModel> searchedAdvertisements;
-    private byte[] profilePicture;
+    private String profilePictureName;
     private List<CommentViewModel> comments;
 
     public UserProfileViewModel() {
@@ -151,12 +151,12 @@ public class UserProfileViewModel {
         this.searchedAdvertisements = searchedAdvertisements;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
+    public String getProfilePictureName() {
+        return profilePictureName;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfilePictureName(String profilePictureName) {
+        this.profilePictureName = profilePictureName;
     }
 
     public List<CommentViewModel> getComments() {

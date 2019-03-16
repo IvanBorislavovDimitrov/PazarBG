@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="password">*Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password..." name="password"
-                           th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}">
+                           th:value="*{password}" th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('password')}"
                            th:text="${error}">
                     </small>
@@ -45,6 +45,7 @@
                     <label for="confirmPassword">*Confirm password</label>
                     <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password..."
                            name="confirmPassword"
+                           th:value="*{confirmPassword}"
                            th:classappend="${#fields.hasErrors('confirmPassword') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('confirmPassword')}"
                            th:text="${error}">
@@ -121,7 +122,7 @@
                 <div class="form-group">
                     <label for="profilePicture">Profile Picture</label>
                     <input type="file" class="form-control-file" id="profilePicture" aria-describedby="fileHelp"
-                           name="profilePicture" multiple>
+                           name="profilePicture">
                     <small id="fileHelp" class="form-text text-muted">Your avatar</small>
                 </div>
                 <hr class="w-100 hr-2"/>

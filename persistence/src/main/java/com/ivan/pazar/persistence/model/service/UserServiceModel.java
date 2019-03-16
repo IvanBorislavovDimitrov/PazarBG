@@ -41,7 +41,7 @@ public class UserServiceModel extends IdServiceModel {
 
     private List<AdvertisementServiceModel> searchedAdvertisements;
 
-    private byte[] profilePicture;
+    private String profilePictureName;
 
     private List<CommentServiceModel> comments;
 
@@ -170,12 +170,12 @@ public class UserServiceModel extends IdServiceModel {
         this.searchedAdvertisements = searchedAdvertisements;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
+    public String getProfilePictureName() {
+        return profilePictureName;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfilePictureName(String profilePictureName) {
+        this.profilePictureName = profilePictureName;
     }
 
     public List<CommentServiceModel> getComments() {

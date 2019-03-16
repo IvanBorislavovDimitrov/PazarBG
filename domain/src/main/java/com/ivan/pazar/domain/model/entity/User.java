@@ -58,8 +58,7 @@ public class User extends IdEntity {
     private List<Advertisement> searchedAdvertisements;
 
     @Column(name = "profile_picture")
-    @Lob
-    private byte[] profilePicture;
+    private String profilePictureName;
 
     @OneToMany(mappedBy = "author", targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
@@ -98,7 +97,7 @@ public class User extends IdEntity {
         setRoles(user.roles);
         setFavouriteAdvertisements(user.favouriteAdvertisements);
         setComments(user.comments);
-        setProfilePicture(user.profilePicture);
+        setProfilePictureName(user.profilePictureName);
         setSearchedAdvertisements(user.searchedAdvertisements);
         setReceivedMessages(user.receivedMessages);
         setSentMessages(user.sentMessages);
@@ -217,12 +216,12 @@ public class User extends IdEntity {
         this.searchedAdvertisements = searchedAdvertisements;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
+    public String getProfilePictureName() {
+        return profilePictureName;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfilePictureName(String profilePictureName) {
+        this.profilePictureName = profilePictureName;
     }
 
     public List<Comment> getComments() {
