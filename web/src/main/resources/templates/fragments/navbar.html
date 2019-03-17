@@ -25,14 +25,13 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/about}">About</a>
             </li>
+
             <li sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" class="nav-item moderator">
-                <a class="nav-link" th:href="@{/categories/new}">New Category</a>
+                <a class="nav-link" th:href="@{/admin/panel}">Admin Panel</a>
             </li>
-            <li sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" class="nav-item moderator">
-                <a class="nav-link" th:href="@{/subcategories/new}">New Subcategory</a>
-            </li>
+
             <li class="nav-item">
-                <button type="button" class="btn btn-warning">+Add</button>
+                <button type="button" class="btn btn-warning">+Add advert</button>
             </li>
         </ul>
     </div>

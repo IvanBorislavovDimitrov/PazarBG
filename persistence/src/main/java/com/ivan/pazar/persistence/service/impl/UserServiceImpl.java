@@ -3,7 +3,11 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
 import com.ivan.pazar.persistence.dao.FileSaver;
+import com.ivan.pazar.persistence.exceptions.EmailTakenException;
+import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
+import com.ivan.pazar.persistence.exceptions.PhoneNumberTakenException;
+import com.ivan.pazar.persistence.model.service.UserChangePassword;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
@@ -90,10 +94,15 @@ public class UserServiceImpl implements UserService {
         return optionalUser.map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
 
-    //TODO: Preserve the same phone number -> not handled
     @Override
     public void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel) {
         User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
+        if (!canUpdateEmail(user, userServiceBindingModel.getEmail())) {
+            throw new EmailTakenException();
+        }
+        if (!canUpdatePhoneNumber(user, userServiceBindingModel.getPhoneNumber())) {
+            throw new PhoneNumberTakenException();
+        }
         user.setEmail(userServiceBindingModel.getEmail());
         user.setFirstName(userServiceBindingModel.getFirstName());
         user.setLastName(userServiceBindingModel.getLastName());
@@ -104,6 +113,36 @@ public class UserServiceImpl implements UserService {
         user.setTown(townRepository.findByName(userServiceBindingModel.getTown()));
 
         userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void tryUpdatePassword(String loggedUserUsername, UserChangePassword userChangePassword) {
+        User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
+        if (!user.getPassword().equals(userChangePassword.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        if (!userChangePassword.getNewPassword().equals(userChangePassword.getConfirmPassword())) {
+            throw new PasswordsMismatchException();
+        }
+
+        user.setPassword(userChangePassword.getNewPassword());
+        userRepository.saveAndFlush(user);
+    }
+
+    private boolean canUpdatePhoneNumber(User user, String phoneNumber) {
+        if (user.getPhoneNumber().equals(phoneNumber)) {
+            return true;
+        }
+
+        return isPhoneNumberFree(phoneNumber);
+    }
+
+    private boolean canUpdateEmail(User user, String email) {
+        if (user.getEmail().equals(email)) {
+            return true;
+        }
+
+        return isEmailFree(email);
     }
 
     private void savePicture(String profilePictureName, MultipartFile multipartPicture) {

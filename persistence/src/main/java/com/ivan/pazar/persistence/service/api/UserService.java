@@ -1,5 +1,6 @@
 package com.ivan.pazar.persistence.service.api;
 
+import com.ivan.pazar.persistence.model.service.UserChangePassword;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 
@@ -16,4 +17,6 @@ public interface UserService {
     UserServiceModel findUserByUsername(String username);
 
     void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel);
+
+    void tryUpdatePassword(String loggedUserUsername, UserChangePassword userChangePassword);
 }
