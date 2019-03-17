@@ -3,7 +3,8 @@
         <div class="col-md-4">
             <div class="profile-img">
                 <img th:if="*{profilePictureName == null}" th:src="@{/images/default_image.jpg}" alt=""/>
-                <img th:unless="*{profilePictureName == null}" th:src="@{|/content/${user.profilePictureName}|}" alt=""/>
+                <img th:unless="*{profilePictureName == null}" th:src="@{|/content/${user.profilePictureName}|}"
+                     alt=""/>
                 <div class="file btn btn-lg btn-primary">
                     Change Photo
                     <input type="file" name="file"/>
@@ -28,7 +29,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+            <a th:href="@{/users/edit}" class="btn btn-warning">Edit profile</a>
         </div>
     </div>
     <div class="row">

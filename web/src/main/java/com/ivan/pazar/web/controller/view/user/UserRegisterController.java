@@ -1,7 +1,7 @@
 package com.ivan.pazar.web.controller.view.user;
 
 import com.ivan.pazar.persistence.exceptions.UserException;
-import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
+import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.constants.ViewConstants;
 import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
@@ -49,7 +49,7 @@ public class UserRegisterController extends UserBaseController {
     }
 
     @PostMapping("/register")
-    public ModelAndView registerConfirm(@ModelAttribute("user") @Valid UserRegisterBindingModel userRegisterBindingModel,
+    public ModelAndView registerConfirm(@ModelAttribute(ViewConstants.USER) @Valid UserRegisterBindingModel userRegisterBindingModel,
                                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
@@ -57,7 +57,7 @@ public class UserRegisterController extends UserBaseController {
 
         try {
             encodePasswords(userRegisterBindingModel);
-            userService.save(modelMapper.map(userRegisterBindingModel, UserRegisterServiceModel.class));
+            userService.save(modelMapper.map(userRegisterBindingModel, UserServiceBindingModel.class));
         } catch (UserException e) {
             return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
         }
@@ -70,7 +70,7 @@ public class UserRegisterController extends UserBaseController {
         return redirect(ViewConstants.REDIRECT_INDEX);
     }
 
-    @ModelAttribute("user")
+    @ModelAttribute(ViewConstants.USER)
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
     }

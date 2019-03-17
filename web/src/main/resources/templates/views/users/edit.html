@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <title>Edit</title>
+    <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/ajax/user-register.js"></script>
+</head>
+<body xmlns:th="http://www.thymeleaf.org">
+<div class="jumbotron">
+    <div class="mt-3">
+        <hr class="w-25"/>
+        <h1 class="text-center">Edit</h1>
+        <hr class="w-25"/>
+        <form class="mx-auto w-25" method="post" th:action="@{/users/edit}"
+              th:object="${user}">
+            <fieldset>
+                <div class="form-group">
+                    <label for="email">*Email address</label>
+                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
+                           placeholder="Enter email..." name="email" th:value="*{email}"
+                           th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                    </small>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('email')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">*First name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="First name..." name="firstName"
+                           th:value="*{firstName}"
+                           th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('firstName')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">*Last name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Last name..." name="lastName"
+                           th:value="*{lastName}" th:classappend="${#fields.hasErrors('lastName') ? 'is-invalid' : ''}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('lastName')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">*Phone number</label>
+                    <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number..."
+                           name="phoneNumber" th:value="*{phoneNumber}"
+                           th:classappend="${#fields.hasErrors('phoneNumber') ? 'is-invalid' : ''}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('phoneNumber')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="websiteAddress">Website address</label>
+                    <input type="text" class="form-control" id="websiteAddress"
+                           placeholder="Website address (optional)..."
+                           name="websiteAddress" th:value="*{websiteAddress}">
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('websiteAddress')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleTextarea">Short description</label>
+                    <textarea class="form-control" placeholder="Enter short description (optional)..."
+                              id="exampleTextarea"
+                              rows="3" name="description" th:text="*{description}"></textarea>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('description')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="regions">*Select a region</label>
+                    <select class="form-control" id="regions" name="region"
+                            th:classappend="${#fields.hasErrors('region') ? 'is-invalid' : ''}">
+                        <option th:if="*{region != null}" th:text="*{region}"></option>
+                        <option th:if="*{region== null}" disabled="disabled" selected="selected">Region
+                        </option>
+                    </select>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('region')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="towns">*Select a town</label>
+                    <select class="form-control" id="towns" name="town"
+                            th:classappend="${#fields.hasErrors('town') ? 'is-invalid' : ''}">
+                        <option th:if="*{town != null}" th:text="*{town}"></option>
+                        <option th:if="*{town == null}" disabled="disabled" selected="selected">Town
+                        </option>
+                    </select>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('town')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <hr class="w-100 hr-2"/>
+                <div class="button-holder mt-4 d-flex justify-content-center">
+                    <input type="submit" class="btn btn-primary" value="Edit"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>

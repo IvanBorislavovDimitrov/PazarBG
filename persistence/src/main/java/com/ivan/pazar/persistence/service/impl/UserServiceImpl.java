@@ -5,7 +5,7 @@ import com.ivan.pazar.domain.model.enums.UserRole;
 import com.ivan.pazar.persistence.dao.FileSaver;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
-import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
+import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.repository.TownRepository;
@@ -45,14 +45,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel save(UserRegisterServiceModel userRegisterServiceModel) {
-        checkUserServiceModelValid(userRegisterServiceModel);
-        User user = modelMapper.map(userRegisterServiceModel, User.class);
-        String profilePictureName = getProfilePictureName(userRegisterServiceModel);
+    public UserServiceModel save(UserServiceBindingModel userServiceBindingModel) {
+        checkUserServiceModelValid(userServiceBindingModel);
+        User user = modelMapper.map(userServiceBindingModel, User.class);
+        String profilePictureName = getProfilePictureName(userServiceBindingModel);
         user.setProfilePictureName(profilePictureName);
         if (profilePictureName != null) {
             user.setProfilePictureName(profilePictureName);
-            savePicture(profilePictureName, userRegisterServiceModel.getProfilePicture());
+            savePicture(profilePictureName, userServiceBindingModel.getProfilePicture());
         }
 
         if (userRepository.count() == 0) {
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
         } else {
             user.getRoles().add(roleRepository.getByUserRole(UserRole.ROLE_USER));
         }
-        user.setRegion(regionRepository.findByName(userRegisterServiceModel.getRegion()));
-        user.setTown(townRepository.findByName(userRegisterServiceModel.getTown()));
+        user.setRegion(regionRepository.findByName(userServiceBindingModel.getRegion()));
+        user.setTown(townRepository.findByName(userServiceBindingModel.getTown()));
 
         userRepository.save(user);
 
@@ -90,6 +90,22 @@ public class UserServiceImpl implements UserService {
         return optionalUser.map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
 
+    //TODO: Preserve the same phone number -> not handled
+    @Override
+    public void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel) {
+        User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
+        user.setEmail(userServiceBindingModel.getEmail());
+        user.setFirstName(userServiceBindingModel.getFirstName());
+        user.setLastName(userServiceBindingModel.getLastName());
+        user.setPhoneNumber(userServiceBindingModel.getPhoneNumber());
+        user.setWebsiteAddress(userServiceBindingModel.getWebsiteAddress());
+        user.setDescription(userServiceBindingModel.getDescription());
+        user.setRegion(regionRepository.findByName(userServiceBindingModel.getRegion()));
+        user.setTown(townRepository.findByName(userServiceBindingModel.getTown()));
+
+        userRepository.saveAndFlush(user);
+    }
+
     private void savePicture(String profilePictureName, MultipartFile multipartPicture) {
         byte[] bytes;
         try {
@@ -100,13 +116,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private void checkUserServiceModelValid(UserRegisterServiceModel userRegisterServiceModel) {
+    private void checkUserServiceModelValid(UserServiceBindingModel userRegisterServiceModel) {
         if (!userRegisterServiceModel.getPassword().equals(userRegisterServiceModel.getConfirmPassword())) {
             throw new PasswordsMismatchException();
         }
     }
 
-    private String getProfilePictureName(UserRegisterServiceModel userRegisterServiceModel) {
+    private String getProfilePictureName(UserServiceBindingModel userRegisterServiceModel) {
         if (userRegisterServiceModel.getProfilePicture().isEmpty()) {
             return null;
         }
