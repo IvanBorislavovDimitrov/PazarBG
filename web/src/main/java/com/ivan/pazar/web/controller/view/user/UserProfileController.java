@@ -28,7 +28,7 @@ public class UserProfileController extends UserBaseController {
 
     // TODO: Add user register date
     @GetMapping("/profile")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'USER')")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView profile(Model model) {
         String loggedUserUsername = userConfiguration.loggedUserUsername();
         UserProfileViewModel userProfileViewModel =

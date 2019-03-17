@@ -13,10 +13,6 @@ public class UserServiceModel extends IdServiceModel {
 
     private String username;
 
-    private String password;
-
-    private String confirmPassword;
-
     private String firstName;
 
     private String lastName;
@@ -202,19 +198,4 @@ public class UserServiceModel extends IdServiceModel {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 }

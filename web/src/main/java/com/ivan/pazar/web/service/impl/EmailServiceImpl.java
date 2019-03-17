@@ -3,7 +3,6 @@ package com.ivan.pazar.web.service.impl;
 import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
 import com.ivan.pazar.web.service.api.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
 package com.ivan.pazar.persistence.service.api;
 
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
-import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
+import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 
 public interface UserService {
 
-    UserServiceModel save(UserRegisterServiceModel userRegisterServiceModel);
+    UserServiceModel save(UserServiceBindingModel userServiceBindingModel);
 
     boolean isEmailFree(String email);
 
@@ -14,4 +14,6 @@ public interface UserService {
     boolean isPhoneNumberFree(String phoneNumber);
 
     UserServiceModel findUserByUsername(String username);
+
+    void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel);
 }
