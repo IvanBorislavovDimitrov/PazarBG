@@ -43,4 +43,9 @@ public class Role extends IdEntity {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return userRole == null ? null : userRole.toString();
+    }
 }

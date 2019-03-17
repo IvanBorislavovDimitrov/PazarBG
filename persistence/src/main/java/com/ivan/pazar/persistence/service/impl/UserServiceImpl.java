@@ -23,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -146,6 +148,13 @@ public class UserServiceImpl implements UserService {
         savePicture(profilePictureName, picture);
         user.setProfilePictureName(profilePictureName);
         userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public List<UserServiceModel> findAllByUsernameContaining(String prefix) {
+        return userRepository.findAllByUsernameContaining(prefix).stream()
+                .map(user -> modelMapper.map(user, UserServiceModel.class))
+                .collect(Collectors.toList());
     }
 
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {

@@ -5,6 +5,8 @@ import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface UserService {
 
     UserServiceModel save(UserServiceBindingModel userServiceBindingModel);
@@ -22,4 +24,6 @@ public interface UserService {
     void tryUpdatePassword(String loggedUserUsername, UserChangePassword userChangePassword);
 
     void updateUserPicture(String username, MultipartFile picture);
+
+    List<UserServiceModel> findAllByUsernameContaining(String prefix);
 }

@@ -5,7 +5,9 @@ import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.entity.Town;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserServiceModel extends IdServiceModel {
 
@@ -43,7 +45,7 @@ public class UserServiceModel extends IdServiceModel {
 
     private List<AdvertisementServiceModel> favouriteAdvertisements;
 
-    private Role role;
+    private Set<Role> roles;
 
     public UserServiceModel() {
         advertisements = new ArrayList<>();
@@ -52,6 +54,7 @@ public class UserServiceModel extends IdServiceModel {
         searchedAdvertisements = new ArrayList<>();
         comments = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
+        roles = new HashSet<>();
     }
 
     public String getEmail() {
@@ -190,12 +193,11 @@ public class UserServiceModel extends IdServiceModel {
         this.favouriteAdvertisements = favouriteAdvertisements;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
-
 }

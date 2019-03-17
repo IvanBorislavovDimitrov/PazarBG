@@ -1,13 +1,16 @@
+<head>
+    <title>Profile</title>
+    <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+</head>
 <div class="container emp-profile" xmlns:th="http://www.thymeleaf.org" th:object="${user}">
     <div class="row">
         <div class="col-md-4">
-
             <div class="profile-img">
                 <img th:if="*{profilePictureName == null}" th:src="@{/images/default_image.jpg}" alt=""/>
                 <img th:unless="*{profilePictureName == null}" th:src="@{|/content/${user.profilePictureName}|}"
                      alt=""/>
             </div>
-                <form class="form-group" th:action="@{/users/edit/picture}" method="post" enctype="multipart/form-data">
+            <form class="form-group" th:action="@{/users/edit/picture}" method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile02" name="picture">
@@ -19,7 +22,6 @@
                 </div>
             </form>
         </div>
-
 
         <div class="col-md-6">
             <div class="profile-head">
