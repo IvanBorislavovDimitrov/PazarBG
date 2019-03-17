@@ -16,6 +16,8 @@ public class ViewConstants {
     public static final String VIEWS_USER_PROFILE = "views/users/profile";
     public static final String VIEWS_USER_EDIT = "views/users/edit";
     public static final String VIEWS_CHANGE_PASSWORD = "views/users/change-password";
+    public static final String VIEWS_ADMIN_PANEL = "views/admins/panel";
+    public static final String VIEWS_CHANGE_USER_ROLE = "views/admins/change-user-role";
 
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";
