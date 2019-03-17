@@ -9,6 +9,7 @@ import com.ivan.pazar.web.service.api.EmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 import java.util.Collections;
 
 @Controller
+@PreAuthorize("isAnonymous()")
 public class UserRegisterController extends UserBaseController {
 
     private final UserService userService;
@@ -59,9 +61,9 @@ public class UserRegisterController extends UserBaseController {
             encodePasswords(userRegisterBindingModel);
             userService.save(modelMapper.map(userRegisterBindingModel, UserServiceBindingModel.class));
         } catch (UserException e) {
+            model.addAttribute(ViewConstants.PASSWORDS_NOT_MATCH, e.getMessage());
             return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
         }
-
         try {
             emailService.sendNotificationForRegistering(userRegisterBindingModel);
         } catch (Exception e) {

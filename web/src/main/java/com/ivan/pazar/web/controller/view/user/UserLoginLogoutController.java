@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserLoginLogoutController extends UserBaseController {
 
     @GetMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView login(Model model) {
         return renderView(ViewConstants.VIEWS_USER_LOGIN, model);
     }
