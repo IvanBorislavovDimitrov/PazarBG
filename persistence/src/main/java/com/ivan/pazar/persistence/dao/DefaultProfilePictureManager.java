@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class DefaultFileSaver implements FileSaver {
+public class DefaultProfilePictureManager implements ProfilePictureManager {
 
     @Override
     public void saveProfilePicture(String fileName, byte[] fileContent) throws IOException {
@@ -21,6 +21,11 @@ public class DefaultFileSaver implements FileSaver {
         }
 
         Files.write(Paths.get(Utils.getProfilePicturesDirectory() + File.separator + fileName), fileContent);
+    }
+
+    @Override
+    public void deletePictureIfExists(String pictureName) throws IOException {
+        Files.deleteIfExists(Paths.get(Utils.getProfilePicturesDirectory() + File.separator + pictureName));
     }
 
 }

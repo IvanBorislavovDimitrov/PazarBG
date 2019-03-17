@@ -3,6 +3,7 @@ package com.ivan.pazar.persistence.service.api;
 import com.ivan.pazar.persistence.model.service.UserChangePassword;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -19,4 +20,6 @@ public interface UserService {
     void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel);
 
     void tryUpdatePassword(String loggedUserUsername, UserChangePassword userChangePassword);
+
+    void updateUserPicture(String username, MultipartFile picture);
 }

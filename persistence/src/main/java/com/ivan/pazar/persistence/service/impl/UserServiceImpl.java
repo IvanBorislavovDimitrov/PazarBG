@@ -2,7 +2,7 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
-import com.ivan.pazar.persistence.dao.FileSaver;
+import com.ivan.pazar.persistence.dao.ProfilePictureManager;
 import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
@@ -36,16 +36,16 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final RegionRepository regionRepository;
     private final TownRepository townRepository;
-    private final FileSaver fileSaver;
+    private final ProfilePictureManager profilePictureManager;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper, RegionRepository regionRepository, TownRepository townRepository, FileSaver fileSaver) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper, RegionRepository regionRepository, TownRepository townRepository, ProfilePictureManager profilePictureManager) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
         this.regionRepository = regionRepository;
         this.townRepository = townRepository;
-        this.fileSaver = fileSaver;
+        this.profilePictureManager = profilePictureManager;
     }
 
     @Override
@@ -129,6 +129,25 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
     }
 
+    @Override
+    public void updateUserPicture(String username, MultipartFile picture) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        String pictureName = user.getProfilePictureName();
+        try {
+            if (pictureName != null) {
+                profilePictureManager.deletePictureIfExists(pictureName);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String profilePictureName = USER_PROFILE_PICTURE_PREFIX + username + "." +
+                Utils.getFileNameExtension(picture.getOriginalFilename());
+
+        savePicture(profilePictureName, picture);
+        user.setProfilePictureName(profilePictureName);
+        userRepository.saveAndFlush(user);
+    }
+
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {
         if (user.getPhoneNumber().equals(phoneNumber)) {
             return true;
@@ -149,7 +168,7 @@ public class UserServiceImpl implements UserService {
         byte[] bytes;
         try {
             bytes = multipartPicture.getBytes();
-            fileSaver.saveProfilePicture(profilePictureName, bytes);
+            profilePictureManager.saveProfilePicture(profilePictureName, bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }

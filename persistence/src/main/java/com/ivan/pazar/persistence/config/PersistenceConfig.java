@@ -1,7 +1,7 @@
 package com.ivan.pazar.persistence.config;
 
-import com.ivan.pazar.persistence.dao.DefaultFileSaver;
-import com.ivan.pazar.persistence.dao.FileSaver;
+import com.ivan.pazar.persistence.dao.DefaultProfilePictureManager;
+import com.ivan.pazar.persistence.dao.ProfilePictureManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class PersistenceConfig {
 
     @Bean
-    public FileSaver fileSaver() {
-        return new DefaultFileSaver();
+    public ProfilePictureManager fileSaver() {
+        return new DefaultProfilePictureManager();
     }
 }
