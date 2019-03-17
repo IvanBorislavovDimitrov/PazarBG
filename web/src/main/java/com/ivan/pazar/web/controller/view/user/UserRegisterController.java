@@ -1,10 +1,11 @@
 package com.ivan.pazar.web.controller.view.user;
 
-import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
-import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.persistence.exceptions.UserException;
+import com.ivan.pazar.persistence.model.service.register.UserRegisterServiceModel;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
+import com.ivan.pazar.web.service.api.EmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,13 +27,15 @@ public class UserRegisterController extends UserBaseController {
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @Autowired
     public UserRegisterController(UserService userService, ModelMapper modelMapper,
-                                  @Qualifier(value = "sha256PasswordEncoder") PasswordEncoder passwordEncoder) {
+                                  @Qualifier(value = "sha256PasswordEncoder") PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     @GetMapping("/register")
@@ -59,6 +62,11 @@ public class UserRegisterController extends UserBaseController {
             return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
         }
 
+        try {
+            emailService.sendNotificationForRegistering(userRegisterBindingModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return redirect(ViewConstants.REDIRECT_INDEX);
     }
 
