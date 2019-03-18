@@ -14,4 +14,6 @@ public class AdminController extends AdminBaseController {
 
         return renderView(ViewConstants.VIEWS_ADMIN_PANEL, model);
     }
+
+
 }

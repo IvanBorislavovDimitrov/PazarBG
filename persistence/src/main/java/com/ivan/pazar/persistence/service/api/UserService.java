@@ -1,6 +1,7 @@
 package com.ivan.pazar.persistence.service.api;
 
 import com.ivan.pazar.persistence.model.service.UserChangePassword;
+import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,4 +27,6 @@ public interface UserService {
     void updateUserPicture(String username, MultipartFile picture);
 
     List<UserServiceModel> findAllByUsernameContaining(String prefix);
+
+    void updateUserRole(UserChangeRoleServiceModel map);
 }

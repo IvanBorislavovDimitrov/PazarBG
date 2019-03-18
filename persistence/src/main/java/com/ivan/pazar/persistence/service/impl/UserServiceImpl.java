@@ -1,5 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
+import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
 import com.ivan.pazar.persistence.dao.ProfilePictureManager;
@@ -8,6 +9,7 @@ import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.exceptions.PhoneNumberTakenException;
 import com.ivan.pazar.persistence.model.service.UserChangePassword;
+import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
@@ -23,8 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -155,6 +159,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByUsernameContaining(prefix).stream()
                 .map(user -> modelMapper.map(user, UserServiceModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateUserRole(UserChangeRoleServiceModel userChangeRoleServiceModel) {
+        User user = userRepository.findByUsername(userChangeRoleServiceModel.getUsername()).orElse(null);
+        Set<Role> roles = new HashSet<>();
+        userChangeRoleServiceModel.getRoles()
+                .forEach(userRole -> {
+                    Role role = roleRepository.getByUserRole(userRole);
+                    roles.add(role);
+                });
+
+        user.setRoles(roles);
+        userRepository.saveAndFlush(user);
     }
 
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {
