@@ -4,6 +4,7 @@ import com.ivan.pazar.web.constants.ViewConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -13,5 +14,11 @@ public class ChangeUserRoleController extends AdminBaseController {
     public ModelAndView changeUserRole(Model model) {
 
         return renderView(ViewConstants.VIEWS_CHANGE_USER_ROLE, model);
+    }
+
+    @PostMapping("/change-user-role")
+    public ModelAndView changeUserRoleConfirm(Model model) {
+
+        return null;
     }
 }
