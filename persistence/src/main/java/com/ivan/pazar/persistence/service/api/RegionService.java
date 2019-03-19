@@ -11,6 +11,4 @@ public interface RegionService {
     RegionServiceModel save(RegionServiceModel regionServiceModel);
 
     List<RegionRestServiceModel> getAllRegionsRest();
-
-    Region findByName(String name);
 }

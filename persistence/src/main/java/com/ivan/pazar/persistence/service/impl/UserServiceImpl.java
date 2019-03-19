@@ -39,8 +39,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
     private final ModelMapper modelMapper;
+
     private final RegionRepository regionRepository;
+
     private final TownRepository townRepository;
     private final ProfilePictureManager profilePictureManager;
 
