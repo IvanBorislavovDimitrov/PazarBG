@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class WebConfig {
+public class PasswordEncoderBean {
 
     @Bean(value = "sha256PasswordEncoder")
     public PasswordEncoder passwordEncoder() {
