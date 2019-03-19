@@ -40,4 +40,8 @@ public class RoleServiceImpl implements RoleService {
             }
         }
     }
+
+    public Role getByUserRole(UserRole userRole) {
+        return roleRepository.getByUserRole(userRole);
+    }
 }

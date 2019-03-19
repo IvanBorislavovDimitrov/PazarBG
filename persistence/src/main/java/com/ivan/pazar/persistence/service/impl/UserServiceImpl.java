@@ -12,14 +12,10 @@ import com.ivan.pazar.persistence.model.service.UserChangePassword;
 import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
-import com.ivan.pazar.persistence.repository.RegionRepository;
-import com.ivan.pazar.persistence.repository.RoleRepository;
-import com.ivan.pazar.persistence.repository.TownRepository;
 import com.ivan.pazar.persistence.repository.UserRepository;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,24 +34,22 @@ public class UserServiceImpl implements UserService {
     private static final String USER_PROFILE_PICTURE_PREFIX = "profile_picture_";
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-
     private final ModelMapper modelMapper;
 
-    private final RegionRepository regionRepository;
-
-    private final TownRepository townRepository;
+    private final RoleServiceImpl roleService;
+    private final RegionServiceImpl regionService;
+    private final TownServiceImpl townService;
     private final ProfilePictureManager profilePictureManager;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper, RegionRepository regionRepository, TownRepository townRepository, ProfilePictureManager profilePictureManager) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleServiceImpl roleService, RegionServiceImpl regionService, TownServiceImpl townService, ProfilePictureManager profilePictureManager) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
-        this.regionRepository = regionRepository;
-        this.townRepository = townRepository;
+        this.roleService = roleService;
+        this.regionService = regionService;
+        this.townService = townService;
         this.profilePictureManager = profilePictureManager;
     }
+
 
     @Override
     public UserServiceModel save(UserServiceBindingModel userServiceBindingModel) {
@@ -69,12 +63,12 @@ public class UserServiceImpl implements UserService {
         }
 
         if (userRepository.count() == 0) {
-            user.getRoles().add(roleRepository.getByUserRole(UserRole.ROLE_ADMIN));
+            user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_ADMIN));
         } else {
-            user.getRoles().add(roleRepository.getByUserRole(UserRole.ROLE_USER));
+            user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
         }
-        user.setRegion(regionRepository.findByName(userServiceBindingModel.getRegion()));
-        user.setTown(townRepository.findByName(userServiceBindingModel.getTown()));
+        user.setRegion(regionService.findByName(userServiceBindingModel.getRegion()));
+        user.setTown(townService.findByName(userServiceBindingModel.getTown()));
 
         userRepository.save(user);
 
@@ -118,8 +112,8 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userServiceBindingModel.getPhoneNumber());
         user.setWebsiteAddress(userServiceBindingModel.getWebsiteAddress());
         user.setDescription(userServiceBindingModel.getDescription());
-        user.setRegion(regionRepository.findByName(userServiceBindingModel.getRegion()));
-        user.setTown(townRepository.findByName(userServiceBindingModel.getTown()));
+        user.setRegion(regionService.findByName(userServiceBindingModel.getRegion()));
+        user.setTown(townService.findByName(userServiceBindingModel.getTown()));
 
         userRepository.saveAndFlush(user);
     }
@@ -170,7 +164,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<>();
         userChangeRoleServiceModel.getRoles()
                 .forEach(userRole -> {
-                    Role role = roleRepository.getByUserRole(userRole);
+                    Role role = roleService.getByUserRole(userRole);
                     roles.add(role);
                 });
 

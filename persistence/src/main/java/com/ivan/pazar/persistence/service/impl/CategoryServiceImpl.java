@@ -35,4 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .map(category -> modelMapper.map(category, CategoryServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    public Category findByName(String category) {
+        return categoryRepository.findByName(category);
+    }
 }

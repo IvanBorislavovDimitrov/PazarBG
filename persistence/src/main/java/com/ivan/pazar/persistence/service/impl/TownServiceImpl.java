@@ -54,4 +54,8 @@ public class TownServiceImpl implements TownService {
                 .map(town -> modelMapper.map(town, TownRestServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    public Town findByName(String town) {
+        return townRepository.findByName(town);
+    }
 }
