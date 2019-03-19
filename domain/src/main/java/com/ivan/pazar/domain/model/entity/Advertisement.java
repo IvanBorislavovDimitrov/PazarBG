@@ -60,9 +60,6 @@ public class Advertisement extends IdEntity {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @ManyToMany(mappedBy = "advertisements", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Tag.class)
-    private List<Tag> tags;
-
     @OneToOne(mappedBy = "advertisement", targetEntity = Video.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Video video;
 
@@ -82,7 +79,6 @@ public class Advertisement extends IdEntity {
     public Advertisement() {
         usersSearches = new ArrayList<>();
         comments = new ArrayList<>();
-        tags = new ArrayList<>();
         pictures = new ArrayList<>();
     }
 
@@ -172,14 +168,6 @@ public class Advertisement extends IdEntity {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 
     public Video getVideo() {

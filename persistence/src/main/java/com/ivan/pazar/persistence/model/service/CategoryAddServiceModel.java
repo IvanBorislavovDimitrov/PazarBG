@@ -1,7 +1,5 @@
 package com.ivan.pazar.persistence.model.service;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class CategoryAddServiceModel {
 
     private String name;

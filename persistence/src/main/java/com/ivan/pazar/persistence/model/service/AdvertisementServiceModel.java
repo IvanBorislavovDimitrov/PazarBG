@@ -34,7 +34,6 @@ public class AdvertisementServiceModel extends IdServiceModel {
 
     private CategoryServiceModel category;
 
-    private List<TagServiceModel> tags;
 
     private VideoServiceModel video;
 
@@ -44,7 +43,6 @@ public class AdvertisementServiceModel extends IdServiceModel {
         usersSearches = new ArrayList<>();
         usersFavourites = new ArrayList<>();
         comments = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -141,14 +139,6 @@ public class AdvertisementServiceModel extends IdServiceModel {
 
     public void setCategory(CategoryServiceModel category) {
         this.category = category;
-    }
-
-    public List<TagServiceModel> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<TagServiceModel> tags) {
-        this.tags = tags;
     }
 
     public VideoServiceModel getVideo() {
