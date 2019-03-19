@@ -7,6 +7,7 @@ import com.ivan.pazar.persistence.repository.CategoryRepository;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
 import com.ivan.pazar.persistence.service.api.CategoryService;
 import com.ivan.pazar.persistence.service.api.SubcategoryService;
+import com.ivan.pazar.persistence.service.service_api.SubcategoryServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class SubcategoryServiceImpl implements SubcategoryService {
+public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
 
     private final SubcategoryRepository subcategoryRepository;
     private final ModelMapper modelMapper;

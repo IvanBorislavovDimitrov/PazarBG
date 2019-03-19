@@ -14,6 +14,10 @@ import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.UserRepository;
 import com.ivan.pazar.persistence.service.api.UserService;
+import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
+import com.ivan.pazar.persistence.service.service_api.RoleServiceExtended;
+import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
+import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -29,16 +33,16 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserServiceExtended {
 
     private static final String USER_PROFILE_PICTURE_PREFIX = "profile_picture_";
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    private final RoleServiceImpl roleService;
-    private final RegionServiceImpl regionService;
-    private final TownServiceImpl townService;
+    private final RoleServiceExtended roleService;
+    private final RegionServiceExtended regionService;
+    private final TownServiceExtended townService;
     private final ProfilePictureManager profilePictureManager;
 
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleServiceImpl roleService, RegionServiceImpl regionService, TownServiceImpl townService, ProfilePictureManager profilePictureManager) {
@@ -49,7 +53,6 @@ public class UserServiceImpl implements UserService {
         this.townService = townService;
         this.profilePictureManager = profilePictureManager;
     }
-
 
     @Override
     public UserServiceModel save(UserServiceBindingModel userServiceBindingModel) {

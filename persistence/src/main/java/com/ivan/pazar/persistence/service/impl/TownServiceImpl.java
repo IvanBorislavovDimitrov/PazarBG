@@ -6,6 +6,7 @@ import com.ivan.pazar.persistence.model.service.TownServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.TownRestServiceModel;
 import com.ivan.pazar.persistence.repository.TownRepository;
 import com.ivan.pazar.persistence.service.api.TownService;
+import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class TownServiceImpl implements TownService {
+public class TownServiceImpl implements TownServiceExtended {
 
     private static final String INIT_TOWN = "Sofia";
 

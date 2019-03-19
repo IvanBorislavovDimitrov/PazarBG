@@ -3,13 +3,14 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.persistence.model.service.CommentServiceModel;
 import com.ivan.pazar.persistence.repository.CommentRepository;
 import com.ivan.pazar.persistence.service.api.CommentService;
+import com.ivan.pazar.persistence.service.service_api.CommentServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl implements CommentServiceExtended {
 
     private final CommentRepository commentRepository;
     private final ModelMapper modelMapper;

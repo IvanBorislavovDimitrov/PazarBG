@@ -5,6 +5,7 @@ import com.ivan.pazar.domain.model.enums.UserRole;
 import com.ivan.pazar.persistence.model.service.RoleServiceModel;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.service.api.RoleService;
+import com.ivan.pazar.persistence.service.service_api.RoleServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import javax.annotation.PostConstruct;
 
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements RoleServiceExtended {
 
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;

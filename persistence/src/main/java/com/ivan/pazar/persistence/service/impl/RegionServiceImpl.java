@@ -6,6 +6,7 @@ import com.ivan.pazar.persistence.model.service.RegionServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.RegionRestServiceModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.service.api.RegionService;
+import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class RegionServiceImpl implements RegionService {
+public class RegionServiceImpl implements RegionServiceExtended {
 
     static final String INIT_REGION = "Sofia";
 

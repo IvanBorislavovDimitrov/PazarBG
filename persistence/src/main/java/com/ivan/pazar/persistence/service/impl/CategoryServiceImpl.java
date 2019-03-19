@@ -5,6 +5,7 @@ import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.CategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
 import com.ivan.pazar.persistence.service.api.CategoryService;
+import com.ivan.pazar.persistence.service.service_api.CategoryServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryServiceExtended {
 
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
