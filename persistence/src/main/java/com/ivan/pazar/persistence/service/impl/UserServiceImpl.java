@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserServiceExtended {
         user.setProfilePictureName(profilePictureName);
         if (profilePictureName != null) {
             user.setProfilePictureName(profilePictureName);
-            savePicture(profilePictureName, userServiceBindingModel.getProfilePicture());
+            executeInNewThread(() -> savePicture(profilePictureName, userServiceBindingModel.getProfilePicture()));
         }
 
         if (userRepository.count() == 0) {
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserServiceExtended {
         String profilePictureName = USER_PROFILE_PICTURE_PREFIX + username + "." +
                 Utils.getFileNameExtension(picture.getOriginalFilename());
 
-        savePicture(profilePictureName, picture);
+        executeInNewThread(() -> savePicture(profilePictureName, picture));
         user.setProfilePictureName(profilePictureName);
         userRepository.saveAndFlush(user);
     }
@@ -188,6 +188,10 @@ public class UserServiceImpl implements UserServiceExtended {
         }
 
         return isEmailFree(email);
+    }
+
+    private void executeInNewThread(Runnable runnable) {
+        new Thread(runnable).start();
     }
 
     private void savePicture(String profilePictureName, MultipartFile multipartPicture) {

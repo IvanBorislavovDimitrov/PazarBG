@@ -39,6 +39,15 @@
                     </small>
                 </div>
                 <div class="form-group">
+                    <label for="exampleTextarea">Short description</label>
+                    <textarea class="form-control" placeholder="Enter short description (optional)..."
+                              id="exampleTextarea"
+                              rows="3" name="description" th:text="*{description}"></textarea>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('description')}"
+                           th:text="${error}">
+                    </small>
+                </div>
+                <div class="form-group">
                     <label for="regions">*Select a region</label>
                     <select class="form-control" id="regions" name="region">
                         <option th:if="*{region != null}" th:text="*{region}"></option>

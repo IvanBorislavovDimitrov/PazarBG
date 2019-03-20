@@ -8,7 +8,6 @@ import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 public class AdvertisementBindingModel {
 
     private static final String INVALID_TITLE = "Invalid title";
@@ -46,6 +45,8 @@ public class AdvertisementBindingModel {
 
     @NotEmpty(message = INVALID_SUBCATEGORY)
     private String subcategory;
+
+    private String description;
 
     public String getTitle() {
         return title;
@@ -125,5 +126,13 @@ public class AdvertisementBindingModel {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

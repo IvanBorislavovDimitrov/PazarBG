@@ -17,6 +17,7 @@ public class AdvertisementAddServiceModel {
     private MultipartFile video;
     private List<MultipartFile> photos;
     private String subcategory;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -96,5 +97,13 @@ public class AdvertisementAddServiceModel {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

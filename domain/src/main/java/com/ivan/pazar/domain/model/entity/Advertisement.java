@@ -75,6 +75,9 @@ public class Advertisement extends IdEntity {
     @Column(name = "id")
     private List<String> pictures;
 
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
     public Advertisement() {
         usersSearches = new ArrayList<>();
         comments = new ArrayList<>();
@@ -208,5 +211,13 @@ public class Advertisement extends IdEntity {
 
     public void setPictures(List<String> pictures) {
         this.pictures = pictures;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
