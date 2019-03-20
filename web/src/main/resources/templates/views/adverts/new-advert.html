@@ -23,23 +23,15 @@
                     </small>
                 </div>
                 <div class="form-group">
-                    <label for="date">Date</label>
-                    <input type="date" class="form-control" id="date" placeholder="Date..." name="date"
-                           th:value="*{date}" th:classappend="${#fields.hasErrors('date') ? 'is-invalid' : ''}">
-                    <small class="form-text text-danger" th:each="error : ${#fields.errors('date')}"
-                           th:text="${error}">
-                    </small>
-                </div>
-                <div class="form-group">
                     <label for="shipment">*Select a shipment</label>
                     <select class="form-control" id="shipment" name="shipment">
                         <option selected="selected">Shipment</option>
-                        <option>Paid by the seller</option>
-                        <option>Paid by the buyer</option>
+                        <option>PAID_BY_THE_SELLER</option>
+                        <option>PAID_BY_THE_BUYER</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="date">Price</label>
+                    <label for="price">Price</label>
                     <input type="number" class="form-control" id="price" placeholder="Price..." name="price"
                            th:value="*{price}" th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}">
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('price')}"
@@ -70,16 +62,16 @@
                 </div>
                 <div class="form-group">
                     <label for="state">State</label>
-                    <input type="text" class="form-control" id="state"
-                           placeholder="Enter state..." name="state" th:value="*{state}"
-                           th:classappend="${#fields.hasErrors('state') ? 'is-invalid' : ''}">
-                    <small class="form-text text-danger" th:each="error : ${#fields.errors('state')}"
-                           th:text="${error}">
-                    </small>
+                    <select class="form-control" id="state" name="state">
+                        <option selected="selected">Shipment</option>
+                        <option>NEW</option>
+                        <option>USED</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select class="form-control" id="category" name="category">
+                        <option disabled="disabled" selected="selected">Category</option>
                     </select>
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('category')}"
                            th:text="${error}">
@@ -93,6 +85,11 @@
                     <small class="form-text text-danger" th:each="error : ${#fields.errors('subcategory')}"
                            th:text="${error}">
                     </small>
+                </div>
+                <div class="form-group">
+                    <label for="photos">Choose Photos</label>
+                    <input type="file" class="form-control-file" id="photos"
+                           name="photos" multiple>
                 </div>
                 <div class="form-group">
                     <label for="video">Choose Video</label>

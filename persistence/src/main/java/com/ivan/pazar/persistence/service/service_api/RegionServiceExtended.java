@@ -5,4 +5,6 @@ import com.ivan.pazar.persistence.service.api.RegionService;
 
 public interface RegionServiceExtended extends RegionService {
     Region findByName(String region);
+
+    Region getRegionByName(String region);
 }

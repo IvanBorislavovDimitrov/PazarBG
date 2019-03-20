@@ -1,4 +1,4 @@
-package com.ivan.pazar.persistence.dao;
+package com.ivan.pazar.persistence.dao.user;
 
 import com.ivan.pazar.persistence.util.Utils;
 
@@ -11,14 +11,8 @@ public class DefaultProfilePictureManager implements ProfilePictureManager {
 
     @Override
     public void saveProfilePicture(String fileName, byte[] fileContent) throws IOException {
-        File projectFolderDirectory = new File(Utils.getProjectFilesFolder());
-        if (!projectFolderDirectory.exists()) {
-            projectFolderDirectory.mkdir();
-        }
-        File profilePicturesDirectory = new File(Utils.getProfilePicturesDirectory());
-        if (!profilePicturesDirectory.exists()) {
-            profilePicturesDirectory.mkdir();
-        }
+        Utils.createProjectDirIfNotExist();
+        Utils.createProfilePicturesDirIfNotExists();
 
         Files.write(Paths.get(Utils.getProfilePicturesDirectory() + File.separator + fileName), fileContent);
     }

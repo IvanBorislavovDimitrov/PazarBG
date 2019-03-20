@@ -3,7 +3,7 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
-import com.ivan.pazar.persistence.dao.ProfilePictureManager;
+import com.ivan.pazar.persistence.dao.user.ProfilePictureManager;
 import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
@@ -13,7 +13,6 @@ import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.UserRepository;
-import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.RoleServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
@@ -213,5 +212,10 @@ public class UserServiceImpl implements UserServiceExtended {
         }
         return USER_PROFILE_PICTURE_PREFIX + userRegisterServiceModel.getUsername() + "." +
                 Utils.getFileNameExtension(userRegisterServiceModel.getProfilePicture().getOriginalFilename());
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
     }
 }

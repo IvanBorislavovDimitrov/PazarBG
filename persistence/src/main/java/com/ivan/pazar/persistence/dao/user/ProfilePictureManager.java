@@ -1,4 +1,4 @@
-package com.ivan.pazar.persistence.dao;
+package com.ivan.pazar.persistence.dao.user;
 
 import org.apache.tomcat.jni.File;
 

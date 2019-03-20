@@ -12,4 +12,6 @@ public interface SubcategoryRepository extends JpaRepository<Subcategory, String
 
     @Query(value = "select s from Subcategory s join s.category c where c.name like %?1%")
     List<Subcategory> findAllByCategoryNameLike(String categoryName);
+
+    Subcategory findByName(String name);
 }

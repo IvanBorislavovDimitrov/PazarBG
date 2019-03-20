@@ -78,6 +78,7 @@ public class Advertisement extends IdEntity {
     public Advertisement() {
         usersSearches = new ArrayList<>();
         comments = new ArrayList<>();
+        usersFavourites = new ArrayList<>();
         pictures = new ArrayList<>();
     }
 

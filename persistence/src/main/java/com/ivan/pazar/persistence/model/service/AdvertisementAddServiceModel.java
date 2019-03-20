@@ -1,50 +1,21 @@
-package com.ivan.pazar.web.model.binding;
+package com.ivan.pazar.persistence.model.service;
 
-import com.ivan.pazar.persistence.validation_annotations.ValidShipment;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.List;
 
+public class AdvertisementAddServiceModel {
 
-public class AdvertisementBindingModel {
-
-    private static final String INVALID_TITLE = "Invalid title";
-    private static final String INVALID_SHIPMENT = "Invalid shipment";
-    private static final String INVALID_REGION = "Invalid region";
-    private static final String INVALID_TOWN = "Invalid town";
-    private static final String INVALID_STATE = "Invalid state";
-    private static final String INVALID_CATEGORY = "Invalid category";
-    private static final String INVALID_SUBCATEGORY = "Invalid subcategory";
-
-    @NotEmpty(message = INVALID_TITLE)
     private String title;
-
-    @ValidShipment(message = INVALID_SHIPMENT)
     private String shipment;
-
-    @Min(0)
     private BigDecimal price;
-
-    @NotEmpty(message = INVALID_REGION)
     private String region;
-
-    @NotEmpty(message = INVALID_TOWN)
     private String town;
-
-    @NotEmpty(message = INVALID_STATE)
     private String state;
-
-    @NotEmpty(message = INVALID_CATEGORY)
     private String category;
-
     private MultipartFile video;
-
     private List<MultipartFile> photos;
-
-    @NotEmpty(message = INVALID_SUBCATEGORY)
     private String subcategory;
 
     public String getTitle() {

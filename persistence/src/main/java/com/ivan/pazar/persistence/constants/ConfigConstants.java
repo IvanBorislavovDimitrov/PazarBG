@@ -9,4 +9,5 @@ public class ConfigConstants {
     public static final String PROJECT_FILES_DIR = "bazar-bg";
 
     public static final String PROFILE_PICTURES_DIR = "profile-pictures";
+    public static final String ADVERTISEMENTS_DIR = "advertisements";
 }

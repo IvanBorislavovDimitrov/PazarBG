@@ -3,10 +3,7 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.domain.model.entity.Subcategory;
 import com.ivan.pazar.persistence.model.service.SubcategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.SubcategoryServiceModel;
-import com.ivan.pazar.persistence.repository.CategoryRepository;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
-import com.ivan.pazar.persistence.service.api.CategoryService;
-import com.ivan.pazar.persistence.service.api.SubcategoryService;
 import com.ivan.pazar.persistence.service.service_api.SubcategoryServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +49,10 @@ public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
                 .stream()
                 .map(subcategory -> modelMapper.map(subcategory, SubcategoryServiceModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Subcategory getSubcategoryByName(String subcategory) {
+        return subcategoryRepository.findByName(subcategory);
     }
 }

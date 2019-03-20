@@ -1,8 +1,11 @@
 package com.ivan.pazar.web.controller.view.advert;
 
+import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
+import com.ivan.pazar.persistence.service.api.AdvertisementService;
+import com.ivan.pazar.web.config.UserConfiguration;
 import com.ivan.pazar.web.constants.ViewConstants;
 import com.ivan.pazar.web.model.binding.AdvertisementBindingModel;
-import com.ivan.pazar.web.model.view.AdvertisementViewModel;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +18,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-public class AdvertNewController extends AdvertBaseController {
+public class AdvertisementNewController extends AdvertisementBaseController {
+
+    private final AdvertisementService advertisementService;
+    private final ModelMapper modelMapper;
+    private final UserConfiguration userConfiguration;
+
+    public AdvertisementNewController(AdvertisementService advertisementService, ModelMapper modelMapper, UserConfiguration userConfiguration) {
+        this.advertisementService = advertisementService;
+        this.modelMapper = modelMapper;
+        this.userConfiguration = userConfiguration;
+    }
 
     @GetMapping("/new")
     @PreAuthorize("isAuthenticated()")
@@ -34,6 +47,8 @@ public class AdvertNewController extends AdvertBaseController {
         if (bindingResult.hasErrors()) {
             return renderView(ViewConstants.VIEWS_NEW_ADVERT, model);
         }
+
+        advertisementService.save(userConfiguration.loggedUserUsername(), modelMapper.map(advertisementBindingModel, AdvertisementAddServiceModel.class));
 
         return redirect(ViewConstants.REDIRECT_INDEX);
     }

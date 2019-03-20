@@ -4,7 +4,6 @@ import com.ivan.pazar.domain.model.entity.Category;
 import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.CategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
-import com.ivan.pazar.persistence.service.api.CategoryService;
 import com.ivan.pazar.persistence.service.service_api.CategoryServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -38,6 +37,11 @@ public class CategoryServiceImpl implements CategoryServiceExtended {
     }
 
     public Category findByName(String category) {
+        return categoryRepository.findByName(category);
+    }
+
+    @Override
+    public Category getCategoryByName(String category) {
         return categoryRepository.findByName(category);
     }
 }

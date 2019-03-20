@@ -59,4 +59,9 @@ public class TownServiceImpl implements TownServiceExtended {
     public Town findByName(String town) {
         return townRepository.findByName(town);
     }
+
+    @Override
+    public Town getTownByName(String town) {
+        return townRepository.findByName(town);
+    }
 }
