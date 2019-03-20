@@ -34,7 +34,6 @@ public class AdvertisementServiceModel extends IdServiceModel {
 
     private CategoryServiceModel category;
 
-
     private VideoServiceModel video;
 
     private boolean isActive;

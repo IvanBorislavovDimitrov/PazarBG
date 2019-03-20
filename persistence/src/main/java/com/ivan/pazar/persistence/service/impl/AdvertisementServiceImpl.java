@@ -2,6 +2,7 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.*;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
+import com.ivan.pazar.persistence.dao.videos.VideoManager;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
 import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
@@ -30,9 +31,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     private final TownServiceExtended townService;
     private final CategoryServiceExtended categoryService;
     private final SubcategoryServiceExtended subcategoryService;
+    private final VideoManager videoManager;
 
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoManager videoManager) {
         this.advertisementRepository = advertisementRepository;
         this.modelMapper = modelMapper;
         this.advertisementPicturesManager = advertisementPicturesManager;
@@ -40,6 +42,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         this.townService = townService;
         this.categoryService = categoryService;
         this.subcategoryService = subcategoryService;
+        this.videoManager = videoManager;
     }
 
     @Override
@@ -60,13 +63,23 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
         AdvertisementServiceModel advertisementServiceModel = modelMapper.map(advertisementRepository.saveAndFlush(advertisement), AdvertisementServiceModel.class);
 
-        savePicturesInNewThread(() -> savePictures(advertisementServiceModel.getId(), advertisementAddServiceModel.getPhotos()));
+        executeInNewThread(() -> savePictures(advertisementServiceModel.getId(), advertisementAddServiceModel.getPhotos()));
+
+        executeInNewThread(() -> saveVideo(advertisementServiceModel.getId(), advertisementAddServiceModel.getVideo()));
 
         return advertisementServiceModel;
     }
 
-    private void savePicturesInNewThread(Runnable runnable) {
+    private void executeInNewThread(Runnable runnable) {
         new Thread(runnable).start();
+    }
+
+    private void saveVideo(String advertisementId, MultipartFile video) {
+        try {
+            videoManager.saveVideo(video.getName() + "_" + advertisementId + "." + Utils.getFileNameExtension(video.getOriginalFilename()), video.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void savePictures(String advertisementId, List<MultipartFile> pictures) {

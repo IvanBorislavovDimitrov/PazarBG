@@ -12,6 +12,7 @@ public class DefaultAdvertisementPicturesManager implements AdvertisementPicture
 
     @Override
     public void savePictures(List<String> imagesNames, List<byte[]> imagesContents) throws IOException {
+        Utils.createProjectDirIfNotExist();
         Utils.createAdvertisementsDirIfNotExists();
 
         for (int i = 0; i < imagesNames.size(); i++) {

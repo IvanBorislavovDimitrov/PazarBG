@@ -10,4 +10,5 @@ public class ConfigConstants {
 
     public static final String PROFILE_PICTURES_DIR = "profile-pictures";
     public static final String ADVERTISEMENTS_DIR = "advertisements";
+    public static final String VIDEO_DIR = "videos";
 }

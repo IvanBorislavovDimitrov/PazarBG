@@ -38,6 +38,14 @@ public class Utils {
         }
     }
 
+    public static void createVideoDirIfNotExists() {
+        File videosDirectory = new File(Utils.getVideosDirectory());
+        if (!videosDirectory.exists()) {
+            videosDirectory.mkdir();
+        }
+
+    }
+
     public static String getProjectFilesFolder() {
         return System.getProperty(ConfigConstants.USER_HOME) + File.separator + ConfigConstants.PROJECT_FILES_DIR;
     }
@@ -48,5 +56,10 @@ public class Utils {
 
     public static String getAdvertisementsDirectory() {
         return getProjectFilesFolder() + File.separator + ConfigConstants.ADVERTISEMENTS_DIR;
+    }
+
+    public static String getVideosDirectory() {
+        return getProjectFilesFolder() + File.separator + ConfigConstants.VIDEO_DIR;
+
     }
 }
