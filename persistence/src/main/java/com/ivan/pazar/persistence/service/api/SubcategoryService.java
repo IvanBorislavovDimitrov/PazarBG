@@ -10,4 +10,6 @@ public interface SubcategoryService {
     SubcategoryServiceModel save(SubcategoryAddServiceModel subcategoryAddServiceModel);
 
     List<SubcategoryServiceModel> getAll();
+
+    List<SubcategoryServiceModel> getAllByCategory(String region);
 }

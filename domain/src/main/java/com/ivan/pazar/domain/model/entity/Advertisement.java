@@ -70,11 +70,10 @@ public class Advertisement extends IdEntity {
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private Subcategory subcategory;
 
-
     @ElementCollection
     @CollectionTable(name = "pictures", joinColumns = @JoinColumn(name = "picture_id", referencedColumnName = "id"))
     @Column(name = "id")
-    private List<byte[]> pictures;
+    private List<String> pictures;
 
     public Advertisement() {
         usersSearches = new ArrayList<>();
@@ -202,11 +201,11 @@ public class Advertisement extends IdEntity {
         this.state = state;
     }
 
-    public List<byte[]> getPictures() {
+    public List<String> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<byte[]> pictures) {
+    public void setPictures(List<String> pictures) {
         this.pictures = pictures;
     }
 }

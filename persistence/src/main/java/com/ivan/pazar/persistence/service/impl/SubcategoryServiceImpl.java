@@ -45,4 +45,12 @@ public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
                 .map(subcategory -> modelMapper.map(subcategory, SubcategoryServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<SubcategoryServiceModel> getAllByCategory(String region) {
+        return subcategoryRepository.findAllByCategoryNameLike(region)
+                .stream()
+                .map(subcategory -> modelMapper.map(subcategory, SubcategoryServiceModel.class))
+                .collect(Collectors.toList());
+    }
 }

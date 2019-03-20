@@ -8,6 +8,7 @@ public class ViewConstants {
     public static final String CHANGE_PASSWORD = "changePassword";
     public static final String PASSWORDS_NOT_MATCH = "passwordsNotMatch";
     public static final String USERNAME = "username";
+    public static final String ADVERT = "advert";
 
     public static final String VIEW_INDEX = "views/index";
     public static final String VIEWS_USER_REGISTER = "views/users/register";
@@ -20,6 +21,7 @@ public class ViewConstants {
     public static final String VIEWS_ADMIN_PANEL = "views/admins/panel";
     public static final String VIEWS_CHANGE_USER_ROLE = "views/admins/change-user-role";
     public static final String VIEWS_CHANGE_USER_ROLE_CONFIRM = "views/admins/change-user-role-confirm";
+    public static final String VIEWS_NEW_ADVERT = "views/adverts/new-advert";
 
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";

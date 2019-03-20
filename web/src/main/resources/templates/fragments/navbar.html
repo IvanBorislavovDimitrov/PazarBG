@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarColor03">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a>
             </li>
             <li sec:authorize="isAnonymous()" class="nav-item">
                 <a class="nav-link" th:href="@{/users/login}">Login</a>
@@ -25,9 +25,8 @@
             <li sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" class="nav-item moderator">
                 <a class="nav-link" th:href="@{/admin/panel}">Admin Panel</a>
             </li>
-
             <li class="nav-item">
-                <button type="button" class="btn btn-warning">+Add advert</button>
+                <a class="btn btn-warning" th:href="@{/adverts/new}">+Add advert</a>
             </li>
         </ul>
     </div>
