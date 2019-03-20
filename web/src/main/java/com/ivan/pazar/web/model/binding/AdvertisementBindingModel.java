@@ -1,12 +1,13 @@
 package com.ivan.pazar.web.model.binding;
 
 import com.ivan.pazar.persistence.validation_annotations.ValidShipment;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.Multipart;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.List;
+
 
 public class AdvertisementBindingModel {
 
@@ -40,8 +41,10 @@ public class AdvertisementBindingModel {
 
     @NotEmpty(message = INVALID_CATEGORY)
     private String category;
-    private Multipart videoFile;
-    private List<Multipart> images;
+
+    private MultipartFile video;
+
+    private List<MultipartFile> images;
 
     @NotEmpty(message = INVALID_SUBCATEGORY)
     private String subcategory;
@@ -102,19 +105,19 @@ public class AdvertisementBindingModel {
         this.category = category;
     }
 
-    public Multipart getVideoFile() {
-        return videoFile;
+    public MultipartFile getVideo() {
+        return video;
     }
 
-    public void setVideoFile(Multipart videoFile) {
-        this.videoFile = videoFile;
+    public void setVideo(MultipartFile video) {
+        this.video = video;
     }
 
-    public List<Multipart> getImages() {
+    public List<MultipartFile> getImages() {
         return images;
     }
 
-    public void setImages(List<Multipart> images) {
+    public void setImages(List<MultipartFile> images) {
         this.images = images;
     }
 
