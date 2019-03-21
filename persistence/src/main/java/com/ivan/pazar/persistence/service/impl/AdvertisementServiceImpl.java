@@ -5,6 +5,8 @@ import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManage
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
 import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
+import com.ivan.pazar.persistence.model.service.VideoServiceModel;
+import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
 import com.ivan.pazar.persistence.service.service_api.*;
 import com.ivan.pazar.persistence.util.Utils;
@@ -31,10 +33,11 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     private final TownServiceExtended townService;
     private final CategoryServiceExtended categoryService;
     private final SubcategoryServiceExtended subcategoryService;
+    private final VideoServiceExtended videoService;
     private final VideoManager videoManager;
 
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoManager videoManager) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager) {
         this.advertisementRepository = advertisementRepository;
         this.modelMapper = modelMapper;
         this.advertisementPicturesManager = advertisementPicturesManager;
@@ -42,6 +45,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         this.townService = townService;
         this.categoryService = categoryService;
         this.subcategoryService = subcategoryService;
+        this.videoService = videoService;
         this.videoManager = videoManager;
     }
 
@@ -63,27 +67,63 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
         AdvertisementServiceModel advertisementServiceModel = modelMapper.map(advertisementRepository.saveAndFlush(advertisement), AdvertisementServiceModel.class);
 
-        executeInNewThread(() -> savePictures(advertisementServiceModel.getId(), advertisementAddServiceModel.getPhotos()));
+        List<MultipartFile> photos = advertisementAddServiceModel.getPhotos();
+        String advertisementServiceModelId = advertisementServiceModel.getId();
+        List<String> picturesNames = getPicturesNames(advertisementServiceModelId, advertisementAddServiceModel.getPhotos());
+
+        executeInNewThread(() -> savePictures(picturesNames, advertisementServiceModelId, photos));
 
         executeInNewThread(() -> saveVideo(advertisementServiceModel.getId(), advertisementAddServiceModel.getVideo()));
+        advertisement.setPictures(picturesNames);
+        String videoName = getVideoName(advertisementServiceModelId, advertisementAddServiceModel.getVideo());
+        VideoServiceModel video = new VideoServiceModel();
+        video.setAdvertisement(modelMapper.map(advertisement, AdvertisementServiceModel.class));
+        video.setName(videoName);
+        VideoServiceModel videoServiceModel = videoService.save(video);
+        
+        Video videoEntity = videoService.findById(videoServiceModel.getId());
 
+        advertisement.setVideo(videoEntity);
+        advertisement.setPictures(picturesNames);
+
+        advertisementRepository.saveAndFlush(advertisement);
         return advertisementServiceModel;
     }
 
+    @Override
+    public List<AdvertisementRestServiceModel> findSixMostRecentAdvertisements() {
+        return advertisementRepository.findTop6ByOrderByAddedOnDesc().stream()
+                .map(advertisement -> {
+                    AdvertisementRestServiceModel advertisementRestServiceModel = modelMapper.map(advertisement, AdvertisementRestServiceModel.class);
+                    advertisementRestServiceModel.setPicture(getLastAdvertisementPicture(advertisement.getPictures()));
+                    advertisementRestServiceModel.setUserRating(advertisement.getAuthor().getRating());
+
+                    return advertisementRestServiceModel;
+                }).collect(Collectors.toList());
+    }
+
+    private String getLastAdvertisementPicture(List<String> advertisementPictures) {
+        return advertisementPictures.isEmpty() ? null : advertisementPictures.get(0);
+    }
+
     private void executeInNewThread(Runnable runnable) {
-        new Thread(runnable).start();
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     private void saveVideo(String advertisementId, MultipartFile video) {
         try {
-            videoManager.saveVideo(video.getName() + "_" + advertisementId + "." + Utils.getFileNameExtension(video.getOriginalFilename()), video.getBytes());
+            videoManager.saveVideo(getVideoName(advertisementId, video), video.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void savePictures(String advertisementId, List<MultipartFile> pictures) {
-        List<String> picturesNames = getPicturesNames(advertisementId, pictures);
+    private String getVideoName(String advertisementId, MultipartFile video) {
+        return video.getName() + "_" + advertisementId + "." + Utils.getFileNameExtension(video.getOriginalFilename());
+    }
+
+    private void savePictures(List<String> picturesNames, String advertisementId, List<MultipartFile> pictures) {
         List<byte[]> picturesContents = getPicturesContents(pictures);
         try {
             advertisementPicturesManager.savePictures(picturesNames, picturesContents);

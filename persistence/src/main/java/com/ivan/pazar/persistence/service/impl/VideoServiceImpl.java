@@ -1,5 +1,6 @@
 package com.ivan.pazar.persistence.service.impl;
 
+import com.ivan.pazar.domain.model.entity.Video;
 import com.ivan.pazar.persistence.model.service.VideoServiceModel;
 import com.ivan.pazar.persistence.repository.VideoRepository;
 import com.ivan.pazar.persistence.service.api.VideoService;
@@ -23,5 +24,10 @@ public class VideoServiceImpl implements VideoServiceExtended {
     @Override
     public VideoServiceModel save(VideoServiceModel videoServiceModel) {
         return null;
+    }
+
+    @Override
+    public Video findById(String id) {
+        return videoRepository.findById(id).orElse(null);
     }
 }
