@@ -4,8 +4,6 @@ public class VideoServiceModel extends IdServiceModel {
 
     private String name;
 
-    private String path;
-
     private AdvertisementServiceModel advertisement;
 
     public String getName() {
@@ -14,14 +12,6 @@ public class VideoServiceModel extends IdServiceModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public AdvertisementServiceModel getAdvertisement() {

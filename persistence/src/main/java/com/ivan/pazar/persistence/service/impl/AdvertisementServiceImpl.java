@@ -5,6 +5,7 @@ import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManage
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
 import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
+import com.ivan.pazar.persistence.model.service.VideoAddServiceModel;
 import com.ivan.pazar.persistence.model.service.VideoServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
@@ -69,24 +70,16 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
         List<MultipartFile> photos = advertisementAddServiceModel.getPhotos();
         String advertisementServiceModelId = advertisementServiceModel.getId();
-        List<String> picturesNames = getPicturesNames(advertisementServiceModelId, advertisementAddServiceModel.getPhotos());
 
-        executeInNewThread(() -> savePictures(picturesNames, advertisementServiceModelId, photos));
+        savePicturesIfNeeded(advertisementServiceModelId, advertisementAddServiceModel, advertisementServiceModel, photos, advertisement);
 
-        executeInNewThread(() -> saveVideo(advertisementServiceModel.getId(), advertisementAddServiceModel.getVideo()));
-        advertisement.setPictures(picturesNames);
-        String videoName = getVideoName(advertisementServiceModelId, advertisementAddServiceModel.getVideo());
-        VideoServiceModel video = new VideoServiceModel();
-        video.setAdvertisement(modelMapper.map(advertisement, AdvertisementServiceModel.class));
-        video.setName(videoName);
-        VideoServiceModel videoServiceModel = videoService.save(video);
-        
-        Video videoEntity = videoService.findById(videoServiceModel.getId());
-
-        advertisement.setVideo(videoEntity);
-        advertisement.setPictures(picturesNames);
+        Video videoEntity = saveVideo(advertisementAddServiceModel, advertisement, advertisementServiceModelId);
 
         advertisementRepository.saveAndFlush(advertisement);
+        if (videoEntity != null) {
+            videoEntity.setAdvertisement(advertisement);
+            videoService.updateVideo(videoEntity);
+        }
         return advertisementServiceModel;
     }
 
@@ -100,6 +93,29 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
                     return advertisementRestServiceModel;
                 }).collect(Collectors.toList());
+    }
+
+    private Video saveVideo(AdvertisementAddServiceModel advertisementAddServiceModel, Advertisement advertisement, String advertisementServiceModelId) {
+        if (advertisementAddServiceModel.getVideo().getSize() == 0) {
+            return null;
+        }
+        String videoName = getVideoName(advertisementServiceModelId, advertisementAddServiceModel.getVideo());
+        VideoAddServiceModel videoAddServiceModel = new VideoAddServiceModel();
+        videoAddServiceModel.setName(videoName);
+        VideoServiceModel videoServiceModel = videoService.save(videoAddServiceModel);
+        Video videoEntity = videoService.findById(videoServiceModel.getId());
+        advertisement.setVideo(videoEntity);
+        return videoEntity;
+    }
+
+    private void savePicturesIfNeeded(String advertisementServiceModelId, AdvertisementAddServiceModel advertisementAddServiceModel, AdvertisementServiceModel advertisementServiceModel, List<MultipartFile> photos, Advertisement advertisement) {
+        if (photos.get(0).getSize() == 0) {
+            return;
+        }
+        List<String> picturesNames = getPicturesNames(advertisementServiceModelId, advertisementAddServiceModel.getPhotos());
+        executeInNewThread(() -> savePictures(picturesNames, advertisementServiceModelId, photos));
+        executeInNewThread(() -> saveVideo(advertisementServiceModel.getId(), advertisementAddServiceModel.getVideo()));
+        advertisement.setPictures(picturesNames);
     }
 
     private String getLastAdvertisementPicture(List<String> advertisementPictures) {
@@ -120,7 +136,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     private String getVideoName(String advertisementId, MultipartFile video) {
-        return video.getName() + "_" + advertisementId + "." + Utils.getFileNameExtension(video.getOriginalFilename());
+        return "_" + advertisementId + "." + Utils.getFileNameExtension(video.getOriginalFilename());
     }
 
     private void savePictures(List<String> picturesNames, String advertisementId, List<MultipartFile> pictures) {
@@ -150,7 +166,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         return pictures.stream()
                 .map(picture -> {
                     atomicInteger.addAndGet(1);
-                    return picture.getName() + "_" + atomicInteger.toString() + "_" + advertisementId + "." + Utils.getFileNameExtension(picture.getOriginalFilename());
+                    return "_" + atomicInteger.toString() + "_" + advertisementId + "." + Utils.getFileNameExtension(picture.getOriginalFilename());
                 })
                 .collect(Collectors.toList());
     }

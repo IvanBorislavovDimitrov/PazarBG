@@ -1,9 +1,9 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Video;
+import com.ivan.pazar.persistence.model.service.VideoAddServiceModel;
 import com.ivan.pazar.persistence.model.service.VideoServiceModel;
 import com.ivan.pazar.persistence.repository.VideoRepository;
-import com.ivan.pazar.persistence.service.api.VideoService;
 import com.ivan.pazar.persistence.service.service_api.VideoServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,12 +22,17 @@ public class VideoServiceImpl implements VideoServiceExtended {
     }
 
     @Override
-    public VideoServiceModel save(VideoServiceModel videoServiceModel) {
-        return null;
+    public VideoServiceModel save(VideoAddServiceModel videoAddServiceModel) {
+        return modelMapper.map(videoRepository.save(modelMapper.map(videoAddServiceModel, Video.class)), VideoServiceModel.class);
     }
 
     @Override
     public Video findById(String id) {
         return videoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void updateVideo(Video videoEntity) {
+        videoRepository.saveAndFlush(videoEntity);
     }
 }
