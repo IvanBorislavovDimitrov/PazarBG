@@ -4,7 +4,7 @@ $(document).ready(function () {
         adverts.forEach((advert) => {
             bestRecentAdverts.append(`<div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="/content/${advert.picture}" alt=""></a>
+                        <a href="/adverts/${advert.id}"><img class="card-img-top" src="/content/${advert.picture}" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="#">${advert.title}</a>

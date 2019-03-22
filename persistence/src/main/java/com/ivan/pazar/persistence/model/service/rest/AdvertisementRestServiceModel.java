@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class AdvertisementRestServiceModel {
 
+    private String id;
     private String picture;
     private String title;
     private BigDecimal price;
@@ -48,5 +49,13 @@ public class AdvertisementRestServiceModel {
 
     public void setUserRating(double userRating) {
         this.userRating = userRating;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
