@@ -5,7 +5,7 @@ import com.ivan.pazar.domain.model.enums.State;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Advertisement extends IdEntity {
     private String title;
 
     @Column(name = "added_on", nullable = false)
-    private LocalDate addedOn;
+    private LocalDateTime addedOn;
 
     @Column(name = "shipment", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -97,11 +97,11 @@ public class Advertisement extends IdEntity {
         this.title = title;
     }
 
-    public LocalDate getAddedOn() {
+    public LocalDateTime getAddedOn() {
         return addedOn;
     }
 
-    public void setAddedOn(LocalDate addedOn) {
+    public void setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
     }
 

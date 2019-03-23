@@ -6,4 +6,6 @@ import java.util.List;
 public interface AdvertisementPicturesManager {
 
     void savePictures(List<String> imagesNames, List<byte[]> imagesContents) throws IOException;
+
+    void deletePicturesIfExist(List<String> picturesNames);
 }

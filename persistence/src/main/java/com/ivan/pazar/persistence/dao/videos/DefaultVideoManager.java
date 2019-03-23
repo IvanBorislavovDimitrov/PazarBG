@@ -15,6 +15,15 @@ public class DefaultVideoManager implements VideoManager {
         Utils.createVideoDirIfNotExists();
 
         Files.write(Paths.get(Utils.getVideosDirectory() + File.separator + fileName), fileContent);
+    }
+
+    @Override
+    public void deleteVideo(String videoName) {
+        try {
+            Files.deleteIfExists(Paths.get(Utils.getVideosDirectory() + File.separator + videoName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

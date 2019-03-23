@@ -29,4 +29,6 @@ public interface UserService {
     List<UserServiceModel> findAllByUsernameContaining(String prefix);
 
     void updateUserRole(UserChangeRoleServiceModel map);
+
+    void deleteByUsername(String username);
 }

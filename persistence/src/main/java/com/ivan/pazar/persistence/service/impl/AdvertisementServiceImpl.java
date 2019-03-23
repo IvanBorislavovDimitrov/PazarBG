@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -71,7 +71,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         advertisement.setCategory(category);
         advertisement.setSubcategory(subcategory);
         advertisement.setActive(true);
-        advertisement.setAddedOn(LocalDate.now());
+        advertisement.setAddedOn(LocalDateTime.now());
 
         AdvertisementServiceModel advertisementServiceModel = modelMapper.map(advertisementRepository.saveAndFlush(advertisement), AdvertisementServiceModel.class);
 
@@ -182,4 +182,6 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public Advertisement getAdvertisementById(String id) {
         return advertisementRepository.findById(id).orElse(null);
     }
+
+
 }

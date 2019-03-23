@@ -21,4 +21,15 @@ public class DefaultAdvertisementPicturesManager implements AdvertisementPicture
             Files.write(Paths.get(Utils.getAdvertisementsDirectory() + File.separator + fileName), fileContent);
         }
     }
+
+    @Override
+    public void deletePicturesIfExist(List<String> picturesNames) {
+        picturesNames.forEach(pictureName -> {
+            try {
+                Files.deleteIfExists(Paths.get(Utils.getAdvertisementsDirectory() + File.separator + pictureName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

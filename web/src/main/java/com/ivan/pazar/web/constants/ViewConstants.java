@@ -25,6 +25,7 @@ public class ViewConstants {
     public static final String VIEWS_NEW_ADVERT = "views/adverts/new-advert";
     public static final String VIEWS_SINGLE_ADVERT = "views/adverts/single-advert";
     public static final String VIEWS_REVIEW_ADD = "views/reviews/review-add";
+    public static final String VIEWS_DELETE_PROFILE = "views/users/delete";
 
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";

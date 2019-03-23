@@ -6,4 +6,5 @@ public interface VideoManager {
 
     void saveVideo(String fileName, byte[] fileContent) throws IOException;
 
+    void deleteVideo(String videoName);
 }

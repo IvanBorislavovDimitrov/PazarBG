@@ -1,9 +1,12 @@
 package com.ivan.pazar.persistence.service.impl;
 
+import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
+import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.user.ProfilePictureManager;
+import com.ivan.pazar.persistence.dao.videos.VideoManager;
 import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
@@ -43,14 +46,18 @@ public class UserServiceImpl implements UserServiceExtended {
     private final RegionServiceExtended regionService;
     private final TownServiceExtended townService;
     private final ProfilePictureManager profilePictureManager;
+    private final AdvertisementPicturesManager advertisementPicturesManager;
+    private final VideoManager videoManager;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleServiceImpl roleService, RegionServiceImpl regionService, TownServiceImpl townService, ProfilePictureManager profilePictureManager) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleServiceImpl roleService, RegionServiceImpl regionService, TownServiceImpl townService, ProfilePictureManager profilePictureManager, AdvertisementPicturesManager advertisementPicturesManager, VideoManager videoManager) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.roleService = roleService;
         this.regionService = regionService;
         this.townService = townService;
         this.profilePictureManager = profilePictureManager;
+        this.advertisementPicturesManager = advertisementPicturesManager;
+        this.videoManager = videoManager;
     }
 
     @Override
@@ -123,6 +130,8 @@ public class UserServiceImpl implements UserServiceExtended {
     @Override
     public void tryUpdatePassword(String loggedUserUsername, UserChangePassword userChangePassword) {
         User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
+        deleteRelatedContent(user);
+
         if (!user.getPassword().equals(userChangePassword.getPassword())) {
             throw new InvalidPasswordException();
         }
@@ -174,6 +183,19 @@ public class UserServiceImpl implements UserServiceExtended {
         userRepository.saveAndFlush(user);
     }
 
+    @Override
+    public void deleteByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        if (user.getProfilePictureName() != null) {
+            try {
+                profilePictureManager.deletePictureIfExists(user.getProfilePictureName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        userRepository.delete(user);
+    }
+
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {
         if (user.getPhoneNumber().equals(phoneNumber)) {
             return true;
@@ -216,6 +238,16 @@ public class UserServiceImpl implements UserServiceExtended {
         }
         return USER_PROFILE_PICTURE_PREFIX + userRegisterServiceModel.getUsername() + "." +
                 Utils.getFileNameExtension(userRegisterServiceModel.getProfilePicture().getOriginalFilename());
+    }
+
+    private void deleteRelatedContent(User user) {
+        List<Advertisement> advertisements = user.getAdvertisements();
+        advertisements.forEach(advertisement -> {
+            advertisementPicturesManager.deletePicturesIfExist(advertisement.getPictures());
+            if (advertisement.getVideo() != null) {
+                videoManager.deleteVideo(advertisement.getVideo().getName());
+            }
+        });
     }
 
     @Override
