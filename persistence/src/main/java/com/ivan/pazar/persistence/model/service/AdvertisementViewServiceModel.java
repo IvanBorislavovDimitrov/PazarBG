@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AdvertisementViewServiceModel {
 
+    private String id;
     private String title;
     private BigDecimal price;
     private String description;
@@ -45,5 +46,13 @@ public class AdvertisementViewServiceModel {
 
     public void setPictures(List<String> pictures) {
         this.pictures = pictures;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

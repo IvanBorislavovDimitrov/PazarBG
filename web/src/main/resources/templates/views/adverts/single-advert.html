@@ -1,8 +1,10 @@
 <head>
     <script type="text/javascript" src="/js/ajax/category.js"></script>
     <script type="text/javascript" src="/js/ajax/index-page.js"></script>
+    <script type="text/javascript" src="/js/ajax/review.js"></script>
 </head>
-<div class="container" xmlns:th="http://www.thymeleaf.org" th:object="${advert}">
+<div class="container" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"
+     th:object="${advert}">
     <div class="row">
         <div class="col-lg-3">
             <h1 class="my-4">Bazar BG</h1>
@@ -29,24 +31,12 @@
                 <div class="card-header">
                     Product Reviews
                 </div>
-                <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-                        similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-                        Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-                        similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-                        Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-                        similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-                        Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
+                <div id="reviews" class="card-body">
+
                 </div>
+
+                <a sec:authorize="isAuthenticated()" th:href="@{/reviews/add(advertId=${advert.id})}"
+                   class="btn btn-success">Leave a Review</a>
             </div>
         </div>
     </div>

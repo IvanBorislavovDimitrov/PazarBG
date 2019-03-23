@@ -177,4 +177,9 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
                 })
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Advertisement getAdvertisementById(String id) {
+        return advertisementRepository.findById(id).orElse(null);
+    }
 }
