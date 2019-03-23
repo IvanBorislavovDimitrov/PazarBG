@@ -1,17 +1,17 @@
-package com.ivan.pazar.web.model.view;
+package com.ivan.pazar.persistence.model.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvertisementViewModel {
+public class AdvertisementViewServiceModel {
 
     private String title;
     private BigDecimal price;
     private String description;
     private List<String> pictures;
 
-    public AdvertisementViewModel() {
+    public AdvertisementViewServiceModel() {
         pictures = new ArrayList<>();
     }
 

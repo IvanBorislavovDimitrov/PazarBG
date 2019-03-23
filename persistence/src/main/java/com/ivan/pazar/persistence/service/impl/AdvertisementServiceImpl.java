@@ -3,10 +3,7 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.domain.model.entity.*;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
-import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
-import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
-import com.ivan.pazar.persistence.model.service.VideoAddServiceModel;
-import com.ivan.pazar.persistence.model.service.VideoServiceModel;
+import com.ivan.pazar.persistence.model.service.*;
 import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
 import com.ivan.pazar.persistence.service.service_api.*;
@@ -48,6 +45,16 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         this.subcategoryService = subcategoryService;
         this.videoService = videoService;
         this.videoManager = videoManager;
+    }
+
+    @Override
+    public AdvertisementViewServiceModel findById(String id) {
+        Advertisement advertisement = advertisementRepository.findById(id).orElse(null);
+        if (advertisement == null) {
+            throw new IllegalStateException();
+        }
+
+        return modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
     }
 
     @Override

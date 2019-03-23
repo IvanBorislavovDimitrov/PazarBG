@@ -26,7 +26,7 @@ public class AdvertisementRestController {
 
     @RequestMapping(value = "/best-recent", method = RequestMethod.GET)
     public List<AdvertisementRestViewModel> bestRecent() {
-        return advertisementService.findSixMostRecentAdvertisements().stream()
+            return advertisementService.findSixMostRecentAdvertisements().stream()
                 .map(advertisementRestServiceModel ->
                         modelMapper.map(advertisementRestServiceModel, AdvertisementRestViewModel.class))
                 .collect(Collectors.toList());

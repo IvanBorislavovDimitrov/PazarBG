@@ -22,6 +22,7 @@ public class ViewConstants {
     public static final String VIEWS_CHANGE_USER_ROLE = "views/admins/change-user-role";
     public static final String VIEWS_CHANGE_USER_ROLE_CONFIRM = "views/admins/change-user-role-confirm";
     public static final String VIEWS_NEW_ADVERT = "views/adverts/new-advert";
+    public static final String VIEWS_SINGLE_ADVERT = "views/adverts/single-advert";
 
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";
