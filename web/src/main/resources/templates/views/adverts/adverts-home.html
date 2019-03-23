@@ -1,0 +1,69 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+    <div class="row">
+        <div th:remove="tag" th:each="advert : ${adverts}">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a th:href="@{|/adverts/${advert.id}|}">
+                        <img th:if="${advert.pictures.size() > 0}" class="card-img-top"
+                             th:src="@{|/content/${advert.pictures[0]}|}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a th:href="@{|/adverts/${advert.id}|}" th:text="${advert.title}"></a>
+                        </h4>
+                        <h5 th:text="${advert.price}"></h5>
+                        <p class="card-text" th:text="${advert.description}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div>
+            <ul class="pagination">
+                <div th:remove="tag" th:if="${page == 0}">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">&laquo;</a>
+                    </li>
+                </div>
+                <div th:remove="tag" th:unless="${page == 0}">
+                    <li class="page-item">
+                        <div th:remove="tag" th:if="${cat == null}">
+                            <a class="page-link" th:href="@{/adverts/home(page=${page - 1})}">&laquo;</a>
+                        </div>
+                        <div th:remove="tag" th:if="${cat != null}">
+                            <a class="page-link"
+                               th:href="@{/adverts/home(page=${page - 1},category=${cat})}">&laquo;</a>
+                        </div>
+                    </li>
+                </div>
+                <li th:each="p,i : ${pages}" class="page-item" th:classappend="${i.index == page  ? 'active' : ''}">
+                    <div th:remove="tag" th:if="${cat == null}">
+                        <a class="page-link" th:href="@{/adverts/home(page=${i.index})}" th:text="${i.index + 1}"></a>
+                    </div>
+                    <div th:remove="tag" th:if="${cat != null}">
+                        <a class="page-link" th:href="@{/adverts/home(page=${i.index},category=${cat})}"
+                           th:text="${i.index + 1}"></a>
+                    </div>
+                </li>
+                <div th:remove="tag" th:if="${page + 1 >= totalPages}">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">&raquo;</a>
+                    </li>
+                </div>
+                <div th:remove="tag" th:unless="${page + 1 >= totalPages}">
+                    <li class="page-item">
+                        <div th:remove="tag" th:if="${cat == null}">
+                            <a class="page-link" th:href="@{/adverts/home(page=${page + 1})}">&raquo;</a>
+                        </div>
+                        <div th:remove="tag" th:if="${cat != null}">
+                            <a class="page-link"
+                               th:href="@{/adverts/home(page=${page + 1},category=${cat})}">&raquo;</a>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+</div>

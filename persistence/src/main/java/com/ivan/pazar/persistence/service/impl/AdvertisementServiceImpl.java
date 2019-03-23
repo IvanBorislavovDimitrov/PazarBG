@@ -9,6 +9,8 @@ import com.ivan.pazar.persistence.repository.AdvertisementRepository;
 import com.ivan.pazar.persistence.service.service_api.*;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
+
+    private static final int MAX_LENGTH_OF_DESCRIPTION = 45;
 
     private final AdvertisementRepository advertisementRepository;
     private final ModelMapper modelMapper;
@@ -93,21 +97,39 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     @Override
     public List<AdvertisementRestServiceModel> findSixMostRecentAdvertisements() {
         return advertisementRepository.findTop6ByOrderByAddedOnDesc().stream()
-                .map(advertisement -> {
-                    AdvertisementRestServiceModel advertisementRestServiceModel = modelMapper.map(advertisement, AdvertisementRestServiceModel.class);
-                    advertisementRestServiceModel.setPicture(getLastAdvertisementPicture(advertisement.getPictures()));
-                    advertisementRestServiceModel.setUserRating(advertisement.getAuthor().getRating());
-                    if (advertisement.getVideo() != null) {
-                        advertisementRestServiceModel.setVideo(advertisement.getVideo().getName());
-                    }
+                .map(this::mapAdvertisement).collect(Collectors.toList());
+    }
 
-                    return advertisementRestServiceModel;
-                }).collect(Collectors.toList());
+    @Override
+    public AdvertismentHomePageServiceModel findAllByCategoryLikeWithPage(String categoryName, PageRequest pageRequest) {
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByCategoryNameLike(categoryName, pageRequest);
+
+        List<AdvertisementViewServiceModel> advertisementViewServiceModels = advertisementRepository.findAllByCategoryNameLike(categoryName, pageRequest).getContent().stream()
+                .map(advertisement -> modelMapper.map(advertisement, AdvertisementViewServiceModel.class))
+                .collect(Collectors.toList());
+
+        AdvertismentHomePageServiceModel advertismentHomePageServiceModel = new AdvertismentHomePageServiceModel();
+        advertismentHomePageServiceModel.setPages(advertisementPage.getTotalPages());
+        advertismentHomePageServiceModel.setAdvertisementViewServiceModels(advertisementViewServiceModels);
+
+        return advertismentHomePageServiceModel;
     }
 
     @Override
     public Advertisement getAdvertisementById(String id) {
         return advertisementRepository.findById(id).orElse(null);
+    }
+
+    private AdvertisementRestServiceModel mapAdvertisement(Advertisement advertisement) {
+        AdvertisementRestServiceModel advertisementRestServiceModel = modelMapper.map(advertisement, AdvertisementRestServiceModel.class);
+        advertisementRestServiceModel.setDescription(advertisement.getDescription().substring(0, Math.min(MAX_LENGTH_OF_DESCRIPTION, advertisement.getDescription().length())));
+        advertisementRestServiceModel.setPicture(getLastAdvertisementPicture(advertisement.getPictures()));
+        advertisementRestServiceModel.setUserRating(advertisement.getAuthor().getRating());
+        if (advertisement.getVideo() != null) {
+            advertisementRestServiceModel.setVideo(advertisement.getVideo().getName());
+        }
+
+        return advertisementRestServiceModel;
     }
 
     private Video saveVideo(AdvertisementAddServiceModel advertisementAddServiceModel, Advertisement advertisement, String advertisementServiceModelId) {
