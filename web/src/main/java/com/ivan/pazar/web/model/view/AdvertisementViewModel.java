@@ -10,6 +10,7 @@ public class AdvertisementViewModel {
     private String title;
     private BigDecimal price;
     private String description;
+    private String video;
     private List<String> pictures;
 
     public AdvertisementViewModel() {
@@ -54,5 +55,13 @@ public class AdvertisementViewModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

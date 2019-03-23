@@ -97,9 +97,17 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
                     AdvertisementRestServiceModel advertisementRestServiceModel = modelMapper.map(advertisement, AdvertisementRestServiceModel.class);
                     advertisementRestServiceModel.setPicture(getLastAdvertisementPicture(advertisement.getPictures()));
                     advertisementRestServiceModel.setUserRating(advertisement.getAuthor().getRating());
+                    if (advertisement.getVideo() != null) {
+                        advertisementRestServiceModel.setVideo(advertisement.getVideo().getName());
+                    }
 
                     return advertisementRestServiceModel;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Advertisement getAdvertisementById(String id) {
+        return advertisementRepository.findById(id).orElse(null);
     }
 
     private Video saveVideo(AdvertisementAddServiceModel advertisementAddServiceModel, Advertisement advertisement, String advertisementServiceModelId) {
@@ -177,11 +185,5 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
                 })
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public Advertisement getAdvertisementById(String id) {
-        return advertisementRepository.findById(id).orElse(null);
-    }
-
 
 }

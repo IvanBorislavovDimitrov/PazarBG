@@ -11,7 +11,7 @@ public class AdvertisementViewServiceModel {
     private BigDecimal price;
     private String description;
     private List<String> pictures;
-
+    private String video;
     public AdvertisementViewServiceModel() {
         pictures = new ArrayList<>();
     }
@@ -54,5 +54,13 @@ public class AdvertisementViewServiceModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

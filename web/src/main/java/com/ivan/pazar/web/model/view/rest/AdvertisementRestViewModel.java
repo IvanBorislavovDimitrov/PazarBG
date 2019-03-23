@@ -9,6 +9,7 @@ public class AdvertisementRestViewModel {
     private String title;
     private BigDecimal price;
     private String description;
+    private String video;
     private double userRating;
 
     public String getPicture() {
@@ -57,5 +58,13 @@ public class AdvertisementRestViewModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

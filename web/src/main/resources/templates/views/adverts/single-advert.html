@@ -20,7 +20,11 @@
                              alt="Other slide">
                     </div>
                 </div>
-
+                <div th:if="${advert.video != null}">
+                    <div class="embed-responsive embed-responsive-16by9 mt-3">
+                        <video controls class="embed-responsive-item" th:src="@{|/content/${advert.video}|}"></video>
+                    </div>
+                </div>
                 <div class="card-body">
                     <h3 class="card-title" th:text="*{title}"></h3>
                     <h4 th:text="${#numbers.formatCurrency(advert.price)}"></h4>

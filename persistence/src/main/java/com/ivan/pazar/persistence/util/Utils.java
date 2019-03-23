@@ -10,11 +10,11 @@ public class Utils {
             return null;
         }
         String[] filenameAndExtension = name.split("[.]");
-        if (filenameAndExtension.length == 1) {
+        if (filenameAndExtension.length <= 1) {
             return null;
         }
 
-        return filenameAndExtension[1];
+        return filenameAndExtension[filenameAndExtension.length - 1];
     }
 
     public static void createAdvertisementsDirIfNotExists() {

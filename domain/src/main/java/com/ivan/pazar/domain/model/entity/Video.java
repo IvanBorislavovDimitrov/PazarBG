@@ -28,4 +28,9 @@ public class Video extends IdEntity {
     public void setAdvertisement(Advertisement advertisement) {
         this.advertisement = advertisement;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
