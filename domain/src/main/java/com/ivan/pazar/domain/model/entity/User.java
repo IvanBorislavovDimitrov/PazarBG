@@ -63,6 +63,9 @@ public class User extends IdEntity {
     @OneToMany(mappedBy = "author", targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "user", targetEntity = Review.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews;
+
     @ManyToMany(mappedBy = "usersFavourites", targetEntity = Advertisement.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Advertisement> favouriteAdvertisements;
 
@@ -80,6 +83,7 @@ public class User extends IdEntity {
         comments = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
         roles = new HashSet<>();
+        reviews = new ArrayList<>();
     }
 
     public User(User user) {
@@ -102,6 +106,7 @@ public class User extends IdEntity {
         setReceivedMessages(user.receivedMessages);
         setSentMessages(user.sentMessages);
         setRating(user.rating);
+        setReviews(user.reviews);
     }
 
     public String getEmail() {
@@ -254,5 +259,13 @@ public class User extends IdEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

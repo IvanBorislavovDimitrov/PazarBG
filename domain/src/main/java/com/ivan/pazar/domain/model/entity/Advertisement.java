@@ -75,6 +75,9 @@ public class Advertisement extends IdEntity {
     @Column(name = "id")
     private List<String> pictures;
 
+    @OneToMany(mappedBy = "advertisement", targetEntity = Review.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews;
+
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
@@ -83,6 +86,7 @@ public class Advertisement extends IdEntity {
         comments = new ArrayList<>();
         usersFavourites = new ArrayList<>();
         pictures = new ArrayList<>();
+        reviews = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -219,5 +223,13 @@ public class Advertisement extends IdEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
