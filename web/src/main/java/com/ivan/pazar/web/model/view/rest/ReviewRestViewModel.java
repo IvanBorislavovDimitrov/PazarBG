@@ -1,11 +1,36 @@
 package com.ivan.pazar.web.model.view.rest;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ReviewRestViewModel {
 
     private String id;
     private String text;
     private String username;
     private String addedOn;
+    private String loggedUserUsername;
+    private Set<String> loggedUserRoles;
+
+    public ReviewRestViewModel() {
+        loggedUserRoles = new HashSet<>();
+    }
+
+    public Set<String> getLoggedUserRoles() {
+        return loggedUserRoles;
+    }
+
+    public void setLoggedUserRoles(Set<String> loggedUserRoles) {
+        this.loggedUserRoles = loggedUserRoles;
+    }
+
+    public String getLoggedUserUsername() {
+        return loggedUserUsername;
+    }
+
+    public void setLoggedUserUsername(String loggedUserUsername) {
+        this.loggedUserUsername = loggedUserUsername;
+    }
 
     public String getId() {
         return id;

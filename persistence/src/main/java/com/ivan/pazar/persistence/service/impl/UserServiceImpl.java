@@ -27,10 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -194,6 +191,14 @@ public class UserServiceImpl implements UserServiceExtended {
             }
         }
         userRepository.delete(user);
+    }
+
+    @Override
+    public Set<String> getRolesForUser(String username) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        return user.getRoles().stream()
+                .map(role -> role.getUserRole().toString())
+                .collect(Collectors.toSet());
     }
 
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {

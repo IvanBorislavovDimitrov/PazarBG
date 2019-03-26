@@ -17,6 +17,7 @@ public class ViewConstants {
     public static final String TOTAL_PAGES = "totalPages";
     public static final String REGION = "region";
     public static final String TOWN = "town";
+    public static final String ANONYMOUS_USER = "anonymousUser";
 
     public static final String VIEW_INDEX = "views/index";
     public static final String VIEWS_USER_REGISTER = "views/users/register";

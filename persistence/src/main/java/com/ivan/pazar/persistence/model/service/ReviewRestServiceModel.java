@@ -1,11 +1,27 @@
 package com.ivan.pazar.persistence.model.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ReviewRestServiceModel {
 
     private String id;
     private String text;
     private String username;
     private String addedOn;
+    private Set<String> roles;
+
+    public ReviewRestServiceModel() {
+        roles = new HashSet<>();
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 
     public String getId() {
         return id;
