@@ -1,19 +1,49 @@
 <body>
 
-<h1>My First Google Map</h1>
+<div xmlns:th="http://www.thymeleaf.org">
+    <div class="mt-3">
+        <hr class="w-25"/>
+        <h1 class="text-center">Add Region</h1>
+        <hr class="w-25"/>
+        <form class="mx-auto w-25" method="post"
+              th:action="@{/regions/add}">
+            <fieldset>
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <input type="text" class="form-control" id="region"
+                           placeholder="Name..." name="name" th:value="${region.email}"
+                           th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}">
+                </div>
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">
+                </small>
+                <hr class="w-100a hr-2"/>
+                <div class="button-holder mt-4 d-flex justify-content-center">
+                    <input type="submit" class="btn btn-primary" value="Add Name"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
 
-<div id="googleMap" style="width:100%;height:400px;"></div>
+<div class="d-flex justify-content-center">
+    <div class=" mt-3" id="googleMap" style="width:50%;height:300px;"></div>
+</div>
 
 <script>
-    function myMap() {
-        var mapProp= {
-            center:new google.maps.LatLng(51.508742,-0.120850),
-            zoom:5,
+    function initMap() {
+        var mapProp = {
+            center: new google.maps.LatLng(42.6888883, 23.2743333),
+            zoom: 5,
         };
-        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
     }
 </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8fEqul02uXpehHXHY1rinUhTLBUDVrsA&callback=initMap"
+        type="text/javascript">
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+</script>
+
 
 </body>

@@ -1,11 +1,10 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Region;
-import com.ivan.pazar.domain.model.entity.Town;
+import com.ivan.pazar.persistence.model.service.RegionAddServiceModel;
 import com.ivan.pazar.persistence.model.service.RegionServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.RegionRestServiceModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
-import com.ivan.pazar.persistence.service.api.RegionService;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -39,8 +38,10 @@ public class RegionServiceImpl implements RegionServiceExtended {
     }
 
     @Override
-    public RegionServiceModel save(RegionServiceModel regionServiceModel) {
-        return null;
+    public RegionServiceModel save(RegionAddServiceModel regionAddServiceModel) {
+        Region region = modelMapper.map(regionAddServiceModel, Region.class);
+
+        return modelMapper.map(regionRepository.save(region), RegionServiceModel.class);
     }
 
     @Override

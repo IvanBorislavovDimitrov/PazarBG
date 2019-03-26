@@ -2,10 +2,11 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Region;
 import com.ivan.pazar.domain.model.entity.Town;
+import com.ivan.pazar.persistence.model.service.TownAddServiceModel;
 import com.ivan.pazar.persistence.model.service.TownServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.TownRestServiceModel;
 import com.ivan.pazar.persistence.repository.TownRepository;
-import com.ivan.pazar.persistence.service.api.TownService;
+import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,9 @@ public class TownServiceImpl implements TownServiceExtended {
 
     private final TownRepository townRepository;
     private final ModelMapper modelMapper;
-    private final RegionServiceImpl regionService;
+    private final RegionServiceExtended regionService;
 
-    public TownServiceImpl(TownRepository townRepository, ModelMapper modelMapper, RegionServiceImpl regionService) {
+    public TownServiceImpl(TownRepository townRepository, ModelMapper modelMapper, RegionServiceExtended regionService) {
         this.townRepository = townRepository;
         this.modelMapper = modelMapper;
         this.regionService = regionService;
@@ -44,8 +45,11 @@ public class TownServiceImpl implements TownServiceExtended {
     }
 
     @Override
-    public TownServiceModel save(TownServiceModel townServiceModel) {
-        return null;
+    public TownServiceModel save(TownAddServiceModel townAddServiceModel) {
+        Town town = modelMapper.map(townAddServiceModel, Town.class);
+        town.setRegion(regionService.getRegionByName(townAddServiceModel.getRegion()));
+
+        return modelMapper.map(townRepository.save(town), TownServiceModel.class);
     }
 
     @Override
@@ -56,6 +60,7 @@ public class TownServiceImpl implements TownServiceExtended {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Town findByName(String town) {
         return townRepository.findByName(town);
     }

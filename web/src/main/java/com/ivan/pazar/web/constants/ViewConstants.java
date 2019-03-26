@@ -15,6 +15,8 @@ public class ViewConstants {
     public static final String PAGE = "page";
     public static final String CATEGORY = "cat";
     public static final String TOTAL_PAGES = "totalPages";
+    public static final String REGION = "region";
+    public static final String TOWN = "town";
 
     public static final String VIEW_INDEX = "views/index";
     public static final String VIEWS_USER_REGISTER = "views/users/register";
@@ -32,6 +34,8 @@ public class ViewConstants {
     public static final String VIEWS_REVIEW_ADD = "views/reviews/review-add";
     public static final String VIEWS_DELETE_PROFILE = "views/users/delete";
     public static final String VIEWS_ADVERTS_HOME = "views/adverts/adverts-home";
+    public static final String VIEWS_ADD_REGION = "views/regions/add-region";
+    public static final String VIEWS_ADD_TOWN = "views/towns/add-town";
 
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";

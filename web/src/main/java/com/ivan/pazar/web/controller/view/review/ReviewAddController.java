@@ -7,6 +7,7 @@ import com.ivan.pazar.web.constants.ViewConstants;
 import com.ivan.pazar.web.model.binding.ReviewAddViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,12 +34,14 @@ public class ReviewAddController extends ReviewBaseController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView reviewAdd(Model model) {
 
         return renderView(ViewConstants.VIEWS_REVIEW_ADD, model);
     }
 
     @PostMapping("/add")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView reviewAddConfirm(@ModelAttribute(ViewConstants.REVIEW) @Valid ReviewAddViewModel reviewAddViewModel, @RequestParam("advertId") String advertId, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return renderView(ViewConstants.VIEWS_REVIEW_ADD, model);
