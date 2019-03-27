@@ -38,11 +38,9 @@
                 <div id="reviews" class="card-body">
 
                 </div>
-                <a sec:authorize="isAuthenticated()" th:href="@{/reviews/add(advertId=${advert.id})}"
-                   class="btn btn-success">Leave a Review</a>
-
-                <a id="add-car-modal-button" class="btn btn-danger" href="#" data-toggle="modal" data-target="#add-review-modal">Add
-                    Car</a>
+                <a sec:authorize="isAuthenticated()"
+                   class="btn btn-success" id="add-car-modal-button" href="#" data-toggle="modal"
+                   data-target="#add-review-modal">Leave a Review </a>
                 <th:block th:replace="fragments/modal/review/add-review-modal"></th:block>
             </div>
         </div>

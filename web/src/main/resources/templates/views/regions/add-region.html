@@ -11,15 +11,11 @@
                 <div class="form-group">
                     <label for="region">Region</label>
                     <input type="text" class="form-control" id="region"
-                           placeholder="Name..." name="name" th:value="${region.email}"
-                           th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}">
+                           placeholder="Name..." name="name">
                 </div>
-                <small class="form-text text-danger" th:each="error : ${#fields.errors('name')}"
-                       th:text="${error}">
-                </small>
                 <hr class="w-100a hr-2"/>
                 <div class="button-holder mt-4 d-flex justify-content-center">
-                    <input type="submit" class="btn btn-primary" value="Add Name"/>
+                    <input type="submit" class="btn btn-primary" value="Add Region"/>
                 </div>
             </fieldset>
         </form>

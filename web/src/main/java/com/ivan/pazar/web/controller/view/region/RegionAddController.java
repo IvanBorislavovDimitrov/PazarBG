@@ -32,7 +32,6 @@ public class RegionAddController extends RegionBaseController {
     @GetMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ModelAndView addRegion(Model model) {
-
         return renderView(ViewConstants.VIEWS_ADD_REGION, model);
     }
 
