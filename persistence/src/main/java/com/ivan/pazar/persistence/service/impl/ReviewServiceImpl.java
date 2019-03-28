@@ -60,4 +60,9 @@ public class ReviewServiceImpl implements ReviewServiceExtended {
             return reviewRestServiceModel;
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteById(String reviewId) {
+        reviewRepository.deleteById(reviewId);
+    }
 }

@@ -11,4 +11,7 @@ public interface ReviewService {
     ReviewServiceModel save(ReviewAddServiceModel reviewAddServiceModel);
 
     List<ReviewRestServiceModel> getReviewsByAdvertisementId(String advertisementId);
+
+    void deleteById(String reviewId);
+
 }

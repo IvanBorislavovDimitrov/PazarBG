@@ -6,10 +6,20 @@ $(document).ready(() => {
     $.getJSON("/api/reviews/all?advertId=" + advertId, function (reviews) {
         reviews.forEach(function (review) {
             if (review.username === review.loggedUserUsername || review.loggedUserRoles.includes('ROLE_ADMIN') ||
-            review.loggedUserRoles.includes('ROLE_MODERATOR')) {
+                review.loggedUserRoles.includes('ROLE_MODERATOR')) {
 
-                reviewsSerction.append(`<p><a href='/reviews/edit?reviewId=${review.id}' class="btn btn-danger">Edit</a></p>`);
-                reviewsSerction.append(`<p><a href='/reviews/delete?reviewId=${review.id}' class="btn btn-danger">Delete</a></p>`);
+                reviewsSerction.append(`<button type="submit" id="delete" class="btn btn-danger">Delete</button>`);
+                $('#delete').on("click", function () {
+                    alert("Post sent");
+                    $.ajax({
+                        type: 'POST',
+                        url: `/reviews/delete?reviewId=${review.id}`,
+                        headers: {'X-CSRF-TOKEN': _csrf_token},
+                        success: function (result) {
+
+                        }
+                    });
+                });
             }
             reviewsSerction.append(`<p>${review.text}</p>
                         <small class="text-muted">Posted by ${review.username} on ${review.addedOn}</small>

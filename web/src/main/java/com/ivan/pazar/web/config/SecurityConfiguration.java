@@ -45,6 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .and()
+                .cors()
+                .disable()
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository());
     }

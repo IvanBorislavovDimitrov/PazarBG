@@ -27,7 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -162,6 +165,7 @@ public class UserServiceImpl implements UserServiceExtended {
     @Override
     public List<UserServiceModel> findAllByUsernameContaining(String prefix) {
         return userRepository.findAllByUsernameContaining(prefix).stream()
+                .filter(user -> user.getRoles().stream().noneMatch(role -> role.getUserRole() == UserRole.ROOT))
                 .map(user -> modelMapper.map(user, UserServiceModel.class))
                 .collect(Collectors.toList());
     }
