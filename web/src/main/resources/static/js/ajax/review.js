@@ -8,15 +8,17 @@ $(document).ready(() => {
             if (review.username === review.loggedUserUsername || review.loggedUserRoles.includes('ROLE_ADMIN') ||
                 review.loggedUserRoles.includes('ROLE_MODERATOR')) {
 
-                reviewsSerction.append(`<button type="submit" id="delete" class="btn btn-danger">Delete</button>`);
-                $('#delete').on("click", function () {
+                const myValue = ("button"+review.id);
+                console.log(myValue);
+                reviewsSerction.append(`<button type="submit" id="${myValue}" class="btn btn-danger">Delete</button>`);
+                $('#'+myValue).on("click", function () {
                     alert("Post sent");
                     $.ajax({
                         type: 'POST',
-                        url: `/reviews/delete?reviewId=${review.id}`,
+                        url: `/api/reviews/delete?reviewId=${review.id}`,
                         headers: {'X-CSRF-TOKEN': _csrf_token},
                         success: function (result) {
-
+                                window.location.replace(window.location.href);
                         }
                     });
                 });

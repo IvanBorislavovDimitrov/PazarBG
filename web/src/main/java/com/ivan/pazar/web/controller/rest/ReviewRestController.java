@@ -6,9 +6,11 @@ import com.ivan.pazar.web.config.UserConfiguration;
 import com.ivan.pazar.web.constants.ViewConstants;
 import com.ivan.pazar.web.model.view.rest.ReviewRestViewModel;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Set;
@@ -46,4 +48,13 @@ public class ReviewRestController {
                 })
                 .collect(Collectors.toList());
     }
+
+    @PostMapping("/delete")
+    public ModelAndView deleteConfirm(@RequestParam("reviewId") String reviewId) {
+        reviewService.deleteById(reviewId);
+
+        return new ModelAndView("redirect:/" + ViewConstants.REDIRECT_INDEX);
+    }
+
+    
 }
