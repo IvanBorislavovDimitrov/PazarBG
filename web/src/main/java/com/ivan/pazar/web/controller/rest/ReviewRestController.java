@@ -56,5 +56,5 @@ public class ReviewRestController {
         return new ModelAndView("redirect:/" + ViewConstants.REDIRECT_INDEX);
     }
 
-    
+
 }

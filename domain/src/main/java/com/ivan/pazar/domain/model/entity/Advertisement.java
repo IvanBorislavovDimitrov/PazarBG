@@ -64,7 +64,7 @@ public class Advertisement extends IdEntity {
     private Video video;
 
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
@@ -185,12 +185,12 @@ public class Advertisement extends IdEntity {
         this.video = video;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean getActive() {
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     public Subcategory getSubcategory() {

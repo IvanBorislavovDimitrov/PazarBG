@@ -74,7 +74,6 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         advertisement.setTown(town);
         advertisement.setCategory(category);
         advertisement.setSubcategory(subcategory);
-        advertisement.setActive(true);
         advertisement.setAddedOn(LocalDateTime.now());
 
         AdvertisementServiceModel advertisementServiceModel = modelMapper.map(advertisementRepository.saveAndFlush(advertisement), AdvertisementServiceModel.class);
@@ -96,15 +95,31 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public List<AdvertisementRestServiceModel> findSixMostRecentAdvertisements() {
-        return advertisementRepository.findTop6ByOrderByAddedOnDesc().stream()
+        return advertisementRepository.findTop6ByActiveOrderByAddedOnDesc(true).stream()
                 .map(this::mapAdvertisement).collect(Collectors.toList());
     }
 
     @Override
     public AdvertismentHomePageServiceModel findAllByCategoryLikeWithPage(String categoryName, PageRequest pageRequest) {
-        Page<Advertisement> advertisementPage = advertisementRepository.findAllByCategoryNameLike(categoryName, pageRequest);
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByCategoryNameLikeAndActive(categoryName, pageRequest, true);
 
-        List<AdvertisementViewServiceModel> advertisementViewServiceModels = advertisementRepository.findAllByCategoryNameLike(categoryName, pageRequest).getContent().stream()
+        return getAdvertisementHomePageServiceModel(advertisementPage);
+    }
+
+    @Override
+    public AdvertismentHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest) {
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByActive(false, pageRequest);
+
+        return getAdvertisementHomePageServiceModel(advertisementPage);
+    }
+
+    @Override
+    public Advertisement getAdvertisementById(String id) {
+        return advertisementRepository.findById(id).orElse(null);
+    }
+
+    private AdvertismentHomePageServiceModel getAdvertisementHomePageServiceModel(Page<Advertisement> advertisementPage) {
+        List<AdvertisementViewServiceModel> advertisementViewServiceModels = advertisementPage.getContent().stream()
                 .map(advertisement -> modelMapper.map(advertisement, AdvertisementViewServiceModel.class))
                 .collect(Collectors.toList());
 
@@ -113,11 +128,6 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         advertismentHomePageServiceModel.setAdvertisementViewServiceModels(advertisementViewServiceModels);
 
         return advertismentHomePageServiceModel;
-    }
-
-    @Override
-    public Advertisement getAdvertisementById(String id) {
-        return advertisementRepository.findById(id).orElse(null);
     }
 
     private AdvertisementRestServiceModel mapAdvertisement(Advertisement advertisement) {

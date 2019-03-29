@@ -18,4 +18,6 @@ public interface AdvertisementService {
     List<AdvertisementRestServiceModel> findSixMostRecentAdvertisements();
 
     AdvertismentHomePageServiceModel findAllByCategoryLikeWithPage(String category, PageRequest pageRequest);
+
+    AdvertismentHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
 }

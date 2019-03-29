@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 @Controller
 public class AdvertisementHomeController extends AdvertisementBaseController {
 
-    private static final int DEFAULT_ELEMENTS_SIZE = 6;
-
     private final AdvertisementService advertisementService;
     private final ModelMapper modelMapper;
 
@@ -33,7 +31,7 @@ public class AdvertisementHomeController extends AdvertisementBaseController {
 
     @GetMapping("/home")
     public ModelAndView advertisementsHome(@RequestParam(value = "category", defaultValue = "%%") String category, @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        PageRequest pageRequest = PageRequest.of(page, DEFAULT_ELEMENTS_SIZE, Sort.by("addedOn").descending());
+        PageRequest pageRequest = PageRequest.of(page, ViewConstants.DEFAULT_ELEMENTS_SIZE, Sort.by("addedOn").descending());
 
         AdvertismentHomePageServiceModel advertisementsPage = advertisementService.findAllByCategoryLikeWithPage(category, pageRequest);
 

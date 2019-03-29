@@ -73,6 +73,9 @@ public class UserServiceImpl implements UserServiceExtended {
 
         if (userRepository.count() == 0) {
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_ADMIN));
+            user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
+            user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_MODERATOR));
+            user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_ROOT));
         } else {
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
         }
@@ -165,7 +168,7 @@ public class UserServiceImpl implements UserServiceExtended {
     @Override
     public List<UserServiceModel> findAllByUsernameContaining(String prefix) {
         return userRepository.findAllByUsernameContaining(prefix).stream()
-                .filter(user -> user.getRoles().stream().noneMatch(role -> role.getUserRole() == UserRole.ROOT))
+                .filter(user -> user.getRoles().stream().noneMatch(role -> role.getUserRole() == UserRole.ROLE_ROOT))
                 .map(user -> modelMapper.map(user, UserServiceModel.class))
                 .collect(Collectors.toList());
     }
