@@ -7,4 +7,5 @@ public interface RegionServiceExtended extends RegionService {
     Region findByName(String region);
 
     Region getRegionByName(String region);
+
 }

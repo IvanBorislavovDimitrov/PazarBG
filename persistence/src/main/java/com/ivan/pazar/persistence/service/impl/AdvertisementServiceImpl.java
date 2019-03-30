@@ -37,9 +37,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     private final SubcategoryServiceExtended subcategoryService;
     private final VideoServiceExtended videoService;
     private final VideoManager videoManager;
+    private final RegionServiceExtended regionServiceExtended;
 
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager, RegionServiceExtended regionServiceExtended) {
         this.advertisementRepository = advertisementRepository;
         this.modelMapper = modelMapper;
         this.advertisementPicturesManager = advertisementPicturesManager;
@@ -49,6 +50,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         this.subcategoryService = subcategoryService;
         this.videoService = videoService;
         this.videoManager = videoManager;
+        this.regionServiceExtended = regionServiceExtended;
     }
 
     @Override
@@ -58,7 +60,11 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
             throw new IllegalStateException();
         }
 
-        return modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
+        AdvertisementViewServiceModel advertisementViewServiceModel = modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
+        RegionServiceModel regionServiceModel = regionServiceExtended.getRegionByTownName(advertisement.getTown().getName());
+        advertisementViewServiceModel.setRegion(regionServiceModel.getName());
+
+        return advertisementViewServiceModel;
     }
 
     @Override

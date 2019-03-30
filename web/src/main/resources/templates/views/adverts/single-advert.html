@@ -35,7 +35,25 @@
                     </div>
                     <h3 class="card-title" th:text="*{title}"></h3>
                     <h4 th:text="${#numbers.formatCurrency(advert.price)}"></h4>
-                    <p class="card-text" th:text="*{title}"></p>
+                    <p class="card-text" th:text="*{description}"></p>
+                    <hr/>
+                    <div class="row d-flex justify-content-center ">
+                        <div class="mr-5 ml-5" th:text="'State: ' + *{state}"></div>
+                        <div class="mr-5 ml-5" th:text="'Shipment: ' + *{shipment}"></div>
+                        <div class="mr-5 ml-5" th:text="'Added on: ' + *{#strings.arraySplit(addedOn, 'T')[0]}"></div>
+                    </div>
+                    <hr/>
+                    <div class="row d-flex justify-content-center ">
+                        <div class="mr-5 ml-5" th:text="'Region: ' + *{region}"></div>
+                        <div class="mr-5 ml-5" th:text="'Town: ' + *{town}"></div>
+                    </div>
+                    <hr/>
+                </div>
+            </div>
+            <div class="card card-outline-secondary my-4">
+                <div class="row d-flex justify-content-center">
+                    <button class="mr-5 ml-5 btn btn-success">Send message</button>
+                    <button class="mr-5 ml-5 btn btn-success">0877591400</button>
                 </div>
             </div>
             <div class="card card-outline-secondary my-4">

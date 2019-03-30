@@ -45,4 +45,9 @@ public class Region extends IdEntity {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

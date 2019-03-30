@@ -52,6 +52,11 @@ public class RegionServiceImpl implements RegionServiceExtended {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public RegionServiceModel getRegionByTownName(String townName) {
+        return modelMapper.map(regionRepository.findByTownName(townName), RegionServiceModel.class);
+    }
+
     public Region findByName(String name) {
         return regionRepository.findByName(name);
     }

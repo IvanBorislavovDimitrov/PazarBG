@@ -49,4 +49,9 @@ public class TownServiceModel extends IdServiceModel {
     public void setAdvertisements(List<AdvertisementServiceModel> advertisements) {
         this.advertisements = advertisements;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

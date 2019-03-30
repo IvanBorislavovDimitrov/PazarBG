@@ -12,4 +12,6 @@ public interface RegionService {
     RegionServiceModel save(RegionAddServiceModel regionAddServiceModel);
 
     List<RegionRestServiceModel> getAllRegionsRest();
+
+    RegionServiceModel getRegionByTownName(String townName);
 }

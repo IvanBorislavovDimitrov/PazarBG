@@ -13,6 +13,61 @@ public class AdvertisementViewModel {
     private String video;
     private boolean active;
     private String userUsername;
+    private String addedOn;
+    private String shipment;
+    private String town;
+    private String region;
+    private int views;
+    private String state;
+
+    public String getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(String addedOn) {
+        this.addedOn = addedOn;
+    }
+
+    public String getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(String shipment) {
+        this.shipment = shipment;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     private List<String> pictures;
 
     public boolean isActive() {

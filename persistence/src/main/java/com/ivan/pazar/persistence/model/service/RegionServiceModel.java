@@ -38,4 +38,9 @@ public class RegionServiceModel extends IdServiceModel {
     public void setUsers(List<UserServiceModel> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
