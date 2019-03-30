@@ -12,7 +12,7 @@ public class AdvertisementServiceModel extends IdServiceModel {
 
     private String title;
 
-    private LocalDate addedOn;
+    private String addedOn;
 
     private Shipment shipment;
 
@@ -52,11 +52,11 @@ public class AdvertisementServiceModel extends IdServiceModel {
         this.title = title;
     }
 
-    public LocalDate getAddedOn() {
+    public String getAddedOn() {
         return addedOn;
     }
 
-    public void setAddedOn(LocalDate addedOn) {
+    public void setAddedOn(String addedOn) {
         this.addedOn = addedOn;
     }
 

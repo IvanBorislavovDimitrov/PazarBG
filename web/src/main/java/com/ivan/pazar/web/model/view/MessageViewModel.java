@@ -2,13 +2,43 @@ package com.ivan.pazar.web.model.view;
 
 public class MessageViewModel {
 
-    private String message;
+    private String content;
 
-    public String getMessage() {
-        return message;
+    private String receiver;
+
+    private String addedOn;
+
+    private AdvertisementViewModel advertisement;
+
+    public String getAddedOn() {
+        return addedOn;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setAddedOn(String addedOn) {
+        this.addedOn = addedOn;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public AdvertisementViewModel getAdvertisement() {
+        return advertisement;
+    }
+
+    public void setAdvertisement(AdvertisementViewModel advertisement) {
+        this.advertisement = advertisement;
     }
 }

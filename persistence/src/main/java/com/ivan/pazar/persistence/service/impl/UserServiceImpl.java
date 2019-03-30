@@ -11,9 +11,7 @@ import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.exceptions.PhoneNumberTakenException;
-import com.ivan.pazar.persistence.model.service.UserChangePassword;
-import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
-import com.ivan.pazar.persistence.model.service.UserServiceModel;
+import com.ivan.pazar.persistence.model.service.*;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.UserRepository;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
@@ -106,9 +104,18 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public UserServiceModel findUserByUsername(String username) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username).orElse(null);
 
-        return optionalUser.map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
+        UserServiceModel userServiceModel = modelMapper.map(user, UserServiceModel.class);
+        userServiceModel.getSentMessages().clear();
+        user.getSentMessages().forEach(sentMessage -> {
+            User receiver = sentMessage.getReceiver();
+            MessageServiceModel messageServiceModel = modelMapper.map(sentMessage, MessageServiceModel.class);
+            messageServiceModel.setReceiver(modelMapper.map(receiver, UserServiceModel.class));
+            userServiceModel.getSentMessages().add(messageServiceModel);
+        });
+
+        return userServiceModel;
     }
 
     @Override

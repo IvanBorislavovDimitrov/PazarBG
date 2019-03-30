@@ -4,9 +4,27 @@ public class MessageServiceModel extends IdServiceModel {
 
     private String content;
 
-    private UserServiceModel sender;
+    private String addedOn;
 
     private UserServiceModel receiver;
+
+    private AdvertisementServiceModel advertisement;
+
+    public String getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(String addedOn) {
+        this.addedOn = addedOn;
+    }
+
+    public AdvertisementServiceModel getAdvertisement() {
+        return advertisement;
+    }
+
+    public void setAdvertisement(AdvertisementServiceModel advertisement) {
+        this.advertisement = advertisement;
+    }
 
     public String getContent() {
         return content;
@@ -14,14 +32,6 @@ public class MessageServiceModel extends IdServiceModel {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public UserServiceModel getSender() {
-        return sender;
-    }
-
-    public void setSender(UserServiceModel sender) {
-        this.sender = sender;
     }
 
     public UserServiceModel getReceiver() {

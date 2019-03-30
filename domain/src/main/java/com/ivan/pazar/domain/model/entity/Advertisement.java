@@ -78,6 +78,9 @@ public class Advertisement extends IdEntity {
     @OneToMany(mappedBy = "advertisement", targetEntity = Review.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "advertisement", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Message.class)
+    private List<Message> messages;
+
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
@@ -87,6 +90,19 @@ public class Advertisement extends IdEntity {
         usersFavourites = new ArrayList<>();
         pictures = new ArrayList<>();
         reviews = new ArrayList<>();
+        messages = new ArrayList<>();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public String getTitle() {

@@ -27,7 +27,6 @@ public class UserProfileController extends UserBaseController {
         this.userConfiguration = userConfiguration;
     }
 
-    // TODO: Add user register date
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView profile(Model model) {

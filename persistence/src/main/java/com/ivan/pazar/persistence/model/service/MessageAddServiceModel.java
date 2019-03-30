@@ -2,13 +2,13 @@ package com.ivan.pazar.persistence.model.service;
 
 public class MessageAddServiceModel {
 
-    private String message;
+    private String content;
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

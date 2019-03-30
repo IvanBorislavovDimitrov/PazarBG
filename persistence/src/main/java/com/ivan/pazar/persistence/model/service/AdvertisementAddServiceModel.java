@@ -18,6 +18,15 @@ public class AdvertisementAddServiceModel {
     private List<MultipartFile> photos;
     private String subcategory;
     private String description;
+    private String addedOn;
+
+    public String getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(String addedOn) {
+        this.addedOn = addedOn;
+    }
 
     public String getTitle() {
         return title;

@@ -52,8 +52,8 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    @Scheduled(fixedRate = ONE_DAY)
-    @Async
+//    @Scheduled(fixedRate = ONE_DAY)
+//    @Async
     public void sendDailyNotifications() {
         int page = 0;
         PageRequest pageRequest = PageRequest.of(page, WebConstants.DEFAULT_USERS_SIZE, Sort.by(Sort.Order.asc(WebConstants.ID)));

@@ -24,6 +24,18 @@ public class Message extends IdEntity {
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private User receiver;
 
+    @ManyToOne
+    @JoinColumn(name = "advertisement_id", referencedColumnName = "id")
+    private Advertisement advertisement;
+
+    public Advertisement getAdvertisement() {
+        return advertisement;
+    }
+
+    public void setAdvertisement(Advertisement advertisement) {
+        this.advertisement = advertisement;
+    }
+
     public LocalDateTime getAddedOn() {
         return addedOn;
     }

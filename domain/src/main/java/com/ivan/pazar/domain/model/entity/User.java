@@ -269,4 +269,9 @@ public class User extends IdEntity {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+    @Override
+    public String toString() {
+        return username;
+    }
 }

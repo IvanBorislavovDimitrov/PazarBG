@@ -4,12 +4,10 @@ import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.domain.model.entity.Message;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.persistence.model.service.MessageAddServiceModel;
-import com.ivan.pazar.persistence.model.service.MessageServiceModel;
 import com.ivan.pazar.persistence.repository.MessageRepository;
 import com.ivan.pazar.persistence.service.service_api.AdvertisementServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.MessageServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,8 +38,9 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
         Message message = new Message();
         message.setAddedOn(LocalDateTime.now());
-        message.setContent(messageAddServiceModel.getMessage());
+        message.setContent(messageAddServiceModel.getContent());
         message.setReceiver(advertisement.getAuthor());
+        message.setAdvertisement(advertisement);
         message.setSender(user);
 
         messageRepository.save(message);
