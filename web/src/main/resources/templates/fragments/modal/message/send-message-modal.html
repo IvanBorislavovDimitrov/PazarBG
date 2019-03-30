@@ -1,24 +1,24 @@
-<th:block th:fragment="edit-review-modal" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="modal fade" id="edit-review-modal">
+<th:block th:fragment="send-message-modal" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="modal fade" id="send-message-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Car</h5>
+                    <h5 class="modal-title">Send Message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="edit-review-form" class="form" th:action="@{/reviews/edit(advertId=${advert.id})}"
+                <form id="send-message-form" class="form" th:action="@{/adverts/send-message(advertId=${advert.id})}"
                       th:method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="comment" class="font-weight-bold">Comment</label>
-                            <textarea class="form-control text-center" id="comment" name="text"></textarea>
+                            <label for="message" class="font-weight-bold">Message</label>
+                            <textarea class="form-control text-center" id="message" name="message"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="submit" class="btn btn-success" data-dismiss="modal"
-                                onclick="$('#edit-review-form').submit()">Edit Comment
+                                onclick="$('#send-message-form').submit()">Send message
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>

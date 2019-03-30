@@ -1,9 +1,8 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.persistence.model.service.MessageServiceModel;
+import com.ivan.pazar.persistence.model.service.MessageAddServiceModel;
 
 public interface MessageService {
 
-    MessageServiceModel save(MessageServiceModel messageServiceModel);
-
+    void sendMessage(String advertId, MessageAddServiceModel messageAddServiceModel, String loggedUserUsername);
 }

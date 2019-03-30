@@ -1,9 +1,6 @@
 package com.ivan.pazar.persistence.service.api;
 
-import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
-import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
-import com.ivan.pazar.persistence.model.service.AdvertisementViewServiceModel;
-import com.ivan.pazar.persistence.model.service.AdvertisementHomePageServiceModel;
+import com.ivan.pazar.persistence.model.service.*;
 import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
 import org.springframework.data.domain.PageRequest;
 

@@ -1,6 +1,10 @@
 package com.ivan.pazar.domain.model.entity;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "messages")
@@ -9,6 +13,9 @@ public class Message extends IdEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "date", nullable = false)
+    private LocalDateTime addedOn;
+
     @ManyToOne
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private User sender;
@@ -16,6 +23,14 @@ public class Message extends IdEntity {
     @ManyToOne
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private User receiver;
+
+    public LocalDateTime getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(LocalDateTime addedOn) {
+        this.addedOn = addedOn;
+    }
 
     public String getContent() {
         return content;

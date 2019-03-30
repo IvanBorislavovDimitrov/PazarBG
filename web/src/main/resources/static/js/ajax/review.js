@@ -6,11 +6,10 @@ $(document).ready(() => {
     $.getJSON("/api/reviews/all?advertId=" + advertId, function (reviews) {
         reviews.forEach(function (review) {
             if (review.username === review.loggedUserUsername || review.loggedUserRoles.includes('ROLE_ADMIN') ||
-                review.loggedUserRoles.includes('ROLE_MODERATOR')) {
+                review.loggedUserRoles.includes('ROLE_MODERATOR') || review.loggedUserRoles.includes('ROLE_ROOT')) {
 
                 const myValue = ("button"+review.id);
-                console.log(myValue);
-                reviewsSerction.append(`<button type="submit" id="${myValue}" class="btn btn-danger">Delete</button>`);
+                reviewsSerction.append(`<button type="submit" id="${myValue}" class="btn btn-danger md-3">Delete</button>`);
                 $('#'+myValue).on("click", function () {
                     alert("Post sent");
                     $.ajax({

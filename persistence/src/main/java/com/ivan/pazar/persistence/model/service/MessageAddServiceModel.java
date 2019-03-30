@@ -1,6 +1,6 @@
-package com.ivan.pazar.web.model.view;
+package com.ivan.pazar.persistence.model.service;
 
-public class MessageViewModel {
+public class MessageAddServiceModel {
 
     private String message;
 
