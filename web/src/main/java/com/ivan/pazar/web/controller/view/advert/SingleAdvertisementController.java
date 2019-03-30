@@ -23,11 +23,13 @@ public class SingleAdvertisementController extends AdvertisementBaseController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ModelAndView singleAdvertisement(@PathVariable("id") String id, Model model) {
         AdvertisementViewModel advertisementViewModel = modelMapper.map(advertisementService.findById(id), AdvertisementViewModel.class);
-        
+
         model.addAttribute(ViewConstants.ADVERT, advertisementViewModel);
         return renderView(ViewConstants.VIEWS_SINGLE_ADVERT, model);
     }
+
+
 }

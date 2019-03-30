@@ -124,6 +124,13 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     @Override
+    public AdvertismentHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest) {
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByTitleLike(keyword, pageRequest);
+
+        return getAdvertisementHomePageServiceModel(advertisementPage);
+    }
+
+    @Override
     public Advertisement getAdvertisementById(String id) {
         return advertisementRepository.findById(id).orElse(null);
     }

@@ -1,5 +1,9 @@
 package com.ivan.pazar.web.constants;
 
+import org.springframework.data.domain.Sort;
+
+import java.util.List;
+
 public class ViewConstants {
 
     public static final String INVALID_USER_FORM = "invalidUserForm";
@@ -21,6 +25,7 @@ public class ViewConstants {
     public static final int DEFAULT_ELEMENTS_SIZE = 6;
     public static final String TRUE = "true";
     public static final String LOGIN_ERROR = "loginError";
+    public static final String ADDED_ON = "addedOn";
 
     public static final String VIEW_INDEX = "views/index";
     public static final String VIEWS_USER_REGISTER = "views/users/register";

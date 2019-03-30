@@ -22,4 +22,6 @@ public interface AdvertisementService {
     AdvertismentHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
 
     void activateAdvertisement(String advertId);
+
+    AdvertismentHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest);
 }

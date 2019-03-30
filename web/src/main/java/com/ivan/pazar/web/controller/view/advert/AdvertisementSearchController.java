@@ -14,32 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class AdvertisementHomeController extends AdvertisementBaseController {
+public class AdvertisementSearchController extends AdvertisementBaseController {
 
     private final AdvertisementService advertisementService;
     private final Pagination pagination;
 
     @Autowired
-    public AdvertisementHomeController(AdvertisementService advertisementService, Pagination pagination) {
+    public AdvertisementSearchController(AdvertisementService advertisementService, Pagination pagination) {
         this.advertisementService = advertisementService;
         this.pagination = pagination;
     }
 
-    @GetMapping("/home")
-    public ModelAndView advertisementsHome(@RequestParam(value = "category", defaultValue = "%%") String category, @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+    @GetMapping("/search")
+    public ModelAndView searchForAdvertisements(@RequestParam(value = "keyword", defaultValue = "%%") String keyword, @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         PageRequest pageRequest = PageRequest.of(page, ViewConstants.DEFAULT_ELEMENTS_SIZE, Sort.by(ViewConstants.ADDED_ON).descending());
 
-        AdvertismentHomePageServiceModel advertisementsPage = advertisementService.findAllByCategoryLikeWithPage(category, pageRequest);
+        AdvertismentHomePageServiceModel advertismentHomePageServiceModel = advertisementService.findByKeyword(keyword, pageRequest);
 
-        pagination.createAdvertisementsPages(page, model, advertisementsPage);
-
-        if (!category.equals("%%"))
-            model.addAttribute(ViewConstants.CATEGORY, category);
-        //TODO: REFACTOR
-        model.addAttribute(ViewConstants.PAGES, new int[advertisementsPage.getPages()]);
+        pagination.createAdvertisementsPages(page, model, advertismentHomePageServiceModel);
 
         return renderView(ViewConstants.VIEWS_ADVERTS_HOME, model);
     }
-
-
 }
