@@ -1,6 +1,7 @@
 package com.ivan.pazar.domain.model.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +31,9 @@ public class User extends IdEntity {
 
     @Column(name = "website_address")
     private String websiteAddress;
+
+    @Column(name = "registered_at")
+    private LocalDateTime registeredAt;
 
     @ManyToOne
     @JoinColumn(name = "region_id", referencedColumnName = "id")
@@ -93,6 +97,7 @@ public class User extends IdEntity {
         setWebsiteAddress(user.websiteAddress);
         setRegion(user.region);
         setTown(user.town);
+        setRegisteredAt(user.getRegisteredAt());
         setDescription(user.description);
         setAdvertisements(user.advertisements);
         setRoles(user.roles);
@@ -103,6 +108,14 @@ public class User extends IdEntity {
         setReceivedMessages(user.receivedMessages);
         setSentMessages(user.sentMessages);
         setReviews(user.reviews);
+    }
+
+    public LocalDateTime getRegisteredAt() {
+        return registeredAt;
+    }
+
+    public void setRegisteredAt(LocalDateTime registeredAt) {
+        this.registeredAt = registeredAt;
     }
 
     public String getEmail() {

@@ -22,13 +22,13 @@ import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserServiceExtended {
         }
         user.setRegion(regionService.findByName(userServiceBindingModel.getRegion()));
         user.setTown(townService.findByName(userServiceBindingModel.getTown()));
-
+        user.setRegisteredAt(LocalDateTime.now());
         userRepository.save(user);
 
         return modelMapper.map(user, UserServiceModel.class);
