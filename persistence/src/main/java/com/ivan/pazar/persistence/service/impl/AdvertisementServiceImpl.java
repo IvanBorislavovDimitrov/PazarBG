@@ -157,7 +157,6 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         AdvertisementRestServiceModel advertisementRestServiceModel = modelMapper.map(advertisement, AdvertisementRestServiceModel.class);
         advertisementRestServiceModel.setDescription(advertisement.getDescription().substring(0, Math.min(MAX_LENGTH_OF_DESCRIPTION, advertisement.getDescription().length())));
         advertisementRestServiceModel.setPicture(getLastAdvertisementPicture(advertisement.getPictures()));
-        advertisementRestServiceModel.setUserRating(advertisement.getAuthor().getRating());
         if (advertisement.getVideo() != null) {
             advertisementRestServiceModel.setVideo(advertisement.getVideo().getName());
         }

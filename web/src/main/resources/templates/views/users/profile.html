@@ -29,7 +29,6 @@
             <div class="profile-head">
                 <h5 th:text="*{username}">
                 </h5>
-                <p class="proile-rating">Rating : <span th:text="*{rating}"></span></p>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
@@ -114,14 +113,6 @@
                         </div>
                         <div class="col-md-6">
                             <p th:text="*{advertisements.size()}"></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Rating</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p th:text="*{rating}"></p>
                         </div>
                     </div>
                     <div class="row">

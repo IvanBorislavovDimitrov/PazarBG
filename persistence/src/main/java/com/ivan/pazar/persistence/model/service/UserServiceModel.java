@@ -29,8 +29,6 @@ public class UserServiceModel extends IdServiceModel {
 
     private String description;
 
-    private double rating;
-
     private List<AdvertisementServiceModel> advertisements;
 
     private List<MessageServiceModel> sentMessages;
@@ -127,14 +125,6 @@ public class UserServiceModel extends IdServiceModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 
     public List<AdvertisementServiceModel> getAdvertisements() {

@@ -42,9 +42,6 @@ public class User extends IdEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "rating", nullable = false)
-    private double rating;
-
     @OneToMany(mappedBy = "author", targetEntity = Advertisement.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Advertisement> advertisements;
 
@@ -105,7 +102,6 @@ public class User extends IdEntity {
         setSearchedAdvertisements(user.searchedAdvertisements);
         setReceivedMessages(user.receivedMessages);
         setSentMessages(user.sentMessages);
-        setRating(user.rating);
         setReviews(user.reviews);
     }
 
@@ -179,14 +175,6 @@ public class User extends IdEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 
     public List<Advertisement> getAdvertisements() {

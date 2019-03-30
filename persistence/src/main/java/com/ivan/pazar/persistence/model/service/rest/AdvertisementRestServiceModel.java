@@ -10,7 +10,6 @@ public class AdvertisementRestServiceModel {
     private BigDecimal price;
     private String description;
     private String video;
-    private double userRating;
     private String userUsername;
 
     public String getUserUsername() {
@@ -51,14 +50,6 @@ public class AdvertisementRestServiceModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getUserRating() {
-        return userRating;
-    }
-
-    public void setUserRating(double userRating) {
-        this.userRating = userRating;
     }
 
     public String getId() {
