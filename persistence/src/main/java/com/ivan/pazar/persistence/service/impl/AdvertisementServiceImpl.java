@@ -125,7 +125,8 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public AdvertismentHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest) {
-        Page<Advertisement> advertisementPage = advertisementRepository.findAllByTitleLike(keyword, pageRequest);
+        String keywordWithExtensions = "%" + keyword + "%";
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByTitleLike(keywordWithExtensions, pageRequest);
 
         return getAdvertisementHomePageServiceModel(advertisementPage);
     }
@@ -177,7 +178,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
             return;
         }
         List<String> picturesNames = getPicturesNames(advertisementServiceModelId, advertisementAddServiceModel.getPhotos());
-        executeInNewThread(() -> savePictures(picturesNames, advertisementServiceModelId, photos));
+        executeInNewThread(() -> savePictures(picturesNames, photos));
         executeInNewThread(() -> saveVideo(advertisementServiceModel.getId(), advertisementAddServiceModel.getVideo()));
         advertisement.setPictures(picturesNames);
     }
@@ -203,7 +204,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         return "_" + advertisementId + "." + Utils.getFileNameExtension(video.getOriginalFilename());
     }
 
-    private void savePictures(List<String> picturesNames, String advertisementId, List<MultipartFile> pictures) {
+    private void savePictures(List<String> picturesNames, List<MultipartFile> pictures) {
         List<byte[]> picturesContents = getPicturesContents(pictures);
         try {
             advertisementPicturesManager.savePictures(picturesNames, picturesContents);
