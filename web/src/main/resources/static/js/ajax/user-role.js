@@ -32,14 +32,14 @@ function getHTML(role, isValid) {
     if (isValid) {
         return '<div class="form-check">\n' +
             '<label class="form-check-label">\n' +
-            '<input class="form-check-input" type="checkbox" name="' + role + '" checked>\n' +
+            '<input disabled class="form-check-input" type="checkbox" name="' + role + '" checked>\n' +
             role +
             '</label>\n</div>'
     }
 
     return '<div class="form-check">\n' +
         '<label class="form-check-label">\n' +
-        '<input class="form-check-input" type="checkbox" name="' + role + '">\n' +
+        '<input disabled class="form-check-input" type="checkbox" name="' + role + '">\n' +
         role +
         '</label>\n</div>'
 }

@@ -11,6 +11,15 @@ public class AdvertisementRestViewModel {
     private String description;
     private String video;
     private double userRating;
+    private String userUsername;
+
+    public String getUserUsername() {
+        return userUsername;
+    }
+
+    public void setUserUsername(String userUsername) {
+        this.userUsername = userUsername;
+    }
 
     public String getPicture() {
         return picture;

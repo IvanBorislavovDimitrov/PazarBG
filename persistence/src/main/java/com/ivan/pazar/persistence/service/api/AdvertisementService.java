@@ -3,7 +3,7 @@ package com.ivan.pazar.persistence.service.api;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
 import com.ivan.pazar.persistence.model.service.AdvertisementServiceModel;
 import com.ivan.pazar.persistence.model.service.AdvertisementViewServiceModel;
-import com.ivan.pazar.persistence.model.service.AdvertismentHomePageServiceModel;
+import com.ivan.pazar.persistence.model.service.AdvertisementHomePageServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
 import org.springframework.data.domain.PageRequest;
 
@@ -17,11 +17,11 @@ public interface AdvertisementService {
 
     List<AdvertisementRestServiceModel> findSixMostRecentAdvertisements();
 
-    AdvertismentHomePageServiceModel findAllByCategoryLikeWithPage(String category, PageRequest pageRequest);
+    AdvertisementHomePageServiceModel findAllByCategoryLikeWithPage(String category, PageRequest pageRequest);
 
-    AdvertismentHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
+    AdvertisementHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
 
     void activateAdvertisement(String advertId);
 
-    AdvertismentHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest);
+    AdvertisementHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest);
 }

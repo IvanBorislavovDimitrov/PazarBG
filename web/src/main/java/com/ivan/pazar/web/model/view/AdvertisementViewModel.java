@@ -12,7 +12,20 @@ public class AdvertisementViewModel {
     private String description;
     private String video;
     private boolean active;
+    private String userUsername;
     private List<String> pictures;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getUserUsername() {
+        return userUsername;
+    }
+
+    public void setUserUsername(String userUsername) {
+        this.userUsername = userUsername;
+    }
 
     public boolean getActive() {
         return active;

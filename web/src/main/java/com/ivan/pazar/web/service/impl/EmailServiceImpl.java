@@ -51,7 +51,6 @@ public class EmailServiceImpl implements EmailService {
     @Scheduled(fixedRate = ONE_DAY)
     @Async
     public void sendDailyNotifications() {
-        System.out.println("EBNE");
         int page = 0;
         PageRequest pageRequest = PageRequest.of(page, ViewConstants.DEFAULT_USERS_SIZE, Sort.by(Sort.Order.asc(ViewConstants.ID)));
         List<String> usersEmails = userService.getUsersEmails(pageRequest);

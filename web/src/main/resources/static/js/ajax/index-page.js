@@ -13,7 +13,8 @@ $(document).ready(function () {
                             <p class="card-text">${advert.description}</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            <small class="text-muted">
+                            <a href="/users/other-user-profile?username=${advert.userUsername}">${advert.userUsername}</a></small>
                         </div>
                     </div>
                 </div>`)

@@ -12,7 +12,8 @@
             </div>
             <form class="form-group mt-3" th:action="@{/users/edit/picture}" method="post"
                   enctype="multipart/form-data">
-                <div class="input-group mb-3">
+
+                <div th:if="${#authentication.getPrincipal().getUsername() == user.username}" class="input-group mb-3">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile02" name="picture">
                         <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
@@ -41,7 +42,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-2">
+        <div th:if="${#authentication.getPrincipal().getUsername() == user.username}" class="col-md-2">
             <a th:href="@{/users/edit}" class="btn btn-warning">Edit profile</a>
             <a th:href="@{/users/change-password}" class="btn btn-warning">Change password</a>
             <a th:href="@{/users/delete}" class="btn btn-danger">Delete profile</a>
