@@ -20,4 +20,6 @@ public interface AdvertisementService {
     AdvertismentHomePageServiceModel findAllByCategoryLikeWithPage(String category, PageRequest pageRequest);
 
     AdvertismentHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
+
+    void activateAdvertisement(String advertId);
 }

@@ -12,6 +12,16 @@ public class AdvertisementViewServiceModel {
     private String description;
     private List<String> pictures;
     private String video;
+    private boolean active;
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public AdvertisementViewServiceModel() {
         pictures = new ArrayList<>();
     }

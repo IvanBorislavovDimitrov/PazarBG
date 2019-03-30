@@ -114,6 +114,16 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     @Override
+    public void activateAdvertisement(String advertId) {
+        Advertisement advertisement = advertisementRepository.findById(advertId).orElse(null);
+        if (advertisement == null) {
+            return;
+        }
+        advertisement.setActive(true);
+        advertisementRepository.save(advertisement);
+    }
+
+    @Override
     public Advertisement getAdvertisementById(String id) {
         return advertisementRepository.findById(id).orElse(null);
     }

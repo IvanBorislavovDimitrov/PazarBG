@@ -11,7 +11,16 @@ public class AdvertisementViewModel {
     private BigDecimal price;
     private String description;
     private String video;
+    private boolean active;
     private List<String> pictures;
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public AdvertisementViewModel() {
         pictures = new ArrayList<>();

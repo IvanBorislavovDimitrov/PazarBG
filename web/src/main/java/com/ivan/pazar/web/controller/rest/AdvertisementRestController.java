@@ -32,4 +32,6 @@ public class AdvertisementRestController {
                         modelMapper.map(advertisementRestServiceModel, AdvertisementRestViewModel.class))
                 .collect(Collectors.toList());
     }
+
+
 }
