@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 @Component
-public class DefaultInterceptor implements HandlerInterceptor {
+public class LogInterceptor implements HandlerInterceptor {
 
     @Autowired
     private LogService logService;
@@ -24,7 +24,6 @@ public class DefaultInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserConfiguration userConfiguration;
-
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

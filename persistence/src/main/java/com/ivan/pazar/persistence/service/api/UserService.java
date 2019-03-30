@@ -4,6 +4,7 @@ import com.ivan.pazar.persistence.model.service.UserChangePassword;
 import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public interface UserService {
     void updateUserRole(UserChangeRoleServiceModel map);
 
     void deleteByUsername(String username);
+
+    List<String> getUsersEmails(PageRequest pageRequest);
 
     Set<String> getRolesForUser(String username);
 }

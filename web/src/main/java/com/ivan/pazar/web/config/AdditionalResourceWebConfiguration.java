@@ -2,7 +2,7 @@ package com.ivan.pazar.web.config;
 
 import com.ivan.pazar.persistence.constants.ConfigConstants;
 import com.ivan.pazar.persistence.util.Utils;
-import com.ivan.pazar.web.interceptors.DefaultInterceptor;
+import com.ivan.pazar.web.interceptors.LogInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,8 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 
     @Bean
-    public DefaultInterceptor defaultInterceptor() {
-        return new DefaultInterceptor();
+    public LogInterceptor defaultInterceptor() {
+        return new LogInterceptor();
     }
 
     @Override

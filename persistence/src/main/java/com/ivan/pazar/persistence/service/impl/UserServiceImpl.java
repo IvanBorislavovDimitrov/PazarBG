@@ -22,6 +22,8 @@ import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -208,6 +210,13 @@ public class UserServiceImpl implements UserServiceExtended {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public List<String> getUsersEmails(PageRequest pageRequest) {
+        return userRepository.findAll(pageRequest).stream()
+                .map(User::getEmail)
+                .collect(Collectors.toList());
+    }
+
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {
         if (user.getPhoneNumber().equals(phoneNumber)) {
             return true;
@@ -266,4 +275,5 @@ public class UserServiceImpl implements UserServiceExtended {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }
+
 }

@@ -1,11 +1,10 @@
 package com.ivan.pazar.web.controller.view;
 
 import com.ivan.pazar.web.constants.ViewConstants;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.ivan.pazar.web.service.impl.EmailServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
