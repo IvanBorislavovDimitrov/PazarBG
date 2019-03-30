@@ -30,7 +30,7 @@ public class AdvertisementServiceModel extends IdServiceModel {
 
     private List<UserServiceModel> usersFavourites;
 
-    private List<CommentServiceModel> comments;
+    private List<ReviewServiceModel> reviews;
 
     private CategoryServiceModel category;
 
@@ -41,7 +41,7 @@ public class AdvertisementServiceModel extends IdServiceModel {
     public AdvertisementServiceModel() {
         usersSearches = new ArrayList<>();
         usersFavourites = new ArrayList<>();
-        comments = new ArrayList<>();
+        reviews = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -124,12 +124,12 @@ public class AdvertisementServiceModel extends IdServiceModel {
         this.usersFavourites = usersFavourites;
     }
 
-    public List<CommentServiceModel> getComments() {
-        return comments;
+    public List<ReviewServiceModel> getReviews() {
+        return reviews;
     }
 
-    public void setComments(List<CommentServiceModel> comments) {
-        this.comments = comments;
+    public void setReviews(List<ReviewServiceModel> reviews) {
+        this.reviews = reviews;
     }
 
     public CategoryServiceModel getCategory() {

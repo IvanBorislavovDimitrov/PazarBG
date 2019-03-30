@@ -20,14 +20,14 @@ public class UserProfileViewModel {
     private List<MessageViewModel> receivedMessages;
     private List<AdvertisementViewModel> searchedAdvertisements;
     private String profilePictureName;
-    private List<CommentViewModel> comments;
+    private List<ReviewViewModel> reviews;
 
     public UserProfileViewModel() {
         advertisements = new ArrayList<>();
         sentMessages = new ArrayList<>();
         receivedMessages = new ArrayList<>();
         searchedAdvertisements = new ArrayList<>();
-        comments = new ArrayList<>();
+        reviews = new ArrayList<>();
     }
 
     public String getId() {
@@ -150,11 +150,11 @@ public class UserProfileViewModel {
         this.profilePictureName = profilePictureName;
     }
 
-    public List<CommentViewModel> getComments() {
-        return comments;
+    public List<ReviewViewModel> getReviews() {
+        return reviews;
     }
 
-    public void setComments(List<CommentViewModel> comments) {
-        this.comments = comments;
+    public void setReviews(List<ReviewViewModel> reviews) {
+        this.reviews = reviews;
     }
 }

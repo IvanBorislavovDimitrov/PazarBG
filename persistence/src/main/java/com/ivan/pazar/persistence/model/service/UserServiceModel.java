@@ -39,7 +39,7 @@ public class UserServiceModel extends IdServiceModel {
 
     private String profilePictureName;
 
-    private List<CommentServiceModel> comments;
+    private List<ReviewServiceModel> reviews;
 
     private List<AdvertisementServiceModel> favouriteAdvertisements;
 
@@ -50,7 +50,7 @@ public class UserServiceModel extends IdServiceModel {
         sentMessages = new ArrayList<>();
         receivedMessages = new ArrayList<>();
         searchedAdvertisements = new ArrayList<>();
-        comments = new ArrayList<>();
+        reviews = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
         roles = new HashSet<>();
     }
@@ -167,12 +167,12 @@ public class UserServiceModel extends IdServiceModel {
         this.profilePictureName = profilePictureName;
     }
 
-    public List<CommentServiceModel> getComments() {
-        return comments;
+    public List<ReviewServiceModel> getReviews() {
+        return reviews;
     }
 
-    public void setComments(List<CommentServiceModel> comments) {
-        this.comments = comments;
+    public void setReviews(List<ReviewServiceModel> reviews) {
+        this.reviews = reviews;
     }
 
     public List<AdvertisementServiceModel> getFavouriteAdvertisements() {
