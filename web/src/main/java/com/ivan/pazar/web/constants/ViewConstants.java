@@ -19,6 +19,8 @@ public class ViewConstants {
     public static final String TOWN = "town";
     public static final String ANONYMOUS_USER = "anonymousUser";
     public static final int DEFAULT_ELEMENTS_SIZE = 6;
+    public static final String TRUE = "true";
+    public static final String LOGIN_ERROR = "loginError";
 
     public static final String VIEW_INDEX = "views/index";
     public static final String VIEWS_USER_REGISTER = "views/users/register";
@@ -47,4 +49,5 @@ public class ViewConstants {
     public static final String REDIRECT_USER_PROFILE = "users/profile";
     public static final String REDIRECT_ADMIN_CHANGE = "admin/change-user-role";
     public static final String REDIRECT_TO_ADVERT = "adverts/%s";
+
 }
