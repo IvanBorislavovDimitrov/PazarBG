@@ -138,6 +138,17 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     @Override
+    public void incrementViews(String id) {
+        Advertisement advertisement = advertisementRepository.findById(id).orElse(null);
+        if (advertisement == null) {
+            return;
+        }
+
+        advertisement.setViews(advertisement.getViews() + 1);
+        advertisementRepository.saveAndFlush(advertisement);
+    }
+
+    @Override
     public Advertisement getAdvertisementById(String id) {
         return advertisementRepository.findById(id).orElse(null);
     }

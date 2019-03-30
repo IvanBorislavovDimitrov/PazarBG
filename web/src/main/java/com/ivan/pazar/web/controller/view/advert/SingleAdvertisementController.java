@@ -27,6 +27,8 @@ public class SingleAdvertisementController extends AdvertisementBaseController {
     public ModelAndView singleAdvertisement(@PathVariable("id") String id, Model model) {
         AdvertisementViewModel advertisementViewModel = modelMapper.map(advertisementService.findById(id), AdvertisementViewModel.class);
 
+        advertisementService.incrementViews(id);
+
         model.addAttribute(WebConstants.ADVERT, advertisementViewModel);
         return renderView(WebConstants.VIEWS_SINGLE_ADVERT, model);
     }

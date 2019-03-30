@@ -24,4 +24,6 @@ public interface AdvertisementService {
     void activateAdvertisement(String advertId);
 
     AdvertisementHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest);
+
+    void incrementViews(String id);
 }

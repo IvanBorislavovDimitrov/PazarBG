@@ -45,7 +45,11 @@ public class EmailServiceImpl implements EmailService {
         String text = String.format(REGISTER_MESSAGE, System.lineSeparator());
         simpleMailMessage.setText(text);
 
-        javaMailSender.send(simpleMailMessage);
+        try {
+            javaMailSender.send(simpleMailMessage);
+        } catch (Exception e) {
+            e.printStackTrace();    
+        }
     }
 
     @Scheduled(fixedRate = ONE_DAY)
@@ -72,6 +76,10 @@ public class EmailServiceImpl implements EmailService {
         simpleMailMessage.setFrom(DEFAULT_MAIL_SENDER);
         simpleMailMessage.setText(EmailServiceImpl.DAILY_MESSAGE);
 
-        javaMailSender.send(simpleMailMessage);
+        try {
+            javaMailSender.send(simpleMailMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
