@@ -3,7 +3,7 @@ package com.ivan.pazar.web.controller.view.review;
 import com.ivan.pazar.persistence.model.service.ReviewAddServiceModel;
 import com.ivan.pazar.persistence.service.api.ReviewService;
 import com.ivan.pazar.web.config.UserConfiguration;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.ReviewAddViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +37,14 @@ public class ReviewAddController extends ReviewBaseController {
     @PreAuthorize("isAuthenticated()")
     public ModelAndView reviewAdd(Model model) {
 
-        return renderView(ViewConstants.VIEWS_REVIEW_ADD, model);
+        return renderView(WebConstants.VIEWS_REVIEW_ADD, model);
     }
 
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView reviewAddConfirm(@ModelAttribute(ViewConstants.REVIEW) @Valid ReviewAddViewModel reviewAddViewModel, @RequestParam("advertId") String advertId, BindingResult bindingResult, Model model) {
+    public ModelAndView reviewAddConfirm(@ModelAttribute(WebConstants.REVIEW) @Valid ReviewAddViewModel reviewAddViewModel, @RequestParam("advertId") String advertId, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_REVIEW_ADD, model);
+            return renderView(WebConstants.VIEWS_REVIEW_ADD, model);
         }
 
         ReviewAddServiceModel reviewAddServiceModel = modelMapper.map(reviewAddViewModel, ReviewAddServiceModel.class);
@@ -54,10 +54,10 @@ public class ReviewAddController extends ReviewBaseController {
 
         reviewService.save(reviewAddServiceModel);
 
-        return redirect(String.format(ViewConstants.REDIRECT_TO_ADVERT, advertId));
+        return redirect(String.format(WebConstants.REDIRECT_TO_ADVERT, advertId));
     }
 
-    @ModelAttribute(ViewConstants.REDIRECT_CATEGORY_ADD)
+    @ModelAttribute(WebConstants.REDIRECT_CATEGORY_ADD)
     public ReviewAddViewModel reviewAddViewModel() {
         return new ReviewAddViewModel();
     }

@@ -2,7 +2,7 @@ package com.ivan.pazar.web.controller.view.region;
 
 import com.ivan.pazar.persistence.model.service.RegionAddServiceModel;
 import com.ivan.pazar.persistence.service.api.RegionService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.RegionAddBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +32,19 @@ public class RegionAddController extends RegionBaseController {
     @GetMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ModelAndView addRegion(Model model) {
-        return renderView(ViewConstants.VIEWS_ADD_REGION, model);
+        return renderView(WebConstants.VIEWS_ADD_REGION, model);
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ModelAndView addRegionConfirm(@Valid @ModelAttribute(ViewConstants.REGION) RegionAddBindingModel regionAddBindingModel, BindingResult bindingResult, Model model) {
+    public ModelAndView addRegionConfirm(@Valid @ModelAttribute(WebConstants.REGION) RegionAddBindingModel regionAddBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_ADD_REGION, model);
+            return renderView(WebConstants.VIEWS_ADD_REGION, model);
         }
 
         regionService.save(modelMapper.map(regionAddBindingModel, RegionAddServiceModel.class));
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 
 }

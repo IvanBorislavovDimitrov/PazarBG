@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.constants;
 
-public class ViewConstants {
+public class WebConstants {
 
     public static final String INVALID_USER_FORM = "invalidUserForm";
     public static final String ERRORS = "errors";

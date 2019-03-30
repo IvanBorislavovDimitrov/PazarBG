@@ -2,7 +2,7 @@ package com.ivan.pazar.web.controller.view.user;
 
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.config.UserConfiguration;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +27,7 @@ public class UserDeleteController extends UserBaseController {
     @GetMapping("/delete")
     public ModelAndView deleteProfile(Model model) {
 
-        return renderView(ViewConstants.VIEWS_DELETE_PROFILE, model);
+        return renderView(WebConstants.VIEWS_DELETE_PROFILE, model);
     }
 
     @PostMapping("/delete")
@@ -35,6 +35,6 @@ public class UserDeleteController extends UserBaseController {
         userService.deleteByUsername(userConfiguration.loggedUserUsername());
         httpSession.invalidate();
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 }

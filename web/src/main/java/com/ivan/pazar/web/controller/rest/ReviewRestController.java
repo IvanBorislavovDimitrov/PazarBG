@@ -3,7 +3,7 @@ package com.ivan.pazar.web.controller.rest;
 import com.ivan.pazar.persistence.service.api.ReviewService;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.config.UserConfiguration;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.view.rest.ReviewRestViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +38,7 @@ public class ReviewRestController {
                 .map(reviewRestServiceModel -> {
                     ReviewRestViewModel reviewRestViewModel = modelMapper.map(reviewRestServiceModel, ReviewRestViewModel.class);
                     String loggedUserUsername = userConfiguration.loggedUserUsername();
-                    if (loggedUserUsername != null && !loggedUserUsername.equals(ViewConstants.ANONYMOUS_USER)) {
+                    if (loggedUserUsername != null && !loggedUserUsername.equals(WebConstants.ANONYMOUS_USER)) {
                         reviewRestViewModel.setLoggedUserUsername(userConfiguration.loggedUserUsername());
                         Set<String> rolesForUser = userService.getRolesForUser(userConfiguration.loggedUserUsername());
                         reviewRestViewModel.setLoggedUserRoles(rolesForUser);
@@ -53,7 +53,7 @@ public class ReviewRestController {
     public ModelAndView deleteConfirm(@RequestParam("reviewId") String reviewId) {
         reviewService.deleteById(reviewId);
 
-        return new ModelAndView("redirect:/" + ViewConstants.REDIRECT_INDEX);
+        return new ModelAndView("redirect:/" + WebConstants.REDIRECT_INDEX);
     }
 
 

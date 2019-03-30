@@ -3,7 +3,7 @@ package com.ivan.pazar.web.controller.view.subcategory;
 import com.ivan.pazar.web.model.binding.SubcategoryAddBindingModel;
 import com.ivan.pazar.persistence.model.service.SubcategoryAddServiceModel;
 import com.ivan.pazar.persistence.service.api.SubcategoryService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.controller.view.BaseController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class SubcategoryController extends BaseController {
     @GetMapping("/new")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ModelAndView newSubcategory(Model model) {
-        return renderView(ViewConstants.VIEWS_SUBCATEGORY_ADD, model);
+        return renderView(WebConstants.VIEWS_SUBCATEGORY_ADD, model);
     }
 
     @PostMapping("/new")
@@ -43,11 +43,11 @@ public class SubcategoryController extends BaseController {
     public ModelAndView newSubcategoryConfirm(@ModelAttribute @Valid SubcategoryAddBindingModel subcategoryAddBindingModel,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return redirect(ViewConstants.REDIRECT_SUBCATEGORY_ADD);
+            return redirect(WebConstants.REDIRECT_SUBCATEGORY_ADD);
         }
 
         subcategoryService.save(modelMapper.map(subcategoryAddBindingModel, SubcategoryAddServiceModel.class));
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 }

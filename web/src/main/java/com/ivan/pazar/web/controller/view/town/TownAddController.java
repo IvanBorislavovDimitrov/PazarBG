@@ -2,7 +2,7 @@ package com.ivan.pazar.web.controller.view.town;
 
 import com.ivan.pazar.persistence.model.service.TownAddServiceModel;
 import com.ivan.pazar.persistence.service.api.TownService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.TownAddBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class TownAddController extends TownBaseController {
         this.modelMapper = modelMapper;
     }
 
-    @ModelAttribute(ViewConstants.TOWN)
+    @ModelAttribute(WebConstants.TOWN)
     public TownAddBindingModel townAddBindingModel() {
         return new TownAddBindingModel();
     }
@@ -38,19 +38,19 @@ public class TownAddController extends TownBaseController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ModelAndView addTown(Model model) {
 
-        return renderView(ViewConstants.VIEWS_ADD_TOWN, model);
+        return renderView(WebConstants.VIEWS_ADD_TOWN, model);
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ModelAndView addTownConfirm(@Valid @ModelAttribute(ViewConstants.TOWN) TownAddBindingModel townAddBindingModel, BindingResult bindingResult, Model model) {
+    public ModelAndView addTownConfirm(@Valid @ModelAttribute(WebConstants.TOWN) TownAddBindingModel townAddBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_ADD_TOWN, model);
+            return renderView(WebConstants.VIEWS_ADD_TOWN, model);
         }
 
         townService.save(modelMapper.map(townAddBindingModel, TownAddServiceModel.class));
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 
 }

@@ -6,7 +6,7 @@ import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.config.UserConfiguration;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.UserChangePasswordBindingModel;
 import com.ivan.pazar.web.model.binding.UserEditBindingModel;
 import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
@@ -48,47 +48,47 @@ public class UserEditController extends UserBaseController {
         userRegisterBindingModel.setRegion(userServiceModel.getRegion().getName());
         userRegisterBindingModel.setTown(userServiceModel.getTown().getName());
 
-        model.addAttribute(ViewConstants.USER, userRegisterBindingModel);
+        model.addAttribute(WebConstants.USER, userRegisterBindingModel);
 
-        return renderView(ViewConstants.VIEWS_USER_EDIT, model);
+        return renderView(WebConstants.VIEWS_USER_EDIT, model);
     }
 
     @PostMapping("/edit")
-    public ModelAndView editConfirm(@ModelAttribute(ViewConstants.USER) @Valid UserEditBindingModel userEditBindingModel, BindingResult bindingResult, Model model) {
+    public ModelAndView editConfirm(@ModelAttribute(WebConstants.USER) @Valid UserEditBindingModel userEditBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_USER_EDIT, model);
+            return renderView(WebConstants.VIEWS_USER_EDIT, model);
         }
 
         try {
             userService.updateUser(userConfiguration.loggedUserUsername(),
                     modelMapper.map(userEditBindingModel, UserServiceBindingModel.class));
         } catch (UserException e) {
-            model.addAttribute(ViewConstants.INVALID_USER_FORM, e.getMessage());
-            return renderView(ViewConstants.VIEWS_USER_EDIT, model);
+            model.addAttribute(WebConstants.INVALID_USER_FORM, e.getMessage());
+            return renderView(WebConstants.VIEWS_USER_EDIT, model);
         }
-        return redirect(ViewConstants.REDIRECT_USER_PROFILE);
+        return redirect(WebConstants.REDIRECT_USER_PROFILE);
     }
 
     @GetMapping("/change-password")
     public ModelAndView changePassword(Model model) {
-        return renderView(ViewConstants.VIEWS_CHANGE_PASSWORD, model);
+        return renderView(WebConstants.VIEWS_CHANGE_PASSWORD, model);
     }
 
     @PostMapping("/change-password")
-    public ModelAndView changePasswordConfirm(@ModelAttribute(ViewConstants.CHANGE_PASSWORD) @Valid UserChangePasswordBindingModel userChangePasswordBindingModel, BindingResult bindingResult, Model model) {
+    public ModelAndView changePasswordConfirm(@ModelAttribute(WebConstants.CHANGE_PASSWORD) @Valid UserChangePasswordBindingModel userChangePasswordBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_CHANGE_PASSWORD, model);
+            return renderView(WebConstants.VIEWS_CHANGE_PASSWORD, model);
         }
         encodePasswords(userChangePasswordBindingModel);
         try {
             userService.tryUpdatePassword(userConfiguration.loggedUserUsername(), modelMapper.map(userChangePasswordBindingModel,
                     UserChangePassword.class));
         } catch (UserException e) {
-            model.addAttribute(ViewConstants.INVALID_USER_FORM, e.getMessage());
+            model.addAttribute(WebConstants.INVALID_USER_FORM, e.getMessage());
 
-            return renderView(ViewConstants.VIEWS_CHANGE_PASSWORD, model);
+            return renderView(WebConstants.VIEWS_CHANGE_PASSWORD, model);
         }
-        return redirect(ViewConstants.REDIRECT_USER_PROFILE);
+        return redirect(WebConstants.REDIRECT_USER_PROFILE);
     }
 
     @PostMapping("/edit/picture")
@@ -96,10 +96,10 @@ public class UserEditController extends UserBaseController {
 
         userService.updateUserPicture(userConfiguration.loggedUserUsername(), picture);
 
-        return redirect(ViewConstants.REDIRECT_USER_PROFILE);
+        return redirect(WebConstants.REDIRECT_USER_PROFILE);
     }
 
-    @ModelAttribute(ViewConstants.CHANGE_PASSWORD)
+    @ModelAttribute(WebConstants.CHANGE_PASSWORD)
     public UserChangePasswordBindingModel userChangePasswordBindingModel() {
         return new UserChangePasswordBindingModel();
     }

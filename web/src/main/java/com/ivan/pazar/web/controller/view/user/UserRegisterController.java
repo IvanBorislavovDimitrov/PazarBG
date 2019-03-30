@@ -3,7 +3,7 @@ package com.ivan.pazar.web.controller.view.user;
 import com.ivan.pazar.persistence.exceptions.UserException;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.service.api.UserService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
 import com.ivan.pazar.web.service.api.EmailService;
 import org.modelmapper.ModelMapper;
@@ -42,37 +42,37 @@ public class UserRegisterController extends UserBaseController {
 
     @GetMapping("/register")
     public ModelAndView register(Model model) {
-        if (!model.containsAttribute(ViewConstants.INVALID_USER_FORM)) {
-            model.addAttribute(ViewConstants.INVALID_USER_FORM, new UserRegisterBindingModel());
-            model.addAttribute(ViewConstants.ERRORS, Collections.emptyList());
+        if (!model.containsAttribute(WebConstants.INVALID_USER_FORM)) {
+            model.addAttribute(WebConstants.INVALID_USER_FORM, new UserRegisterBindingModel());
+            model.addAttribute(WebConstants.ERRORS, Collections.emptyList());
         }
 
-        return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
+        return renderView(WebConstants.VIEWS_USER_REGISTER, model);
     }
 
     @PostMapping("/register")
-    public ModelAndView registerConfirm(@ModelAttribute(ViewConstants.USER) @Valid UserRegisterBindingModel userRegisterBindingModel,
+    public ModelAndView registerConfirm(@ModelAttribute(WebConstants.USER) @Valid UserRegisterBindingModel userRegisterBindingModel,
                                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
+            return renderView(WebConstants.VIEWS_USER_REGISTER, model);
         }
 
         try {
             encodePasswords(userRegisterBindingModel);
             userService.save(modelMapper.map(userRegisterBindingModel, UserServiceBindingModel.class));
         } catch (UserException e) {
-            model.addAttribute(ViewConstants.PASSWORDS_NOT_MATCH, e.getMessage());
-            return renderView(ViewConstants.VIEWS_USER_REGISTER, model);
+            model.addAttribute(WebConstants.PASSWORDS_NOT_MATCH, e.getMessage());
+            return renderView(WebConstants.VIEWS_USER_REGISTER, model);
         }
         try {
             sendEmail(() -> emailService.sendNotificationForRegistering(userRegisterBindingModel));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 
-    @ModelAttribute(ViewConstants.USER)
+    @ModelAttribute(WebConstants.USER)
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
     }

@@ -2,9 +2,8 @@ package com.ivan.pazar.web.controller.view.admin;
 
 import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
 import com.ivan.pazar.persistence.service.api.UserService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.UserChangeRoleBindingModel;
-import com.ivan.pazar.web.model.binding.UserEditBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,20 +28,20 @@ public class ChangeUserRoleController extends AdminBaseController {
     @GetMapping("/change-user-role")
     public ModelAndView changeUserRole(Model model) {
 
-        return renderView(ViewConstants.VIEWS_CHANGE_USER_ROLE, model);
+        return renderView(WebConstants.VIEWS_CHANGE_USER_ROLE, model);
     }
 
     @GetMapping("/change-user-role-confirm")
     public ModelAndView adminChangeRoleConfirm(@RequestParam("username") String username, Model model) {
-        model.addAttribute(ViewConstants.USERNAME, username);
+        model.addAttribute(WebConstants.USERNAME, username);
 
-        return renderView(ViewConstants.VIEWS_CHANGE_USER_ROLE_CONFIRM, model);
+        return renderView(WebConstants.VIEWS_CHANGE_USER_ROLE_CONFIRM, model);
     }
 
     @PostMapping("/change-user-role-confirm")
     public ModelAndView adminChangeRoleConfirm(UserChangeRoleBindingModel userChangeRoleBindingModel, Model model) {
         userService.updateUserRole(modelMapper.map(userChangeRoleBindingModel, UserChangeRoleServiceModel.class));
 
-        return redirect(ViewConstants.REDIRECT_ADMIN_CHANGE);
+        return redirect(WebConstants.REDIRECT_ADMIN_CHANGE);
     }
 }

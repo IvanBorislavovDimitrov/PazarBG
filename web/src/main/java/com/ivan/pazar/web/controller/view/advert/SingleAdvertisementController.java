@@ -1,7 +1,7 @@
 package com.ivan.pazar.web.controller.view.advert;
 
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.view.AdvertisementViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class SingleAdvertisementController extends AdvertisementBaseController {
     public ModelAndView singleAdvertisement(@PathVariable("id") String id, Model model) {
         AdvertisementViewModel advertisementViewModel = modelMapper.map(advertisementService.findById(id), AdvertisementViewModel.class);
 
-        model.addAttribute(ViewConstants.ADVERT, advertisementViewModel);
-        return renderView(ViewConstants.VIEWS_SINGLE_ADVERT, model);
+        model.addAttribute(WebConstants.ADVERT, advertisementViewModel);
+        return renderView(WebConstants.VIEWS_SINGLE_ADVERT, model);
     }
 
 

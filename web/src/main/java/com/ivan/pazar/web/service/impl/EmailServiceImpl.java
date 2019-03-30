@@ -1,7 +1,7 @@
 package com.ivan.pazar.web.service.impl;
 
 import com.ivan.pazar.persistence.service.api.UserService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
 import com.ivan.pazar.web.service.api.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +52,12 @@ public class EmailServiceImpl implements EmailService {
     @Async
     public void sendDailyNotifications() {
         int page = 0;
-        PageRequest pageRequest = PageRequest.of(page, ViewConstants.DEFAULT_USERS_SIZE, Sort.by(Sort.Order.asc(ViewConstants.ID)));
+        PageRequest pageRequest = PageRequest.of(page, WebConstants.DEFAULT_USERS_SIZE, Sort.by(Sort.Order.asc(WebConstants.ID)));
         List<String> usersEmails = userService.getUsersEmails(pageRequest);
         while (!usersEmails.isEmpty()) {
             notifyUsers(usersEmails);
             page++;
-            pageRequest = PageRequest.of(ViewConstants.DEFAULT_USERS_SIZE, page);
+            pageRequest = PageRequest.of(WebConstants.DEFAULT_USERS_SIZE, page);
             usersEmails = userService.getUsersEmails(pageRequest);
         }
     }

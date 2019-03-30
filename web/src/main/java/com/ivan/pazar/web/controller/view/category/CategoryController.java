@@ -2,7 +2,7 @@ package com.ivan.pazar.web.controller.view.category;
 
 import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.service.api.CategoryService;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.controller.view.BaseController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class CategoryController extends BaseController {
     @GetMapping("/new")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ModelAndView addCategory(Model model) {
-        return renderView(ViewConstants.VIEWS_CATEGORY_ADD, model);
+        return renderView(WebConstants.VIEWS_CATEGORY_ADD, model);
     }
 
     @PostMapping("/new")
@@ -44,6 +44,6 @@ public class CategoryController extends BaseController {
         categoryAddServiceModel.setPicture(picture.getBytes());
         categoryService.save(categoryAddServiceModel);
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 }

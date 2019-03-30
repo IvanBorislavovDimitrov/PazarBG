@@ -3,7 +3,7 @@ package com.ivan.pazar.web.controller.view.advert;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
 import com.ivan.pazar.web.config.UserConfiguration;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.AdvertisementBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,23 +33,23 @@ public class AdvertisementNewController extends AdvertisementBaseController {
     @GetMapping("/new")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView advertNew(Model model) {
-        model.addAttribute(ViewConstants.ADVERT, advertisementViewModel());
-        return renderView(ViewConstants.VIEWS_NEW_ADVERT, model);
+        model.addAttribute(WebConstants.ADVERT, advertisementViewModel());
+        return renderView(WebConstants.VIEWS_NEW_ADVERT, model);
     }
 
-    @ModelAttribute(ViewConstants.ADVERT)
+    @ModelAttribute(WebConstants.ADVERT)
     public AdvertisementBindingModel advertisementViewModel() {
         return new AdvertisementBindingModel();
     }
 
     @PostMapping("/new")
-    public ModelAndView advertNewConfirm(@ModelAttribute(ViewConstants.ADVERT) @Valid AdvertisementBindingModel advertisementBindingModel, BindingResult bindingResult, Model model) {
+    public ModelAndView advertNewConfirm(@ModelAttribute(WebConstants.ADVERT) @Valid AdvertisementBindingModel advertisementBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return renderView(ViewConstants.VIEWS_NEW_ADVERT, model);
+            return renderView(WebConstants.VIEWS_NEW_ADVERT, model);
         }
 
         advertisementService.save(userConfiguration.loggedUserUsername(), modelMapper.map(advertisementBindingModel, AdvertisementAddServiceModel.class));
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 }

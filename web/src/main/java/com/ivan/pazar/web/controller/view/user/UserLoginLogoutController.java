@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.view.user;
 
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,10 +20,10 @@ public class UserLoginLogoutController extends UserBaseController {
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
     public ModelAndView login(@RequestParam(value = "error", defaultValue = "") String error, Model model) {
-        if (error.equals(ViewConstants.TRUE)) {
-            model.addAttribute(ViewConstants.LOGIN_ERROR, true);
+        if (error.equals(WebConstants.TRUE)) {
+            model.addAttribute(WebConstants.LOGIN_ERROR, true);
         }
-        return renderView(ViewConstants.VIEWS_USER_LOGIN, model);
+        return renderView(WebConstants.VIEWS_USER_LOGIN, model);
     }
 
     @GetMapping(value = "/logout")
@@ -35,6 +35,6 @@ public class UserLoginLogoutController extends UserBaseController {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
 
-        return redirect(ViewConstants.REDIRECT_INDEX);
+        return redirect(WebConstants.REDIRECT_INDEX);
     }
 }

@@ -1,7 +1,7 @@
 package com.ivan.pazar.web.pagination;
 
 import com.ivan.pazar.persistence.model.service.AdvertisementHomePageServiceModel;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.view.AdvertisementViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +27,9 @@ public class Pagination {
                         modelMapper.map(advertisementViewServiceModel, AdvertisementViewModel.class))
                 .collect(Collectors.toList());
 
-        model.addAttribute(ViewConstants.ADVERTS, advertisements);
-        model.addAttribute(ViewConstants.PAGE, page);
-        model.addAttribute(ViewConstants.TOTAL_PAGES, advertisementsPage.getPages());
+        model.addAttribute(WebConstants.ADVERTS, advertisements);
+        model.addAttribute(WebConstants.PAGE, page);
+        model.addAttribute(WebConstants.TOTAL_PAGES, advertisementsPage.getPages());
     }
 
 }

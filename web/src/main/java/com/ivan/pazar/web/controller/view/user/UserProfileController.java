@@ -2,7 +2,7 @@ package com.ivan.pazar.web.controller.view.user;
 
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.config.UserConfiguration;
-import com.ivan.pazar.web.constants.ViewConstants;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.view.UserProfileViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,9 @@ public class UserProfileController extends UserBaseController {
         UserProfileViewModel userProfileViewModel =
                 modelMapper.map(userService.findUserByUsername(loggedUserUsername), UserProfileViewModel.class);
 
-        model.addAttribute(ViewConstants.USER, userProfileViewModel);
+        model.addAttribute(WebConstants.USER, userProfileViewModel);
 
-        return renderView(ViewConstants.VIEWS_USER_PROFILE, model);
+        return renderView(WebConstants.VIEWS_USER_PROFILE, model);
     }
 
     @GetMapping("/other-user-profile")
@@ -45,9 +45,9 @@ public class UserProfileController extends UserBaseController {
         UserProfileViewModel userProfileViewModel =
                 modelMapper.map(userService.findUserByUsername(username), UserProfileViewModel.class);
 
-        model.addAttribute(ViewConstants.USER, userProfileViewModel);
+        model.addAttribute(WebConstants.USER, userProfileViewModel);
 
-        return renderView(ViewConstants.VIEWS_USER_PROFILE, model);
+        return renderView(WebConstants.VIEWS_USER_PROFILE, model);
     }
 
 }
