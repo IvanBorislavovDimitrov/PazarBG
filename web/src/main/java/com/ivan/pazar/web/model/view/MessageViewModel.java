@@ -2,6 +2,8 @@ package com.ivan.pazar.web.model.view;
 
 public class MessageViewModel {
 
+    private String id;
+
     private String content;
 
     private String receiver;
@@ -11,6 +13,14 @@ public class MessageViewModel {
     private String addedOn;
 
     private AdvertisementViewModel advertisement;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getSender() {
         return sender;

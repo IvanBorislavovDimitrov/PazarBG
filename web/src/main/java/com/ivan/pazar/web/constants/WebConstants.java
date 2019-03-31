@@ -2,6 +2,7 @@ package com.ivan.pazar.web.constants;
 
 public class WebConstants {
 
+    // View Constants
     public static final String INVALID_USER_FORM = "invalidUserForm";
     public static final String ERRORS = "errors";
     public static final String USER = "user";
@@ -24,7 +25,10 @@ public class WebConstants {
     public static final String ADDED_ON = "addedOn";
     public static final int DEFAULT_USERS_SIZE = 50;
     public static final String ID = "id";
+    public static final String MESSAGE = "message";
+    public static final String SENDER = "sender";
 
+    // Pages
     public static final String VIEW_INDEX = "views/index";
     public static final String VIEWS_USER_REGISTER = "views/users/register";
     public static final String VIEWS_USER_LOGIN = "views/users/login";
@@ -43,7 +47,9 @@ public class WebConstants {
     public static final String VIEWS_ADVERTS_HOME = "views/adverts/adverts-home";
     public static final String VIEWS_ADD_REGION = "views/regions/add-region";
     public static final String VIEWS_ADD_TOWN = "views/towns/add-town";
+    public static final String VIEWS_VIEW_AND_REPLY_MESSAGE = "views/messages/view-and-reply";
 
+    // Redirects
     public static final String REDIRECT_INDEX = "";
     public static final String REDIRECT_USERS_REGISTER = "users/register";
     public static final String REDIRECT_CATEGORY_ADD = "categories/new";

@@ -18,5 +18,5 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, St
 
     Page<Advertisement> findAllByActive(boolean active, Pageable pageable);
 
-    Page<Advertisement> findAllByTitleLike(String title, Pageable pageable);
+    Page<Advertisement> findAllByTitleLikeAndActiveIsTrue(String title, Pageable pageable);
 }

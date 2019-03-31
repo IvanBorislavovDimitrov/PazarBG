@@ -11,6 +11,8 @@ import java.util.Set;
 
 public class UserServiceModel extends IdServiceModel {
 
+    private String id;
+
     private String email;
 
     private String username;
@@ -53,6 +55,16 @@ public class UserServiceModel extends IdServiceModel {
         reviews = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
         roles = new HashSet<>();
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {

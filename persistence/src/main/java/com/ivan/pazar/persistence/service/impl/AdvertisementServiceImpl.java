@@ -132,7 +132,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     @Override
     public AdvertisementHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest) {
         String keywordWithExtensions = "%" + keyword + "%";
-        Page<Advertisement> advertisementPage = advertisementRepository.findAllByTitleLike(keywordWithExtensions, pageRequest);
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByTitleLikeAndActiveIsTrue(keywordWithExtensions, pageRequest);
 
         return getAdvertisementHomePageServiceModel(advertisementPage);
     }

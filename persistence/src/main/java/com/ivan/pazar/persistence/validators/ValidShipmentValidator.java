@@ -14,7 +14,7 @@ public class ValidShipmentValidator implements ConstraintValidator<ValidShipment
     @Override
     public boolean isValid(String shipment, ConstraintValidatorContext context) {
         return shipment != null && Arrays.stream(Shipment.values())
-                .map(Enum::toString)
+                .map(Enum::name)
                 .collect(Collectors.toList())
                 .contains(shipment);
     }

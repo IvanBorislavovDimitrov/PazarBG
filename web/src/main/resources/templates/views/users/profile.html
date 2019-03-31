@@ -148,7 +148,13 @@
                             <td th:text="${sentMessage.content}"></td>
                             <td th:text="${#strings.arraySplit(sentMessage.addedOn, 'T')[0]}"></td>
                             <td th:text="${sentMessage.receiver}"></td>
-                            <td><a class="btn btn-danger">Delete</a></td>
+                            <td>
+                            <td>
+                                <form th:method="post" th:action="@{/adverts/delete}">
+                                    <input name="messageId" type="hidden" th:value="${sentMessage.id}"/>
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                </form>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -172,7 +178,10 @@
                             <td th:text="${receivedMessage.content}"></td>
                             <td th:text="${#strings.arraySplit(receivedMessage.addedOn, 'T')[0]}"></td>
                             <td th:text="${receivedMessage.sender}"></td>
-                            <td><a class="btn btn-success">Reply</a></td>
+                            <td>
+                                <a class="btn btn-primary"
+                                   th:href="@{/messages/reply(messageId=${receivedMessage.id},sender=${receivedMessage.sender})}">View/Reply</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

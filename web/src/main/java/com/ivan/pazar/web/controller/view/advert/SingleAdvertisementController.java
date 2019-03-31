@@ -23,15 +23,15 @@ public class SingleAdvertisementController extends AdvertisementBaseController {
 
     private final AdvertisementService advertisementService;
     private final ModelMapper modelMapper;
-    private final UserConfiguration userConfiguration;
     private final MessageService messageService;
+    private final UserConfiguration userConfiguration;
 
     @Autowired
-    public SingleAdvertisementController(AdvertisementService advertisementService, ModelMapper modelMapper, UserConfiguration userConfiguration, MessageService messageService) {
+    public SingleAdvertisementController(AdvertisementService advertisementService, ModelMapper modelMapper, MessageService messageService, UserConfiguration userConfiguration) {
         this.advertisementService = advertisementService;
         this.modelMapper = modelMapper;
-        this.userConfiguration = userConfiguration;
         this.messageService = messageService;
+        this.userConfiguration = userConfiguration;
     }
 
     @GetMapping("/{id}")
@@ -48,7 +48,7 @@ public class SingleAdvertisementController extends AdvertisementBaseController {
     @PreAuthorize("isAuthenticated()")
     public ModelAndView sendMessage(@RequestParam("advertId") String advertId, MessageViewModel messageViewModel) {
         messageService.sendMessage(advertId, modelMapper.map(messageViewModel, MessageAddServiceModel.class),
-                        userConfiguration.loggedUserUsername());
+                userConfiguration.loggedUserUsername());
 
         return redirect(String.format(WebConstants.REDIRECT_TO_ADVERT, advertId));
     }
