@@ -56,7 +56,6 @@ public class MessageServiceImpl implements MessageServiceExtended {
         messageRepository.deleteById(messageId);
     }
 
-
     @Override
     public void replyMessage(String advertId, MessageAddServiceModel messageAddServiceModel, String loggedUserUsername, String sender) {
         Advertisement advertisement = advertisementService.getAdvertisementById(advertId);
@@ -70,6 +69,13 @@ public class MessageServiceImpl implements MessageServiceExtended {
         message.setAddedOn(LocalDateTime.now());
 
         messageRepository.save(message);
+    }
+
+    @Override
+    public void hide(String messageId) {
+        Message message = messageRepository.findById(messageId).get();
+        message.setHidden(true);
+        messageRepository.saveAndFlush(message);
     }
 
     @Override

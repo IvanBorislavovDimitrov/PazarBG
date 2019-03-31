@@ -1,10 +1,7 @@
 package com.ivan.pazar.domain.model.entity;
 
-import org.apache.tomcat.jni.Local;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "messages")
@@ -28,12 +25,23 @@ public class Message extends IdEntity {
     @JoinColumn(name = "advertisement_id", referencedColumnName = "id")
     private Advertisement advertisement;
 
+    @Column(name = "hidden")
+    private boolean hidden;
+
     public Advertisement getAdvertisement() {
         return advertisement;
     }
 
     public void setAdvertisement(Advertisement advertisement) {
         this.advertisement = advertisement;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public LocalDateTime getAddedOn() {

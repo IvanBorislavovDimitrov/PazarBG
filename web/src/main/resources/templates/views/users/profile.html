@@ -133,24 +133,21 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Advertisement</th>
                             <th scope="col">Title</th>
                             <th scope="col">Date</th>
                             <th scope="col">Receiver</th>
-                            <th scope="col">Reply</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="sentMessage,i : ${user.sentMessages}">
-                            <th scope="row" th:text="${i.index}"></th>
+                        <tr th:each="sentMessage : ${user.sentMessages}">
                             <td th:text="${sentMessage.advertisement.title}"></td>
                             <td th:text="${sentMessage.content}"></td>
                             <td th:text="${#strings.arraySplit(sentMessage.addedOn, 'T')[0]}"></td>
                             <td th:text="${sentMessage.receiver}"></td>
                             <td>
-                            <td>
-                                <form th:method="post" th:action="@{/adverts/delete}">
+                                <form th:method="post" th:action="@{/messages/delete}">
                                     <input name="messageId" type="hidden" th:value="${sentMessage.id}"/>
                                     <input type="submit" value="Delete" class="btn btn-danger">
                                 </form>
@@ -163,7 +160,6 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Advertisement</th>
                             <th scope="col">Title</th>
                             <th scope="col">Date</th>
@@ -172,8 +168,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="receivedMessage,i : ${user.receivedMessages}">
-                            <th scope="row" th:text="${i.index}"></th>
+                        <tr th:each="receivedMessage : ${user.receivedMessages}">
                             <td th:text="${receivedMessage.advertisement.title}"></td>
                             <td th:text="${receivedMessage.content}"></td>
                             <td th:text="${#strings.arraySplit(receivedMessage.addedOn, 'T')[0]}"></td>

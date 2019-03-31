@@ -12,4 +12,6 @@ public interface MessageService {
     MessageServiceModel findById(String id);
 
     void replyMessage(String advertId, MessageAddServiceModel messageAddServiceModel, String loggedUserUsername, String sender);
+
+    void hide(String messageId);
 }

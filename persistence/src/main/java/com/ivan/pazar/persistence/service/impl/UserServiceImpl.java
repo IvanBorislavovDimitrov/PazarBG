@@ -11,7 +11,10 @@ import com.ivan.pazar.persistence.exceptions.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.PasswordsMismatchException;
 import com.ivan.pazar.persistence.exceptions.PhoneNumberTakenException;
-import com.ivan.pazar.persistence.model.service.*;
+import com.ivan.pazar.persistence.model.service.MessageServiceModel;
+import com.ivan.pazar.persistence.model.service.UserChangePassword;
+import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
+import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.UserRepository;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
@@ -29,7 +32,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -106,21 +108,16 @@ public class UserServiceImpl implements UserServiceExtended {
     public UserServiceModel findUserByUsername(String username) {
         User user = userRepository.findByUsername(username).orElse(null);
 
+        return modelMapper.map(user, UserServiceModel.class);
+    }
+
+
+    @Override
+    public UserServiceModel findUserByUsername(String username, PageRequest pageRequest) {
+        User user = userRepository.findByUsername(username).orElse(null);
+
         UserServiceModel userServiceModel = modelMapper.map(user, UserServiceModel.class);
-        userServiceModel.getSentMessages().clear();
-        user.getSentMessages().forEach(sentMessage -> {
-            User receiver = sentMessage.getReceiver();
-            MessageServiceModel messageServiceModel = modelMapper.map(sentMessage, MessageServiceModel.class);
-            messageServiceModel.setReceiver(modelMapper.map(receiver, UserServiceModel.class));
-            userServiceModel.getSentMessages().add(messageServiceModel);
-        });
-        userServiceModel.getReceivedMessages().clear();
-        user.getReceivedMessages().forEach(receivedMessage -> {
-            User sender = receivedMessage.getSender();
-            MessageServiceModel messageServiceModel = modelMapper.map(receivedMessage, MessageServiceModel.class);
-            messageServiceModel.setSender(modelMapper.map(sender, UserServiceModel.class));
-            userServiceModel.getReceivedMessages().add(messageServiceModel);
-        });
+        mapMessages(user, userServiceModel);
 
         return userServiceModel;
     }
@@ -229,6 +226,27 @@ public class UserServiceImpl implements UserServiceExtended {
         return userRepository.findAll(pageRequest).stream()
                 .map(User::getEmail)
                 .collect(Collectors.toList());
+    }
+
+    private void mapMessages(User user, UserServiceModel userServiceModel) {
+        userServiceModel.getSentMessages().clear();
+        user.getSentMessages()
+                .stream()
+                .filter(message -> !message.isHidden())
+                .forEach(sentMessage -> {
+                    User receiver = sentMessage.getReceiver();
+                    MessageServiceModel messageServiceModel = modelMapper.map(sentMessage, MessageServiceModel.class);
+                    messageServiceModel.setReceiver(modelMapper.map(receiver, UserServiceModel.class));
+                    userServiceModel.getSentMessages().add(messageServiceModel);
+                });
+        userServiceModel.getReceivedMessages().clear();
+        user.getReceivedMessages()
+                .forEach(receivedMessage -> {
+                    User sender = receivedMessage.getSender();
+                    MessageServiceModel messageServiceModel = modelMapper.map(receivedMessage, MessageServiceModel.class);
+                    messageServiceModel.setSender(modelMapper.map(sender, UserServiceModel.class));
+                    userServiceModel.getReceivedMessages().add(messageServiceModel);
+                });
     }
 
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {

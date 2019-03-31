@@ -51,7 +51,7 @@ public class MessageController extends MessageBaseController {
 
     @PostMapping("/delete")
     public ModelAndView deleteMessageConfirm(@RequestParam("messageId") String messageId) {
-        messageService.deleteById(messageId);
+        messageService.hide(messageId);
 
         return redirect(WebConstants.REDIRECT_USER_PROFILE);
     }

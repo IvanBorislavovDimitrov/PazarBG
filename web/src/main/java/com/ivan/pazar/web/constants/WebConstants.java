@@ -27,6 +27,7 @@ public class WebConstants {
     public static final String ID = "id";
     public static final String MESSAGE = "message";
     public static final String SENDER = "sender";
+    public static final int DEFAULT_MESSAGE_SIZE = 20;
 
     // Pages
     public static final String VIEW_INDEX = "views/index";

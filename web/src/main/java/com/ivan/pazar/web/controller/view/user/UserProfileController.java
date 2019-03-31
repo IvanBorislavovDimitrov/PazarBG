@@ -6,6 +6,7 @@ import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.view.UserProfileViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +32,10 @@ public class UserProfileController extends UserBaseController {
     @PreAuthorize("isAuthenticated()")
     public ModelAndView profile(Model model) {
         String loggedUserUsername = userConfiguration.loggedUserUsername();
+        PageRequest pageRequest = null;
         UserProfileViewModel userProfileViewModel =
-                modelMapper.map(userService.findUserByUsername(loggedUserUsername), UserProfileViewModel.class);
+                modelMapper.map(userService.findUserByUsername(loggedUserUsername, pageRequest), UserProfileViewModel.class);
+        trimMessages(userProfileViewModel);
 
         model.addAttribute(WebConstants.USER, userProfileViewModel);
 
@@ -43,10 +46,13 @@ public class UserProfileController extends UserBaseController {
     public ModelAndView otherUserProfile(@RequestParam("username") String username, Model model) {
         UserProfileViewModel userProfileViewModel =
                 modelMapper.map(userService.findUserByUsername(username), UserProfileViewModel.class);
-
         model.addAttribute(WebConstants.USER, userProfileViewModel);
 
         return renderView(WebConstants.VIEWS_USER_PROFILE, model);
     }
 
+    private void trimMessages(UserProfileViewModel userProfileViewModel) {
+        userProfileViewModel.getReceivedMessages().forEach(message -> message.setContent(message.getContent().substring(0, Math.min(message.getContent().length(), WebConstants.DEFAULT_MESSAGE_SIZE))));
+        userProfileViewModel.getSentMessages().forEach(message -> message.setContent(message.getContent().substring(0, Math.min(message.getContent().length(), WebConstants.DEFAULT_MESSAGE_SIZE))));
+    }
 }
