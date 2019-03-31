@@ -1,6 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Video;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.VideoAddServiceModel;
 import com.ivan.pazar.persistence.model.service.VideoServiceModel;
 import com.ivan.pazar.persistence.repository.VideoRepository;
@@ -27,6 +28,7 @@ public class VideoServiceImpl implements VideoServiceExtended {
 
     @Override
     public VideoServiceModel save(VideoAddServiceModel videoAddServiceModel) {
+        LOGGER.info(Messages.ADDING_VIDEO);
         return modelMapper.map(videoRepository.save(modelMapper.map(videoAddServiceModel, Video.class)), VideoServiceModel.class);
     }
 

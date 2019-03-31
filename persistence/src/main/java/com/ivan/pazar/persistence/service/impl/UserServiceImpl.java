@@ -4,6 +4,7 @@ import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.user.ProfilePictureManager;
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
@@ -68,6 +69,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public UserServiceModel save(UserServiceBindingModel userServiceBindingModel) {
+        LOGGER.info(Messages.ADDING_USER);
         checkUserServiceModelValid(userServiceBindingModel);
         User user = modelMapper.map(userServiceBindingModel, User.class);
         String profilePictureName = getProfilePictureName(userServiceBindingModel);
@@ -130,10 +132,14 @@ public class UserServiceImpl implements UserServiceExtended {
     public void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel) {
         User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
         if (!canUpdateEmail(user, userServiceBindingModel.getEmail())) {
-            throw new EmailTakenException();
+            EmailTakenException emailTakenException = new EmailTakenException();
+            LOGGER.error(emailTakenException.toString());
+            throw emailTakenException;
         }
         if (!canUpdatePhoneNumber(user, userServiceBindingModel.getPhoneNumber())) {
-            throw new PhoneNumberTakenException();
+            PhoneNumberTakenException phoneNumberTakenException = new PhoneNumberTakenException();
+            LOGGER.error(phoneNumberTakenException.toString());
+            throw phoneNumberTakenException;
         }
         user.setEmail(userServiceBindingModel.getEmail());
         user.setFirstName(userServiceBindingModel.getFirstName());
@@ -153,10 +159,14 @@ public class UserServiceImpl implements UserServiceExtended {
         deleteRelatedContent(user);
 
         if (!user.getPassword().equals(userChangePassword.getPassword())) {
-            throw new InvalidPasswordException();
+            InvalidPasswordException invalidPasswordException = new InvalidPasswordException();
+            LOGGER.error(invalidPasswordException.toString());
+            throw invalidPasswordException;
         }
         if (!userChangePassword.getNewPassword().equals(userChangePassword.getConfirmPassword())) {
-            throw new PasswordsMismatchException();
+            PasswordsMismatchException passwordsMismatchException = new PasswordsMismatchException();
+            LOGGER.error(passwordsMismatchException.toString());
+            throw passwordsMismatchException;
         }
 
         user.setPassword(userChangePassword.getNewPassword());
@@ -172,6 +182,7 @@ public class UserServiceImpl implements UserServiceExtended {
                 profilePictureManager.deletePictureIfExists(pictureName);
             }
         } catch (IOException e) {
+            LOGGER.error(e.toString());
             e.printStackTrace();
         }
         String profilePictureName = USER_PROFILE_PICTURE_PREFIX + username + "." +
@@ -211,6 +222,7 @@ public class UserServiceImpl implements UserServiceExtended {
             try {
                 profilePictureManager.deletePictureIfExists(user.getProfilePictureName());
             } catch (IOException e) {
+                LOGGER.error(e.toString());
                 e.printStackTrace();
             }
         }
@@ -279,13 +291,16 @@ public class UserServiceImpl implements UserServiceExtended {
             bytes = multipartPicture.getBytes();
             profilePictureManager.saveProfilePicture(profilePictureName, bytes);
         } catch (IOException e) {
+            LOGGER.error(e.toString());
             e.printStackTrace();
         }
     }
 
     private void checkUserServiceModelValid(UserServiceBindingModel userRegisterServiceModel) {
         if (!userRegisterServiceModel.getPassword().equals(userRegisterServiceModel.getConfirmPassword())) {
-            throw new PasswordsMismatchException();
+            PasswordsMismatchException passwordsMismatchException = new PasswordsMismatchException();
+            LOGGER.error(passwordsMismatchException.toString());
+            throw passwordsMismatchException;
         }
     }
 

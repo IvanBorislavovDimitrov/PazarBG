@@ -1,6 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Category;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.CategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
@@ -30,6 +31,7 @@ public class CategoryServiceImpl implements CategoryServiceExtended {
 
     @Override
     public CategoryServiceModel save(CategoryAddServiceModel categoryAddServiceModel) {
+        LOGGER.info(Messages.ADDING_CATEGORY);
         return modelMapper.map(categoryRepository.save(modelMapper.map(categoryAddServiceModel, Category.class)), CategoryServiceModel.class);
     }
 

@@ -1,5 +1,6 @@
 package com.ivan.pazar.persistence.model.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivan.pazar.domain.model.enums.Shipment;
 import com.ivan.pazar.domain.model.enums.State;
 
@@ -20,20 +21,27 @@ public class AdvertisementServiceModel extends IdServiceModel {
 
     private BigDecimal price;
 
+    @JsonIgnore
     private UserServiceModel author;
 
+    @JsonIgnore
     private TownServiceModel town;
 
     private State state;
 
+    @JsonIgnore
     private List<UserServiceModel> usersSearches;
 
+    @JsonIgnore
     private List<UserServiceModel> usersFavourites;
 
+    @JsonIgnore
     private List<ReviewServiceModel> reviews;
 
+    @JsonIgnore
     private CategoryServiceModel category;
 
+    @JsonIgnore
     private VideoServiceModel video;
 
     private boolean isActive;

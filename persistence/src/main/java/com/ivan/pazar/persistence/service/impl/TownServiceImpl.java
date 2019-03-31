@@ -2,6 +2,7 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Region;
 import com.ivan.pazar.domain.model.entity.Town;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.TownAddServiceModel;
 import com.ivan.pazar.persistence.model.service.TownServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.TownRestServiceModel;
@@ -39,6 +40,7 @@ public class TownServiceImpl implements TownServiceExtended {
     @PostConstruct
     public void init() {
         if (townRepository.count() == 0) {
+            LOGGER.info(Messages.CREATING_TOWNS);
             Town town = new Town();
             town.setName(INIT_TOWN);
             Region region = regionService.findByName(RegionServiceImpl.INIT_REGION);
@@ -50,6 +52,7 @@ public class TownServiceImpl implements TownServiceExtended {
 
     @Override
     public TownServiceModel save(TownAddServiceModel townAddServiceModel) {
+        LOGGER.info(Messages.ADDING_TOWN);
         Town town = modelMapper.map(townAddServiceModel, Town.class);
         town.setRegion(regionService.getRegionByName(townAddServiceModel.getRegion()));
 

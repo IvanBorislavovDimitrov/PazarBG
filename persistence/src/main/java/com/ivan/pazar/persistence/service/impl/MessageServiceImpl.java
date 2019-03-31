@@ -3,6 +3,7 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.domain.model.entity.Message;
 import com.ivan.pazar.domain.model.entity.User;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.MessageAddServiceModel;
 import com.ivan.pazar.persistence.model.service.MessageServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
@@ -38,8 +39,10 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
     @Override
     public void sendMessage(String advertId, MessageAddServiceModel messageAddServiceModel, String loggedUserUsername) {
+        LOGGER.info(Messages.SENDING_MESSAGE);
         Advertisement advertisement = advertisementService.getAdvertisementById(advertId);
         if (advertisement == null) {
+            LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
             return;
         }
 

@@ -1,6 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Region;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.RegionAddServiceModel;
 import com.ivan.pazar.persistence.model.service.RegionServiceModel;
 import com.ivan.pazar.persistence.model.service.rest.RegionRestServiceModel;
@@ -43,6 +44,7 @@ public class RegionServiceImpl implements RegionServiceExtended {
 
     @Override
     public RegionServiceModel save(RegionAddServiceModel regionAddServiceModel) {
+        LOGGER.info(Messages.ADDING_REGION);
         Region region = modelMapper.map(regionAddServiceModel, Region.class);
 
         return modelMapper.map(regionRepository.save(region), RegionServiceModel.class);

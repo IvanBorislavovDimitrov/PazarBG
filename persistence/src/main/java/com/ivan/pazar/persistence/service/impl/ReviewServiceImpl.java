@@ -3,6 +3,7 @@ package com.ivan.pazar.persistence.service.impl;
 import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.domain.model.entity.Review;
 import com.ivan.pazar.domain.model.entity.User;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.ReviewAddServiceModel;
 import com.ivan.pazar.persistence.model.service.ReviewRestServiceModel;
 import com.ivan.pazar.persistence.model.service.ReviewServiceModel;
@@ -40,6 +41,7 @@ public class ReviewServiceImpl implements ReviewServiceExtended {
 
     @Override
     public ReviewServiceModel save(ReviewAddServiceModel reviewAddServiceModel) {
+        LOGGER.info(Messages.ADDING_REVIEW);
         Review review = modelMapper.map(reviewAddServiceModel, Review.class);
         review.setId(null);
         User user = userService.getUserByUsername(reviewAddServiceModel.getUsername());

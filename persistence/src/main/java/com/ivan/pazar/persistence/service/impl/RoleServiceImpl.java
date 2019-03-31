@@ -2,6 +2,7 @@ package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.enums.UserRole;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.RoleServiceModel;
 import com.ivan.pazar.persistence.repository.RoleRepository;
 import com.ivan.pazar.persistence.service.service_api.RoleServiceExtended;
@@ -29,17 +30,18 @@ public class RoleServiceImpl implements RoleServiceExtended {
 
     @PostConstruct
     public void initRoles() {
-        LOGGER.error("Checking for user role");
         createRolesIfNotExist();
     }
 
     @Override
     public RoleServiceModel save(RoleServiceModel roleServiceModel) {
+        LOGGER.info(Messages.ADDING_ROLE);
         return modelMapper.map(roleRepository.save(modelMapper.map(roleServiceModel, Role.class)), RoleServiceModel.class);
     }
 
     private void createRolesIfNotExist() {
         if (roleRepository.count() == 0) {
+            LOGGER.info(Messages.CREATING_ROLES);
             for (UserRole userRole : UserRole.values()) {
                 roleRepository.save(new Role(userRole));
             }

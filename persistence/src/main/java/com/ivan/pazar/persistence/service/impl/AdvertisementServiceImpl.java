@@ -4,6 +4,7 @@ import com.ivan.pazar.domain.model.entity.*;
 import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
+import com.ivan.pazar.persistence.json.JsonParser;
 import com.ivan.pazar.persistence.model.service.*;
 import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
 import com.ivan.pazar.persistence.repository.AdvertisementRepository;
@@ -43,9 +44,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     private final VideoServiceExtended videoService;
     private final VideoManager videoManager;
     private final RegionServiceExtended regionServiceExtended;
+    private final JsonParser jsonParser;
 
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager, RegionServiceExtended regionServiceExtended) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager, RegionServiceExtended regionServiceExtended, JsonParser jsonParser) {
         this.advertisementRepository = advertisementRepository;
         this.modelMapper = modelMapper;
         this.advertisementPicturesManager = advertisementPicturesManager;
@@ -56,6 +58,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         this.videoService = videoService;
         this.videoManager = videoManager;
         this.regionServiceExtended = regionServiceExtended;
+        this.jsonParser = jsonParser;
     }
 
     @Override
@@ -104,7 +107,8 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
             videoService.updateVideo(videoEntity);
         }
 
-        LOGGER.info(Messages.ADVERTISEMENT_SAVED + advertisementServiceModel);
+        LOGGER.info(Messages.ADVERTISEMENT_SAVED + jsonParser.toJson(advertisementServiceModel));
+
         return advertisementServiceModel;
     }
 
@@ -132,6 +136,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public void activateAdvertisement(String advertId) {
         Advertisement advertisement = advertisementRepository.findById(advertId).orElse(null);
         if (advertisement == null) {
+            LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
             return;
         }
         advertisement.setActive(true);
@@ -150,6 +155,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public void incrementViews(String id) {
         Advertisement advertisement = advertisementRepository.findById(id).orElse(null);
         if (advertisement == null) {
+            LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
             return;
         }
 
@@ -193,6 +199,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     private Video saveVideo(AdvertisementAddServiceModel advertisementAddServiceModel, Advertisement advertisement, String advertisementServiceModelId) {
         if (advertisementAddServiceModel.getVideo().getSize() == 0) {
+            LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
             return null;
         }
         String videoName = getVideoName(advertisementServiceModelId, advertisementAddServiceModel.getVideo());
@@ -227,6 +234,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         try {
             videoManager.saveVideo(getVideoName(advertisementId, video), video.getBytes());
         } catch (IOException e) {
+            LOGGER.error(e.toString());
             e.printStackTrace();
         }
     }
@@ -240,6 +248,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         try {
             advertisementPicturesManager.savePictures(picturesNames, picturesContents);
         } catch (IOException e) {
+            LOGGER.error(e.toString());
             e.printStackTrace();
         }
     }
@@ -251,10 +260,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
                         return picture.getBytes();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        LOGGER.error(e.toString());
                         return null;
                     }
                 }).collect(Collectors.toList());
-
     }
 
     private List<String> getPicturesNames(String advertisementId, List<MultipartFile> pictures) {

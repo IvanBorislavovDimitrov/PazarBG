@@ -1,6 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.Subcategory;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.SubcategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.SubcategoryServiceModel;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
@@ -34,6 +35,7 @@ public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
 
     @Override
     public SubcategoryServiceModel save(SubcategoryAddServiceModel subcategoryAddServiceModel) {
+        LOGGER.info(Messages.ADDING_SUBCATEGORY);
         Subcategory subcategory = modelMapper.map(subcategoryAddServiceModel, Subcategory.class);
         subcategory.setCategory(categoryService.findByName(subcategoryAddServiceModel.getCategory()));
 
