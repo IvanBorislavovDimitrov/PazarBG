@@ -114,6 +114,13 @@ public class UserServiceImpl implements UserServiceExtended {
             messageServiceModel.setReceiver(modelMapper.map(receiver, UserServiceModel.class));
             userServiceModel.getSentMessages().add(messageServiceModel);
         });
+        userServiceModel.getReceivedMessages().clear();
+        user.getReceivedMessages().forEach(receivedMessage -> {
+            User sender = receivedMessage.getSender();
+            MessageServiceModel messageServiceModel = modelMapper.map(receivedMessage, MessageServiceModel.class);
+            messageServiceModel.setSender(modelMapper.map(sender, UserServiceModel.class));
+            userServiceModel.getReceivedMessages().add(messageServiceModel);
+        });
 
         return userServiceModel;
     }

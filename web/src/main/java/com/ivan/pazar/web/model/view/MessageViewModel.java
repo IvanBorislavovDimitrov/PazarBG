@@ -6,9 +6,19 @@ public class MessageViewModel {
 
     private String receiver;
 
+    private String sender;
+
     private String addedOn;
 
     private AdvertisementViewModel advertisement;
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 
     public String getAddedOn() {
         return addedOn;

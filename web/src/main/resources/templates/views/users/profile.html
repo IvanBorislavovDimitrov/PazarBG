@@ -26,12 +26,13 @@
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                            aria-controls="profile" aria-selected="false">Timeline</a>
                     </li>
-                    <li class="nav-item">
+                    <li th:if="${#authentication.getPrincipal().getUsername() == user.username}" class="nav-item">
                         <a class="nav-link" id="sent-messages-tab" data-toggle="tab" href="#sent-messages" role="tab"
                            aria-controls="profile" aria-selected="false">Sent</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="received-messages-tab" data-toggle="tab" href="#profile" role="tab"
+                    <li th:if="${#authentication.getPrincipal().getUsername() == user.username}" class="nav-item">
+                        <a class="nav-link" id="received-messages-tab" data-toggle="tab" href="#received-messages"
+                           role="tab"
                            aria-controls="profile" aria-selected="false">Received</a>
                     </li>
                     <li th:if="${#authentication.getPrincipal().getUsername() == user.username}" class="nav-item">
@@ -141,12 +142,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="sentMessage : ${user.sentMessages}">
-                            <th scope="row">1</th>
+                        <tr th:each="sentMessage,i : ${user.sentMessages}">
+                            <th scope="row" th:text="${i.index}"></th>
                             <td th:text="${sentMessage.advertisement.title}"></td>
                             <td th:text="${sentMessage.content}"></td>
                             <td th:text="${#strings.arraySplit(sentMessage.addedOn, 'T')[0]}"></td>
                             <td th:text="${sentMessage.receiver}"></td>
+                            <td><a class="btn btn-danger">Delete</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="received-messages" role="tabpanel" aria-labelledby="profile-tab">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Advertisement</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Sender</th>
+                            <th scope="col">Reply</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="receivedMessage,i : ${user.receivedMessages}">
+                            <th scope="row" th:text="${i.index}"></th>
+                            <td th:text="${receivedMessage.advertisement.title}"></td>
+                            <td th:text="${receivedMessage.content}"></td>
+                            <td th:text="${#strings.arraySplit(receivedMessage.addedOn, 'T')[0]}"></td>
+                            <td th:text="${receivedMessage.sender}"></td>
                             <td><a class="btn btn-success">Reply</a></td>
                         </tr>
                         </tbody>

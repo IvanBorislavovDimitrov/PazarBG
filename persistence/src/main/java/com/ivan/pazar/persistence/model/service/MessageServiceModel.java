@@ -6,9 +6,19 @@ public class MessageServiceModel extends IdServiceModel {
 
     private String addedOn;
 
+    private UserServiceModel sender;
+
     private UserServiceModel receiver;
 
     private AdvertisementServiceModel advertisement;
+
+    public UserServiceModel getSender() {
+        return sender;
+    }
+
+    public void setSender(UserServiceModel sender) {
+        this.sender = sender;
+    }
 
     public String getAddedOn() {
         return addedOn;
