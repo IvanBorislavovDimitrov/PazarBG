@@ -4,9 +4,10 @@ import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.enums.UserRole;
 import com.ivan.pazar.persistence.model.service.RoleServiceModel;
 import com.ivan.pazar.persistence.repository.RoleRepository;
-import com.ivan.pazar.persistence.service.api.RoleService;
 import com.ivan.pazar.persistence.service.service_api.RoleServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,8 @@ import javax.annotation.PostConstruct;
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
@@ -26,6 +29,7 @@ public class RoleServiceImpl implements RoleServiceExtended {
 
     @PostConstruct
     public void initRoles() {
+        LOGGER.error("Checking for user role");
         createRolesIfNotExist();
     }
 

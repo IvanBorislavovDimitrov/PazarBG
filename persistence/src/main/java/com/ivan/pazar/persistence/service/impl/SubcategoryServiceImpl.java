@@ -6,6 +6,8 @@ import com.ivan.pazar.persistence.model.service.SubcategoryServiceModel;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
 import com.ivan.pazar.persistence.service.service_api.SubcategoryServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubcategoryServiceImpl.class);
 
     private final SubcategoryRepository subcategoryRepository;
     private final ModelMapper modelMapper;

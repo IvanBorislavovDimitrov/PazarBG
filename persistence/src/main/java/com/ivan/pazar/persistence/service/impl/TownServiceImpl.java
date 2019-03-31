@@ -9,6 +9,8 @@ import com.ivan.pazar.persistence.repository.TownRepository;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TownServiceImpl implements TownServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TownServiceImpl.class);
 
     private static final String INIT_TOWN = "Sofia";
 

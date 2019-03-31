@@ -11,6 +11,8 @@ import com.ivan.pazar.persistence.service.service_api.AdvertisementServiceExtend
 import com.ivan.pazar.persistence.service.service_api.ReviewServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReviewServiceImpl.class);
 
     private final ReviewRepository reviewRepository;
     private final AdvertisementServiceExtended advertisementService;

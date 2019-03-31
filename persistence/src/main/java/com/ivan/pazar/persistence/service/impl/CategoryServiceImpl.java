@@ -6,6 +6,8 @@ import com.ivan.pazar.persistence.model.service.CategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
 import com.ivan.pazar.persistence.service.service_api.CategoryServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CategoryServiceImpl implements CategoryServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;

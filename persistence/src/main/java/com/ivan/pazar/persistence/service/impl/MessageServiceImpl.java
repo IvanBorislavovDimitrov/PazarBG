@@ -11,6 +11,8 @@ import com.ivan.pazar.persistence.service.service_api.AdvertisementServiceExtend
 import com.ivan.pazar.persistence.service.service_api.MessageServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,8 @@ import java.time.LocalDateTime;
 @Service
 @Transactional
 public class MessageServiceImpl implements MessageServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageServiceImpl.class);
 
     private final MessageRepository messageRepository;
     private final AdvertisementServiceExtended advertisementService;

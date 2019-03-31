@@ -1,6 +1,6 @@
 package com.ivan.pazar.persistence.util;
 
-import com.ivan.pazar.persistence.constants.ConfigConstants;
+import com.ivan.pazar.persistence.constants.PersistenceConstants;
 import java.io.File;
 
 public class Utils {
@@ -47,19 +47,19 @@ public class Utils {
     }
 
     public static String getProjectFilesFolder() {
-        return System.getProperty(ConfigConstants.USER_HOME) + File.separator + ConfigConstants.PROJECT_FILES_DIR;
+        return System.getProperty(PersistenceConstants.USER_HOME) + File.separator + PersistenceConstants.PROJECT_FILES_DIR;
     }
 
     public static String getProfilePicturesDirectory() {
-        return getProjectFilesFolder() + File.separator + ConfigConstants.PROFILE_PICTURES_DIR;
+        return getProjectFilesFolder() + File.separator + PersistenceConstants.PROFILE_PICTURES_DIR;
     }
 
     public static String getAdvertisementsDirectory() {
-        return getProjectFilesFolder() + File.separator + ConfigConstants.ADVERTISEMENTS_DIR;
+        return getProjectFilesFolder() + File.separator + PersistenceConstants.ADVERTISEMENTS_DIR;
     }
 
     public static String getVideosDirectory() {
-        return getProjectFilesFolder() + File.separator + ConfigConstants.VIDEO_DIR;
+        return getProjectFilesFolder() + File.separator + PersistenceConstants.VIDEO_DIR;
 
     }
 }

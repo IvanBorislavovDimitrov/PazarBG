@@ -6,12 +6,16 @@ import com.ivan.pazar.persistence.model.service.VideoServiceModel;
 import com.ivan.pazar.persistence.repository.VideoRepository;
 import com.ivan.pazar.persistence.service.service_api.VideoServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 public class VideoServiceImpl implements VideoServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(VideoServiceImpl.class);
 
     private final VideoRepository videoRepository;
     private final ModelMapper modelMapper;

@@ -7,6 +7,8 @@ import com.ivan.pazar.persistence.model.service.rest.RegionRestServiceModel;
 import com.ivan.pazar.persistence.repository.RegionRepository;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class RegionServiceImpl implements RegionServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegionServiceImpl.class);
 
     static final String INIT_REGION = "Sofia";
 

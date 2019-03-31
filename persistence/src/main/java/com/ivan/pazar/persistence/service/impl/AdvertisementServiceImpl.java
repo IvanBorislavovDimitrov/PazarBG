@@ -1,6 +1,7 @@
 package com.ivan.pazar.persistence.service.impl;
 
 import com.ivan.pazar.domain.model.entity.*;
+import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
 import com.ivan.pazar.persistence.model.service.*;
@@ -9,6 +10,8 @@ import com.ivan.pazar.persistence.repository.AdvertisementRepository;
 import com.ivan.pazar.persistence.service.service_api.*;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,8 @@ import java.util.stream.Collectors;
 public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     private static final int MAX_LENGTH_OF_DESCRIPTION = 45;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdvertisementServiceImpl.class);
 
     private final AdvertisementRepository advertisementRepository;
     private final ModelMapper modelMapper;
@@ -57,6 +62,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public AdvertisementViewServiceModel findById(String id) {
         Advertisement advertisement = advertisementRepository.findById(id).orElse(null);
         if (advertisement == null) {
+            LOGGER.info(Messages.ADVERTISEMENT_IS_NULL);
             throw new IllegalStateException();
         }
 
@@ -69,6 +75,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public AdvertisementServiceModel save(String username, AdvertisementAddServiceModel advertisementAddServiceModel) {
+        LOGGER.info(Messages.SAVING_ADVERTISEMENT);
         Advertisement advertisement = modelMapper.map(advertisementAddServiceModel, Advertisement.class);
         advertisement.setPictures(new ArrayList<>());
         advertisement.setVideo(null);
@@ -96,6 +103,8 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
             videoEntity.setAdvertisement(advertisement);
             videoService.updateVideo(videoEntity);
         }
+
+        LOGGER.info(Messages.ADVERTISEMENT_SAVED + advertisementServiceModel);
         return advertisementServiceModel;
     }
 

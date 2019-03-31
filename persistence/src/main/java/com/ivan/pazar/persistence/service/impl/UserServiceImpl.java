@@ -23,6 +23,8 @@ import com.ivan.pazar.persistence.service.service_api.TownServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import com.ivan.pazar.persistence.util.Utils;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +40,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserServiceImpl implements UserServiceExtended {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private static final String USER_PROFILE_PICTURE_PREFIX = "profile_picture_";
 

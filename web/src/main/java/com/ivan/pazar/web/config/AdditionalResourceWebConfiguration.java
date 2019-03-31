@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.config;
 
-import com.ivan.pazar.persistence.constants.ConfigConstants;
+import com.ivan.pazar.persistence.constants.PersistenceConstants;
 import com.ivan.pazar.persistence.util.Utils;
 import com.ivan.pazar.web.interceptors.LogInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/" + ConfigConstants.CONTENT + "/**")
+        registry.addResourceHandler("/" + PersistenceConstants.CONTENT + "/**")
                 .addResourceLocations("file:" + Utils.getProfilePicturesDirectory() + "/")
                 .addResourceLocations("file:" + Utils.getAdvertisementsDirectory() + "/")
                 .addResourceLocations("file:" + Utils.getVideosDirectory() + "/");
