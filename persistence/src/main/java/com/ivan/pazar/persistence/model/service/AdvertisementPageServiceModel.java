@@ -3,13 +3,13 @@ package com.ivan.pazar.persistence.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvertisementHomePageServiceModel {
+public class AdvertisementPageServiceModel {
 
     private int pages;
 
     private List<AdvertisementViewServiceModel> advertisementViewServiceModels;
 
-    public AdvertisementHomePageServiceModel() {
+    public AdvertisementPageServiceModel() {
         advertisementViewServiceModels = new ArrayList<>();
     }
 

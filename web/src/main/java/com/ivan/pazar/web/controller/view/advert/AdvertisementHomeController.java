@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.view.advert;
 
-import com.ivan.pazar.persistence.model.service.AdvertisementHomePageServiceModel;
+import com.ivan.pazar.persistence.model.service.AdvertisementPageServiceModel;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
 import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.pagination.Pagination;
@@ -29,7 +29,7 @@ public class AdvertisementHomeController extends AdvertisementBaseController {
     public ModelAndView advertisementsHome(@RequestParam(value = "category", defaultValue = "%%") String category, @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         PageRequest pageRequest = PageRequest.of(page, WebConstants.DEFAULT_ELEMENTS_SIZE, Sort.by(WebConstants.ADDED_ON).descending());
 
-        AdvertisementHomePageServiceModel advertisementsPage = advertisementService.findAllByCategoryLikeWithPage(category, pageRequest);
+        AdvertisementPageServiceModel advertisementsPage = advertisementService.findAllByCategoryLikeWithPage(category, pageRequest);
 
         pagination.createAdvertisementsPages(page, model, advertisementsPage);
 

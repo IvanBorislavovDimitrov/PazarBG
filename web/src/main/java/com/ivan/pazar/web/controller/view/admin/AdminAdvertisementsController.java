@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.view.admin;
 
-import com.ivan.pazar.persistence.model.service.AdvertisementHomePageServiceModel;
+import com.ivan.pazar.persistence.model.service.AdvertisementPageServiceModel;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
 import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.pagination.Pagination;
@@ -28,7 +28,7 @@ public class AdminAdvertisementsController extends AdminBaseController {
     @GetMapping("/adds-to-confirm")
     public ModelAndView addsToConfirm(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         PageRequest pageRequest = PageRequest.of(page, WebConstants.DEFAULT_ELEMENTS_SIZE, Sort.by(WebConstants.ADDED_ON).descending());
-        AdvertisementHomePageServiceModel advertisementsPage =
+        AdvertisementPageServiceModel advertisementsPage =
                 advertisementService.findNonConfirmedAdvertisements(pageRequest);
 
         pagination.createAdvertisementsPages(page, model, advertisementsPage);

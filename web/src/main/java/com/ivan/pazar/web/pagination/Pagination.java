@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.pagination;
 
-import com.ivan.pazar.persistence.model.service.AdvertisementHomePageServiceModel;
+import com.ivan.pazar.persistence.model.service.AdvertisementPageServiceModel;
 import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.view.AdvertisementViewModel;
 import org.modelmapper.ModelMapper;
@@ -21,7 +21,7 @@ public class Pagination {
         this.modelMapper = modelMapper;
     }
 
-    public void createAdvertisementsPages(int page, Model model, AdvertisementHomePageServiceModel advertisementsPage) {
+    public void createAdvertisementsPages(int page, Model model, AdvertisementPageServiceModel advertisementsPage) {
         List<AdvertisementViewModel> advertisements = advertisementsPage.getAdvertisementViewServiceModels().stream()
                 .map(advertisementViewServiceModel ->
                         modelMapper.map(advertisementViewServiceModel, AdvertisementViewModel.class))

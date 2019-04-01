@@ -14,15 +14,17 @@ public interface AdvertisementService {
 
     List<AdvertisementRestServiceModel> findSixMostRecentAdvertisements();
 
-    AdvertisementHomePageServiceModel findAllByCategoryLikeWithPage(String category, PageRequest pageRequest);
+    AdvertisementPageServiceModel findAllByCategoryLikeWithPage(String category, PageRequest pageRequest);
 
-    AdvertisementHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
+    AdvertisementPageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest);
 
     void activateAdvertisement(String advertId);
 
-    AdvertisementHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest);
+    AdvertisementPageServiceModel findByKeyword(String keyword, PageRequest pageRequest);
 
     void incrementViews(String id);
 
     void deleteById(String advertId);
+
+    AdvertisementPageServiceModel findAllByUsername(String username, PageRequest pageRequest);
 }

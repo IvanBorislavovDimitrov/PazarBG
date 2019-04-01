@@ -120,14 +120,14 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     @Override
-    public AdvertisementHomePageServiceModel findAllByCategoryLikeWithPage(String categoryName, PageRequest pageRequest) {
+    public AdvertisementPageServiceModel findAllByCategoryLikeWithPage(String categoryName, PageRequest pageRequest) {
         Page<Advertisement> advertisementPage = advertisementRepository.findAllByCategoryNameLikeAndActive(categoryName, pageRequest, true);
 
         return getAdvertisementHomePageServiceModel(advertisementPage);
     }
 
     @Override
-    public AdvertisementHomePageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest) {
+    public AdvertisementPageServiceModel findNonConfirmedAdvertisements(PageRequest pageRequest) {
         Page<Advertisement> advertisementPage = advertisementRepository.findAllByActive(false, pageRequest);
 
         return getAdvertisementHomePageServiceModel(advertisementPage);
@@ -145,7 +145,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     @Override
-    public AdvertisementHomePageServiceModel findByKeyword(String keyword, PageRequest pageRequest) {
+    public AdvertisementPageServiceModel findByKeyword(String keyword, PageRequest pageRequest) {
         String keywordWithExtensions = "%" + keyword + "%";
         Page<Advertisement> advertisementPage = advertisementRepository.findAllByTitleLikeAndActiveIsTrue(keywordWithExtensions, pageRequest);
 
@@ -174,11 +174,18 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     @Override
+    public AdvertisementPageServiceModel findAllByUsername(String username, PageRequest pageRequest) {
+        Page<Advertisement> advertisementPage = advertisementRepository.findAllByAuthorUsernameAndActiveIsTrue(username, pageRequest);
+
+        return getAdvertisementHomePageServiceModel(advertisementPage);
+    }
+
+    @Override
     public Advertisement getAdvertisementById(String id) {
         return advertisementRepository.findById(id).orElse(null);
     }
 
-    private AdvertisementHomePageServiceModel getAdvertisementHomePageServiceModel(Page<Advertisement> advertisementPage) {
+    private AdvertisementPageServiceModel getAdvertisementHomePageServiceModel(Page<Advertisement> advertisementPage) {
         List<AdvertisementViewServiceModel> advertisementViewServiceModels = advertisementPage.getContent().stream()
                 .map(advertisement -> {
                     AdvertisementViewServiceModel advertisementViewServiceModel = modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
@@ -188,11 +195,11 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
                 })
                 .collect(Collectors.toList());
 
-        AdvertisementHomePageServiceModel advertisementHomePageServiceModel = new AdvertisementHomePageServiceModel();
-        advertisementHomePageServiceModel.setPages(advertisementPage.getTotalPages());
-        advertisementHomePageServiceModel.setAdvertisementViewServiceModels(advertisementViewServiceModels);
+        AdvertisementPageServiceModel advertisementPageServiceModel = new AdvertisementPageServiceModel();
+        advertisementPageServiceModel.setPages(advertisementPage.getTotalPages());
+        advertisementPageServiceModel.setAdvertisementViewServiceModels(advertisementViewServiceModels);
 
-        return advertisementHomePageServiceModel;
+        return advertisementPageServiceModel;
     }
 
     private AdvertisementRestServiceModel mapAdvertisement(Advertisement advertisement) {
