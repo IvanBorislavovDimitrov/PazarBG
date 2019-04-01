@@ -8,8 +8,6 @@ public class LogViewModel {
 
     private String action;
 
-    private String description;
-
     private LocalDateTime date;
 
     public static class Builder {
@@ -22,11 +20,6 @@ public class LogViewModel {
 
         public Builder action(String action) {
             logViewModel.action = action;
-            return this;
-        }
-
-        public Builder description(String description) {
-            logViewModel.description = description;
             return this;
         }
 
@@ -54,14 +47,6 @@ public class LogViewModel {
 
     public void setAction(String action) {
         this.action = action;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public LocalDateTime getDate() {
