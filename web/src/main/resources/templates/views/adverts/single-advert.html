@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div sec:authorize="hasAnyRole('ROOT', 'ADMIN', 'MODERATOR')" th:unless="${advert.active}">
+                    <div sec:authorize="hasAnyRole('ROOT','ADMIN','MODERATOR')" th:unless="${advert.active}">
                         <form class="mt-3" th:method="post" th:action="@{/admin/confirm-add(advertId=${advert.id})}">
                             <div class="row">
                                 <input type="submit" class="btn btn-success" value="Confirm Add">
@@ -58,6 +58,15 @@
                        data-target="#send-message-modal">Send a Message</a>
                     <th:block th:replace="fragments/modal/message/send-message-modal"></th:block>
                     <button class="mr-5 ml-5 btn btn-success">0877591400</button>
+                </div>
+            </div>
+            <div class="card card-outline-secondary my-4">
+                <div class="row d-flex justify-content-center">
+                    <form th:action="@{/adverts/delete}" th:method="delete"
+                          th:if="${#authentication.getPrincipal().getUsername() == advert.userUsername}">
+                        <input type="hidden" th:value="*{id}" name="advertId"/>
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
                 </div>
             </div>
             <div class="card card-outline-secondary my-4">

@@ -11,6 +11,9 @@ public class DefaultVideoManager implements VideoManager {
 
     @Override
     public void saveVideo(String fileName, byte[] fileContent) throws IOException {
+        if (fileName == null || fileContent == null) {
+            return;
+        }
         Utils.createProjectDirIfNotExist();
         Utils.createVideoDirIfNotExists();
 
@@ -19,6 +22,9 @@ public class DefaultVideoManager implements VideoManager {
 
     @Override
     public void deleteVideo(String videoName) {
+        if (videoName == null) {
+            return;
+        }
         try {
             Files.deleteIfExists(Paths.get(Utils.getVideosDirectory() + File.separator + videoName));
         } catch (IOException e) {

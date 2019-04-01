@@ -12,6 +12,9 @@ public class DefaultAdvertisementPicturesManager implements AdvertisementPicture
 
     @Override
     public void savePictures(List<String> imagesNames, List<byte[]> imagesContents) throws IOException {
+        if (imagesNames == null || imagesContents == null) {
+            return;
+        }
         Utils.createProjectDirIfNotExist();
         Utils.createAdvertisementsDirIfNotExists();
 
@@ -24,6 +27,9 @@ public class DefaultAdvertisementPicturesManager implements AdvertisementPicture
 
     @Override
     public void deletePicturesIfExist(List<String> picturesNames) {
+        if (picturesNames == null) {
+            return;
+        }
         picturesNames.forEach(pictureName -> {
             try {
                 Files.deleteIfExists(Paths.get(Utils.getAdvertisementsDirectory() + File.separator + pictureName));

@@ -72,6 +72,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         AdvertisementViewServiceModel advertisementViewServiceModel = modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
         RegionServiceModel regionServiceModel = regionServiceExtended.getRegionByTownName(advertisement.getTown().getName());
         advertisementViewServiceModel.setRegion(regionServiceModel.getName());
+        advertisementViewServiceModel.setUserUsername(advertisement.getAuthor().getUsername());
 
         return advertisementViewServiceModel;
     }
@@ -161,6 +162,15 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
         advertisement.setViews(advertisement.getViews() + 1);
         advertisementRepository.saveAndFlush(advertisement);
+    }
+
+    @Override
+    public void deleteById(String advertId) {
+        Advertisement advertisement = advertisementRepository.findById(advertId).orElse(null);
+
+        advertisementPicturesManager.deletePicturesIfExist(advertisement.getPictures());
+        videoManager.deleteVideo(advertisement.getVideo() != null ? advertisement.getVideo().getName() : null);
+        advertisementRepository.delete(advertisement);
     }
 
     @Override
