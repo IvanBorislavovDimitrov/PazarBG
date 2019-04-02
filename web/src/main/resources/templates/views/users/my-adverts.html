@@ -1,0 +1,66 @@
+<div class="card-body" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<div th:each="advert : ${adverts}">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-2 text-center">
+            <img class="img-responsive" th:src="@{|/content/${advert.pictures[0]}|}" alt="prewiew" width="120" height="80">
+        </div>
+        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+            <h4 class="product-name"><strong th:text="${advert.title}"></strong></h4>
+            <h4>
+                <small th:text="${advert.description}"></small>
+            </h4>
+        </div>
+        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                <h6><strong th:text="${advert.price}"><span class="text-muted">$</span></strong></h6>
+            </div>
+
+            <div class="col-2 col-sm-2 col-md-2 text-right">
+                <a type="button" class="btn btn-outline-success btn-xs" th:href="@{|/adverts/${advert.id}|}">
+                    <i class="fa fa-trash" aria-hidden="true">View</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+</div>
+<div class="d-flex justify-content-center">
+    <div>
+        <ul class="pagination">
+            <div th:remove="tag" th:if="${page == 0}">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&laquo;</a>
+                </li>
+            </div>
+            <div th:remove="tag" th:unless="${page == 0}">
+                <li class="page-item">
+                    <div th:remove="tag" th:if="${cat == null}">
+                        <a class="page-link" th:href="@{/adverts/mine(page=${page - 1})}">&laquo;</a>
+                    </div>
+                    <div th:remove="tag" th:if="${cat != null}">
+                        <a class="page-link"
+                           th:href="@{/adverts/mine(page=${page - 1},category=${cat})}">&laquo;</a>
+                    </div>
+                </li>
+            </div>
+            <li th:each="p,i : ${pages}" class="page-item" th:classappend="${i.index == page  ? 'active' : ''}">
+                <div th:remove="tag" th:if="${cat == null}">
+                    <a class="page-link" th:href="@{/adverts/mine(page=${i.index})}" th:text="${i.index + 1}"></a>
+                </div>
+            </li>
+            <div th:remove="tag" th:if="${page + 1 >= totalPages}">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&raquo;</a>
+                </li>
+            </div>
+            <div th:remove="tag" th:unless="${page + 1 >= totalPages}">
+                <li class="page-item">
+                    <div th:remove="tag" th:if="${cat == null}">
+                        <a class="page-link" th:href="@{/adverts/mine(page=${page + 1})}">&raquo;</a>
+                    </div>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>

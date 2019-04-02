@@ -8,6 +8,7 @@ import com.ivan.pazar.web.pagination.Pagination;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +30,14 @@ public class AdvertisementsMineController extends AdvertisementBaseController {
     }
 
     @GetMapping("/mine")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView mineAdvertisements(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         PageRequest pageRequest = PageRequest.of(page, WebConstants.DEFAULT_ELEMENTS_SIZE);
         AdvertisementPageServiceModel advertisementPageServiceModel =
                 advertisementService.findAllByUsername(userConfiguration.loggedUserUsername(), pageRequest);
         pagination.createAdvertisementsPages(page, model, advertisementPageServiceModel);
+        model.addAttribute(WebConstants.PAGES, new int[advertisementPageServiceModel.getPages()]);
 
-        return renderView(WebConstants.VIEWS_ADVERTS_HOME, model);
+        return renderView(WebConstants.VIEWS_MY_ADVERTS, model) ;
     }
 }

@@ -53,6 +53,7 @@ public final class WebConstants {
     public static final String VIEWS_ADD_REGION = "views/regions/add-region";
     public static final String VIEWS_ADD_TOWN = "views/towns/add-town";
     public static final String VIEWS_VIEW_AND_REPLY_MESSAGE = "views/messages/view-and-reply";
+    public static final String VIEWS_MY_ADVERTS = "views/users/my-adverts";
 
     // Redirects
     public static final String REDIRECT_INDEX = "";
