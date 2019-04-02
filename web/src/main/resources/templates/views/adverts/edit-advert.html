@@ -1,0 +1,95 @@
+<head>
+    <title>Register</title>
+    <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/ajax/load-categories.js"></script>
+    <script type="text/javascript" src="/js/ajax/user-register.js"></script>
+</head>
+<body xmlns:th="http://www.thymeleaf.org">
+<div class="mt-3">
+    <hr class="w-25"/>
+    <h1 class="text-center">Edit advert</h1>
+    <hr class="w-25"/>
+    <form class="mx-auto w-25" th:method="patch" th:action="@{/adverts/edit}" enctype="multipart/form-data"
+          th:object="${advert}">
+        <fieldset>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title"
+                       placeholder="Enter title..." name="title" th:value="*{title}"
+                       th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}">
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('title')}"
+                       th:text="${error}">
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="shipment">*Select a shipment</label>
+                <select class="form-control" id="shipment" name="shipment">
+                    <option th:if="*{shipment == 'Paid by the seller'}">PAID_BY_THE_SELLER</option>
+                    <option th:if="*{shipment == 'Paid by the buyer'}">PAID_BY_THE_BUYER</option>
+                    <option th:if="*{shipment != 'Paid by the seller'}">PAID_BY_THE_SELLER</option>
+                    <option th:if="*{shipment != 'Paid by the buyer'}">PAID_BY_THE_BUYER</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" placeholder="Price..." name="price"
+                       th:value="*{price}" th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}">
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('price')}"
+                       th:text="${error}">
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="exampleTextarea">Short description</label>
+                <textarea class="form-control" placeholder="Enter short description (optional)..."
+                          id="exampleTextarea"
+                          rows="3" name="description" th:text="*{description}"></textarea>
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('description')}"
+                       th:text="${error}">
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select class="form-control" id="state" name="state">
+                    <option th:if="*{state == 'NEW'}">NEW</option>
+                    <option th:if="*{state == 'USED'}">USED</option>
+                    <option th:if="*{state != 'NEW'}">NEW</option>
+                    <option th:if="*{state != 'USED'}">USED</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category">
+                    <option selected="selected" th:text="*{category}"></option>
+                </select>
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('category')}"
+                       th:text="${error}">
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="subcategory">Subcategory</label>
+                <select class="form-control" id="subcategory" name="subcategory">
+                    <option selected="selected" th:text="*{subcategory}"></option>
+                </select>
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('subcategory')}"
+                       th:text="${error}">
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="photos">Choose Photos</label>
+                <input type="file" class="form-control-file" id="photos"
+                       name="photos" multiple>
+            </div>
+            <div class="form-group">
+                <label for="video">Choose Video</label>
+                <input type="file" class="form-control-file" id="video"
+                       name="video">
+            </div>
+            <input name="id" type="hidden" th:value="*{id}">
+            <hr class="w-100 hr-2"/>
+            <div class="button-holder mt-4 d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary" value="Edit advert"/>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>

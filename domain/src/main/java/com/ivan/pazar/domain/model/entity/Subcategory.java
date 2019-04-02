@@ -45,4 +45,9 @@ public class Subcategory extends IdEntity {
     public void setAdvertisements(List<Advertisement> advertisements) {
         this.advertisements = advertisements;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

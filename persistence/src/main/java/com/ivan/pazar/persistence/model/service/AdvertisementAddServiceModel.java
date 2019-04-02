@@ -7,6 +7,7 @@ import java.util.List;
 
 public class AdvertisementAddServiceModel {
 
+    private String id;
     private String title;
     private String shipment;
     private BigDecimal price;
@@ -19,6 +20,14 @@ public class AdvertisementAddServiceModel {
     private String subcategory;
     private String description;
     private String addedOn;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getAddedOn() {
         return addedOn;

@@ -1,8 +1,9 @@
 $(document).ready(() => {
     const categorySelect = $('#category');
+    const currentCategory = categorySelect.val();
     $.getJSON("/api/categories/all", (categories) => {
         categories.forEach((category) => {
-            categorySelect.append(`<option>${category.name}</option>`)
+                categorySelect.append(`<option>${category.name}</option>`)
         });
     });
     const subcategorySelect= $('#subcategory');

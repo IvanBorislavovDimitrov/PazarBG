@@ -27,4 +27,6 @@ public interface AdvertisementService {
     void deleteById(String advertId);
 
     AdvertisementPageServiceModel findAllByUsername(String username, PageRequest pageRequest);
+
+    void edit(AdvertisementAddServiceModel advertisementAddServiceModel);
 }

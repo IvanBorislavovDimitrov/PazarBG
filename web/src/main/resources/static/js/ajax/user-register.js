@@ -1,16 +1,20 @@
 $(document).ready(function () {
+    const regionsField = $("#regions");
+    const currentRegion = regionsField.val();
     $.getJSON("/api/regions/all", function (regions) {
         regions.forEach(function (region) {
-            $("#regions").append("<option>" + region.name + "</option>")
+            if (currentRegion !== region.name) {
+                regionsField.append("<option>" + region.name + "</option>");
+            }
         })
     });
 
-    $("#regions").change(function () {
+    regionsField.change(function () {
         $("#towns").empty().append("<option selected disabled>Town</option>");
         var region = $("#regions").val();
         $.getJSON("/api/towns/all?region=" + region, function (towns) {
             towns.forEach(function (town) {
-                $("#towns").append("<option>" + town.name + "</option>")
+                $("#towns").append("<option>" + town.name + "</option>");
             })
         })
     });

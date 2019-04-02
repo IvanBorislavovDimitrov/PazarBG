@@ -6,4 +6,6 @@ import com.ivan.pazar.persistence.model.service.VideoServiceModel;
 public interface VideoService {
 
     VideoServiceModel save(VideoAddServiceModel videoAddServiceModel);
+
+    void deleteById(String name);
 }

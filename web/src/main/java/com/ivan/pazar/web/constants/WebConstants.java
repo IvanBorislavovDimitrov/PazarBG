@@ -2,6 +2,7 @@ package com.ivan.pazar.web.constants;
 
 public final class WebConstants {
 
+
     private WebConstants() {
 
     }
@@ -46,6 +47,7 @@ public final class WebConstants {
     public static final String VIEWS_CHANGE_USER_ROLE = "views/admins/change-user-role";
     public static final String VIEWS_CHANGE_USER_ROLE_CONFIRM = "views/admins/change-user-role-confirm";
     public static final String VIEWS_NEW_ADVERT = "views/adverts/new-advert";
+    public static final String VIEWS_EDIT_ADVERT = "views/adverts/edit-advert";
     public static final String VIEWS_SINGLE_ADVERT = "views/adverts/single-advert";
     public static final String VIEWS_REVIEW_ADD = "views/reviews/review-add";
     public static final String VIEWS_DELETE_PROFILE = "views/users/delete";

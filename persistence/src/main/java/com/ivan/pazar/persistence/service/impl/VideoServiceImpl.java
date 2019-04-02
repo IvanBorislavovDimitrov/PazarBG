@@ -33,6 +33,11 @@ public class VideoServiceImpl implements VideoServiceExtended {
     }
 
     @Override
+    public void deleteById(String name) {
+        videoRepository.deleteByName(name);
+    }
+
+    @Override
     public Video findById(String id) {
         return videoRepository.findById(id).orElse(null);
     }

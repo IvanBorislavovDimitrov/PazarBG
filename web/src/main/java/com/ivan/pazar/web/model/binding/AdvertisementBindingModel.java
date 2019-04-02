@@ -12,11 +12,11 @@ public class AdvertisementBindingModel {
 
     private static final String INVALID_TITLE = "Invalid title";
     private static final String INVALID_SHIPMENT = "Invalid shipment";
-    private static final String INVALID_REGION = "Invalid region";
-    private static final String INVALID_TOWN = "Invalid town";
     private static final String INVALID_STATE = "Invalid state";
     private static final String INVALID_CATEGORY = "Invalid category";
     private static final String INVALID_SUBCATEGORY = "Invalid subcategory";
+
+    private String id;
 
     @NotEmpty(message = INVALID_TITLE)
     private String title;
@@ -27,10 +27,8 @@ public class AdvertisementBindingModel {
     @Min(0)
     private BigDecimal price;
 
-    @NotEmpty(message = INVALID_REGION)
     private String region;
 
-    @NotEmpty(message = INVALID_TOWN)
     private String town;
 
     @NotEmpty(message = INVALID_STATE)
@@ -47,6 +45,14 @@ public class AdvertisementBindingModel {
     private String subcategory;
 
     private String description;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

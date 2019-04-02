@@ -57,4 +57,9 @@ public class Category extends IdEntity {
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

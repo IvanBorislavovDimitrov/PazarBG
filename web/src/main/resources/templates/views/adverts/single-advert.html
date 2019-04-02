@@ -60,13 +60,17 @@
                     <button class="mr-5 ml-5 btn btn-success">0877591400</button>
                 </div>
             </div>
-            <div class="card card-outline-secondary my-4">
+            <div sec:authorize="isAuthenticated()" class="card card-outline-secondary my-4">
                 <div class="row d-flex justify-content-center">
-                    <form th:action="@{/adverts/delete}" th:method="delete"
+                    <form class="mr-5 ml-5" th:action="@{/adverts/delete}" th:method="delete"
                           th:if="${#authentication.getPrincipal().getUsername() == advert.userUsername}">
                         <input type="hidden" th:value="*{id}" name="advertId"/>
                         <input type="submit" value="Delete" class="btn btn-danger">
                     </form>
+                    <div class="mr-5 ml-5"
+                         th:if="${#authentication.getPrincipal().getUsername() == advert.userUsername}">
+                        <a th:href="@{/adverts/edit(advertId=${advert.id})}" class="btn btn-primary">Edit</a>
+                    </div>
                 </div>
             </div>
             <div class="card card-outline-secondary my-4">
