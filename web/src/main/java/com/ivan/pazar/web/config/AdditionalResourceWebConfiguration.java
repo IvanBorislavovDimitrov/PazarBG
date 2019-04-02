@@ -2,6 +2,7 @@ package com.ivan.pazar.web.config;
 
 import com.ivan.pazar.persistence.constants.PersistenceConstants;
 import com.ivan.pazar.persistence.util.Utils;
+import com.ivan.pazar.web.interceptors.CheckForApplicationJsonContentType;
 import com.ivan.pazar.web.interceptors.LogInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,25 +13,34 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 
+    private static final String ALL_ROUTES = "/**";
+    private static final String FILE = "file:";
+    private static final String SLASH = "/";
+    private static final String API_ROUTES = "/api/**";
+
     private final LogInterceptor logInterceptor;
+    private final CheckForApplicationJsonContentType checkForApplicationJsonContentType;
 
     @Autowired
-    public AdditionalResourceWebConfiguration(LogInterceptor logInterceptor) {
+    public AdditionalResourceWebConfiguration(LogInterceptor logInterceptor, CheckForApplicationJsonContentType checkForApplicationJsonContentType) {
         this.logInterceptor = logInterceptor;
+        this.checkForApplicationJsonContentType = checkForApplicationJsonContentType;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(logInterceptor)
-                .addPathPatterns("/**");
+                .addPathPatterns(ALL_ROUTES);
+        registry.addInterceptor(checkForApplicationJsonContentType)
+                .addPathPatterns(API_ROUTES);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/" + PersistenceConstants.CONTENT + "/**")
-                .addResourceLocations("file:" + Utils.getProfilePicturesDirectory() + "/")
-                .addResourceLocations("file:" + Utils.getAdvertisementsDirectory() + "/")
-                .addResourceLocations("file:" + Utils.getVideosDirectory() + "/");
+        registry.addResourceHandler(SLASH + PersistenceConstants.CONTENT + ALL_ROUTES)
+                .addResourceLocations(FILE + Utils.getProfilePicturesDirectory() + SLASH)
+                .addResourceLocations(FILE + Utils.getAdvertisementsDirectory() + SLASH)
+                .addResourceLocations(FILE + Utils.getVideosDirectory() + SLASH);
     }
 
 }

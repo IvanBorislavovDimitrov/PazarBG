@@ -35,7 +35,6 @@ public class LogInterceptor implements HandlerInterceptor {
         this.jsonParser = jsonParser;
     }
 
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String username = userConfiguration.loggedUserUsername();

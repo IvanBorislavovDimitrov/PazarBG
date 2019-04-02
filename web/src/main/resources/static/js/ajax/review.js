@@ -8,16 +8,19 @@ $(document).ready(() => {
             if (review.username === review.loggedUserUsername || review.loggedUserRoles.includes('ROLE_ADMIN') ||
                 review.loggedUserRoles.includes('ROLE_MODERATOR') || review.loggedUserRoles.includes('ROLE_ROOT')) {
 
-                const myValue = ("button"+review.id);
+                const myValue = ("button" + review.id);
                 reviewsSerction.append(`<button type="submit" id="${myValue}" class="btn btn-danger md-3">Delete</button>`);
-                $('#'+myValue).on("click", function () {
+                $('#' + myValue).on("click", function () {
                     alert("Post sent");
                     $.ajax({
                         type: 'POST',
                         url: `/api/reviews/delete?reviewId=${review.id}`,
-                        headers: {'X-CSRF-TOKEN': _csrf_token},
+                        headers: {
+                            'X-CSRF-TOKEN': _csrf_token,
+                            'CONTENT-TYPE': 'application/json;charset=UTF-8'
+                        },
                         success: function (result) {
-                                window.location.replace(window.location.href);
+                            window.location.replace(window.location.href);
                         }
                     });
                 });
