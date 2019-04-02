@@ -65,7 +65,7 @@ public class UserRegisterController extends UserBaseController {
             return renderView(WebConstants.VIEWS_USER_REGISTER, model);
         }
         try {
-            sendEmail(() -> emailService.sendNotificationForRegistering(userRegisterBindingModel));
+            emailService.sendNotificationForRegistering(userRegisterBindingModel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,9 +77,6 @@ public class UserRegisterController extends UserBaseController {
         return new UserRegisterBindingModel();
     }
 
-    private void sendEmail(Runnable runnable) {
-        new Thread(runnable).start();
-    }
 
     private void encodePasswords(UserRegisterBindingModel userRegisterBindingModel) {
         userRegisterBindingModel.setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));

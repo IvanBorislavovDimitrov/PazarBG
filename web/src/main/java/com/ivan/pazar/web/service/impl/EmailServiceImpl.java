@@ -34,6 +34,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Async
     public void sendNotificationForRegistering(UserRegisterBindingModel userRegisterBindingModel) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userRegisterBindingModel.getEmail());
