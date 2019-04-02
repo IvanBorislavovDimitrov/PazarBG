@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -21,17 +22,19 @@ public class LogInterceptor implements HandlerInterceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogInterceptor.class);
 
-    @Autowired
-    private LogService logService;
+    private final LogService logService;
+    private final ModelMapper modelMapper;
+    private final UserConfiguration userConfiguration;
+    private final JsonParser jsonParser;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public LogInterceptor(LogService logService, ModelMapper modelMapper, UserConfiguration userConfiguration, JsonParser jsonParser) {
+        this.logService = logService;
+        this.modelMapper = modelMapper;
+        this.userConfiguration = userConfiguration;
+        this.jsonParser = jsonParser;
+    }
 
-    @Autowired
-    private UserConfiguration userConfiguration;
-
-    @Autowired
-    private JsonParser jsonParser;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
