@@ -33,8 +33,8 @@ $(document).ready(() => {
         }
     });
 
-    const registerUserForm = $("#form-login");
-    registerUserForm.submit((event) => {
+    const loginForm = $("#form-login");
+    loginForm.submit((event) => {
         if (isUsernameValid && isPasswordValid) {
             $(this).unbind('submit').submit();
         } else {

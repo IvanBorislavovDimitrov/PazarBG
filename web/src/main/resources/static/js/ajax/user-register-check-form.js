@@ -145,14 +145,6 @@ $(document).ready(() => {
     const registerUserForm = $("#register-user-form");
 
     registerUserForm.submit((event) => {
-        console.log(isFirstNameValid);
-        console.log(isLastNameValid);
-        console.log(isValidRegion);
-        console.log(isValidTown);
-        console.log(isPasswordValid);
-        console.log(isEmailValid);
-        console.log(isUsernameValid);
-        console.log(isConfirmPasswordValid);
         if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isFirstNameValid
             && isLastNameValid && isValidRegion && isValidTown) {
             $(this).unbind('submit').submit();
