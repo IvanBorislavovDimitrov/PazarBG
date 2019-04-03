@@ -2,13 +2,14 @@
     <title>Register</title>
     <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/ajax/user-register.js"></script>
+    <script type="text/javascript" src="/js/ajax/user-register-check-form.js"></script>
 </head>
 <body xmlns:th="http://www.thymeleaf.org">
 <div class="mt-3">
     <hr class="w-25"/>
     <h1 class="text-center">Register</h1>
     <hr class="w-25"/>
-    <form class="mx-auto w-25" method="post" th:action="@{/users/register}" enctype="multipart/form-data"
+    <form id="register-user-form" class="mx-auto w-25" method="post" th:action="@{/users/register}" enctype="multipart/form-data"
           th:object="${user}">
         <fieldset>
             <div class="form-group">
@@ -21,6 +22,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('email')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="email-address-error" ></small>
             </div>
             <div class="form-group">
                 <label for="username">*Username</label>
@@ -29,6 +31,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('username')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="username-error" ></small>
             </div>
 
             <div class="form-group">
@@ -38,6 +41,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('password')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="password-error" ></small>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">*Confirm password</label>
@@ -48,6 +52,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('confirmPassword')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="confirmPassword-error" ></small>
             </div>
             <small class="form-text text-danger" th:text="${passwordsNotMatch}">
             </small>
@@ -59,6 +64,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('firstName')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="firstName-error" ></small>
             </div>
             <div class="form-group">
                 <label for="lastName">*Last name</label>
@@ -67,6 +73,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('lastName')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="lastName-error" ></small>
             </div>
             <div class="form-group">
                 <label for="phoneNumber">*Phone number</label>
@@ -76,6 +83,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('phoneNumber')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="phoneNumber-error" ></small>
             </div>
             <div class="form-group">
                 <label for="websiteAddress">Website address</label>
@@ -85,7 +93,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('websiteAddress')}"
                        th:text="${error}">
                 </small>
-            </div>
+             </div>
             <div class="form-group">
                 <label for="exampleTextarea">Short description</label>
                 <textarea class="form-control" placeholder="Enter short description (optional)..."
@@ -106,6 +114,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('region')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="region-error" ></small>
             </div>
             <div class="form-group">
                 <label for="towns">*Select a town</label>
@@ -118,6 +127,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('town')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="town-error" ></small>
             </div>
             <div class="form-group">
                 <label for="profilePicture">Profile Picture</label>

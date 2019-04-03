@@ -28,7 +28,7 @@ public class UserRegisterBindingModel {
     @FreeEmail(message = EMAIL_TAKEN)
     private String email;
 
-    @NotEmpty(message = INVALID_USERNAME)
+    @Size(min = 3, message = INVALID_USERNAME)
     @FreeUsername(message = USERNAME_TAKEN)
     private String username;
 
@@ -38,13 +38,13 @@ public class UserRegisterBindingModel {
     @Size(min = 8, max = 32, message = INVALID_CONFIRM_PASSWORD)
     private String confirmPassword;
 
-    @NotEmpty(message = INVALID_FIRST_NAME)
+    @Size(min = 3, message = INVALID_FIRST_NAME)
     private String firstName;
 
-    @NotEmpty(message = INVALID_LAST_NAME)
+    @Size(min = 3, message = INVALID_FIRST_NAME)
     private String lastName;
 
-    @Pattern(regexp = "^\\+\\d+$", message = INVALID_PHONE_NUMBER)
+    @Size(min = 10, max = 10, message = INVALID_PHONE_NUMBER)
     @FreePhoneNumber(message = PHONE_NUMBER_TAKEN)
     private String phoneNumber;
 

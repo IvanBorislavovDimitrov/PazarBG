@@ -2,7 +2,7 @@ $(document).ready(() => {
     const usernameInput = $('#username');
     const table = $('#users-roles');
     const userRole = $('#users-form');
-    usernameInput.keypress(() => {
+    usernameInput.on('input', () => {
         const username = usernameInput.val();
         table.empty();
 
