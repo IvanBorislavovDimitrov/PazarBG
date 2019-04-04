@@ -2,7 +2,6 @@ package com.ivan.pazar.web.constants;
 
 public final class WebConstants {
 
-
     private WebConstants() {
 
     }
@@ -33,6 +32,7 @@ public final class WebConstants {
     public static final String MESSAGE = "message";
     public static final String SENDER = "sender";
     public static final int DEFAULT_MESSAGE_SIZE = 20;
+    public static final int ONE_DAY = 1000 * 60 * 60 * 24;
 
     // Pages
     public static final String VIEW_INDEX = "views/index";

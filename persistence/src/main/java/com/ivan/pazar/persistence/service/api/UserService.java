@@ -41,4 +41,6 @@ public interface UserService {
     Set<String> getRolesForUser(String username);
 
     void activateUser(String id);
+
+    void deleteNonActivatedUsers();
 }

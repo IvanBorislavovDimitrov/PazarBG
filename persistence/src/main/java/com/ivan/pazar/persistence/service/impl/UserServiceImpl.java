@@ -248,6 +248,11 @@ public class UserServiceImpl implements UserServiceExtended {
     }
 
     @Override
+    public void deleteNonActivatedUsers() {
+        userRepository.deleteAllByActiveIsFalse();
+    }
+
+    @Override
     public List<String> getUsersEmails(PageRequest pageRequest) {
         return userRepository.findAll(pageRequest).stream()
                 .map(User::getEmail)

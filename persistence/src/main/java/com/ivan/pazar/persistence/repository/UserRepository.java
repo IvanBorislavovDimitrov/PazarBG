@@ -23,4 +23,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findAllByUsernameContaining(String prefix);
 
     Page<User> findAll(Pageable pageable);
+
+    void deleteAllByActiveIsFalse();
 }
