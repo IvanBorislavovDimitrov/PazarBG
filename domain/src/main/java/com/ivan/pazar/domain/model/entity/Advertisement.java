@@ -33,10 +33,6 @@ public class Advertisement extends IdEntity {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
 
-    @ManyToOne
-    @JoinColumn(name = "town_id", referencedColumnName = "id")
-    private Town town;
-
     @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
     private State state;
@@ -151,14 +147,6 @@ public class Advertisement extends IdEntity {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public Town getTown() {
-        return town;
-    }
-
-    public void setTown(Town town) {
-        this.town = town;
     }
 
     public List<User> getUsersSearches() {

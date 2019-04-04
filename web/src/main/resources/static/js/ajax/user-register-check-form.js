@@ -41,17 +41,32 @@ $(document).ready(() => {
         }
     });
 
-    const passwordInput = $("#password");
-    const passwordError = $("#password-error");
-    passwordInput.on('input', () => {
-        if (passwordInput.val().length < 8) {
-            passwordError.empty();
-            passwordInput.addClass('is-invalid');
-            passwordError.append("Invalid Password. Must be at least 8 symbols!");
+    const passwordsNotMatchError = $("#passwords-do-not-match");
+
+    const newPasswordInput = $("#password");
+    const newPasswordError = $("#password-error");
+    newPasswordInput.on('input', () => {
+        if (newPasswordInput.val().length < 8) {
+            newPasswordError.empty();
+            newPasswordInput.addClass('is-invalid');
+            newPasswordError.append("Invalid Password. Must be at least 8 symbols!");
             isPasswordValid = false;
+            passwordsNotMatchError.empty();
+            if (confirmPasswordInput.val() !== newPasswordInput.val()) {
+                passwordsNotMatchError.empty();
+                passwordsNotMatchError.append("Passwords do not match!");
+            } else {
+                passwordsNotMatchError.empty();
+            }
         } else {
-            passwordError.empty();
-            passwordInput.removeClass('is-invalid');
+            if (confirmPasswordInput.val() !== newPasswordInput.val()) {
+                passwordsNotMatchError.empty();
+                passwordsNotMatchError.append("Passwords do not match!");
+            } else {
+                passwordsNotMatchError.empty();
+            }
+            newPasswordError.empty();
+            newPasswordInput.removeClass('is-invalid');
             isPasswordValid = true;
         }
     });
@@ -62,9 +77,23 @@ $(document).ready(() => {
         if (confirmPasswordInput.val().length < 8) {
             confirmPasswordError.empty();
             confirmPasswordInput.addClass('is-invalid');
-            confirmPasswordError.append("Invalid Confirm Password. Must be at least 8 symbols!");
+            confirmPasswordError.append("Invalid Password. Must be at least 8 symbols!");
             isConfirmPasswordValid = false;
+            passwordsNotMatchError.empty();
+
+            if (confirmPasswordInput.val() !== newPasswordInput.val()) {
+                passwordsNotMatchError.empty();
+                passwordsNotMatchError.append("Passwords do not match!");
+            } else {
+                passwordsNotMatchError.empty();
+            }
         } else {
+            if (confirmPasswordInput.val() !== newPasswordInput.val()) {
+                passwordsNotMatchError.empty();
+                passwordsNotMatchError.append("Passwords do not match!");
+            } else {
+                passwordsNotMatchError.empty();
+            }
             confirmPasswordError.empty();
             confirmPasswordInput.removeClass('is-invalid');
             isConfirmPasswordValid = true;
@@ -142,7 +171,7 @@ $(document).ready(() => {
         townError.empty();
     });
 
-    const registerUserForm = $("#register-user-form");
+    const registerUserForm = $("#user-form");
 
     registerUserForm.submit((event) => {
         if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isFirstNameValid

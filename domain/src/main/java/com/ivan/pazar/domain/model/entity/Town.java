@@ -18,12 +18,8 @@ public class Town extends IdEntity {
     @OneToMany(mappedBy = "town", targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
 
-    @OneToMany(mappedBy = "town", targetEntity = Advertisement.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Advertisement> advertisements;
-
     public Town() {
         users = new ArrayList<>();
-        advertisements = new ArrayList<>();
     }
 
     public String getName() {
@@ -48,14 +44,6 @@ public class Town extends IdEntity {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-    public List<Advertisement> getAdvertisements() {
-        return advertisements;
-    }
-
-    public void setAdvertisements(List<Advertisement> advertisements) {
-        this.advertisements = advertisements;
     }
 
     @Override

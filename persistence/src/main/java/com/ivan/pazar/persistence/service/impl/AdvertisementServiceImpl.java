@@ -72,7 +72,9 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         }
 
         AdvertisementViewServiceModel advertisementViewServiceModel = modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
-        RegionServiceModel regionServiceModel = regionServiceExtended.getRegionByTownName(advertisement.getTown().getName());
+        RegionServiceModel regionServiceModel = regionServiceExtended.getRegionByTownName(advertisement.getAuthor().getTown().getName());
+
+        advertisementViewServiceModel.setTown(advertisement.getAuthor().getTown().getName());
         advertisementViewServiceModel.setRegion(regionServiceModel.getName());
         advertisementViewServiceModel.setUserUsername(advertisement.getAuthor().getUsername());
 
@@ -86,11 +88,9 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         advertisement.setPictures(new ArrayList<>());
         advertisement.setVideo(null);
         User user = userService.getUserByUsername(username);
-        Town town = townService.getTownByName(advertisementAddServiceModel.getTown());
         Category category = categoryService.getCategoryByName(advertisementAddServiceModel.getCategory());
         Subcategory subcategory = subcategoryService.getSubcategoryByName(advertisementAddServiceModel.getSubcategory());
         advertisement.setAuthor(user);
-        advertisement.setTown(town);
         advertisement.setCategory(category);
         advertisement.setSubcategory(subcategory);
         advertisement.setAddedOn(LocalDateTime.now());

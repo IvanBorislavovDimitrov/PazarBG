@@ -11,8 +11,6 @@ public class AdvertisementAddServiceModel {
     private String title;
     private String shipment;
     private BigDecimal price;
-    private String region;
-    private String town;
     private String state;
     private String category;
     private MultipartFile video;
@@ -61,14 +59,6 @@ public class AdvertisementAddServiceModel {
         this.price = price;
     }
 
-    public String getTown() {
-        return town;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
-    }
-
     public String getState() {
         return state;
     }
@@ -107,14 +97,6 @@ public class AdvertisementAddServiceModel {
 
     public void setSubcategory(String subcategory) {
         this.subcategory = subcategory;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 
     public String getDescription() {
