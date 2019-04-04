@@ -89,9 +89,7 @@
                 <label for="towns">*Select a town</label>
                 <select class="form-control" id="towns" name="town"
                         th:classappend="${#fields.hasErrors('town') ? 'is-invalid' : ''}">
-                    <option th:if="*{town != null}" th:text="*{town}"></option>
-                    <option th:if="*{town == null}" disabled="disabled" selected="selected">Town
-                    </option>
+                    <option selected="selected" th:if="*{town != null}" th:text="*{town}"></option>
                 </select>
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('town')}"
                        th:text="${error}">

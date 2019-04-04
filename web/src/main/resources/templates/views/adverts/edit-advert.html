@@ -3,13 +3,14 @@
     <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/ajax/load-categories.js"></script>
     <script type="text/javascript" src="/js/ajax/user-register.js"></script>
+    <script type="text/javascript" src="/js/ajax/advert-add-check-form.js"></script>
 </head>
 <body xmlns:th="http://www.thymeleaf.org">
 <div class="mt-3">
     <hr class="w-25"/>
     <h1 class="text-center">Edit advert</h1>
     <hr class="w-25"/>
-    <form class="mx-auto w-25" th:method="patch" th:action="@{/adverts/edit}" enctype="multipart/form-data"
+    <form id="form-advert" class="mx-auto w-25" th:method="patch" th:action="@{/adverts/edit}" enctype="multipart/form-data"
           th:object="${advert}">
         <fieldset>
             <div class="form-group">
@@ -20,6 +21,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('title')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="title-error"></small>
             </div>
             <div class="form-group">
                 <label for="shipment">*Select a shipment</label>
@@ -29,6 +31,7 @@
                     <option th:if="*{shipment != 'Paid by the seller'}">PAID_BY_THE_SELLER</option>
                     <option th:if="*{shipment != 'Paid by the buyer'}">PAID_BY_THE_BUYER</option>
                 </select>
+                <small class="form-text text-danger" id="shipment-error"></small>
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
@@ -37,6 +40,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('price')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="price-error"></small>
             </div>
             <div class="form-group">
                 <label for="exampleTextarea">Short description</label>
@@ -55,6 +59,7 @@
                     <option th:if="*{state != 'NEW'}">NEW</option>
                     <option th:if="*{state != 'USED'}">USED</option>
                 </select>
+                <small class="form-text text-danger" id="state-error"></small>
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
@@ -64,6 +69,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('category')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="category-error"></small>
             </div>
             <div class="form-group">
                 <label for="subcategory">Subcategory</label>
@@ -73,6 +79,7 @@
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('subcategory')}"
                        th:text="${error}">
                 </small>
+                <small class="form-text text-danger" id="subcategory-error"></small>
             </div>
             <div class="form-group">
                 <label for="photos">Choose Photos</label>

@@ -86,7 +86,7 @@ $(document).ready(() => {
         subCategoryError.empty();
     });
 
-    const addNewAdvertForm = $("#form-new-advert");
+    const addNewAdvertForm = $("#form-advert");
 
     addNewAdvertForm.submit((event) => {
         if (isSubcategoryValid && isCategoryValid && isValidState && isPriceValid && isTitleValid && isValidShipment) {

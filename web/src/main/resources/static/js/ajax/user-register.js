@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     regionsField.change(function () {
         $("#towns").empty().append("<option selected disabled>Town</option>");
-        var region = $("#regions").val();
+        let region = $("#regions").val();
         $.getJSON("/api/towns/all?region=" + region, function (towns) {
             towns.forEach(function (town) {
                 $("#towns").append("<option>" + town.name + "</option>");
