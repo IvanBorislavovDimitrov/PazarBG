@@ -39,4 +39,6 @@ public interface UserService {
     List<String> getUsersEmails(PageRequest pageRequest);
 
     Set<String> getRolesForUser(String username);
+
+    void activateUser(String id);
 }

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +18,11 @@ import java.util.List;
 public class EmailServiceImpl implements EmailService {
 
     private static final String DEFAULT_MAIL_SENDER = "automaticMailSenderCommunity@gmail.com";
-    private static final String REGISTER_MESSAGE = "Thank you for registering  in our website Bazar-BG. We will ensure you with the best user experience you have ever imagined!%s Kind regards!";
+    private static final String REGISTER_MESSAGE = "Thank you for registering  in our website Bazar-BG. We will ensure you with the best user experience you have ever imagined!%s Kind regards!%sActivate: %s";
     private static final String GREETINGS = "Greetings, %s.";
     private static final String DAILY_MESSAGE = "Hello! Visit our website Bazar-BG and publish a new advertisement";
     private static final int ONE_DAY = 1000 * 60 * 60 * 24;
+    private static final String ACTIVATE_LINK = "http://localhost:8000/users/activate/%s";
 
     private final JavaMailSender javaMailSender;
     private final UserService userService;
@@ -35,15 +35,16 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Async
-    public void sendNotificationForRegistering(UserRegisterBindingModel userRegisterBindingModel) {
+    public void sendNotificationForRegistering(UserRegisterBindingModel userRegisterBindingModel, String id) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userRegisterBindingModel.getEmail());
         simpleMailMessage.setFrom(DEFAULT_MAIL_SENDER);
 
         String subject = String.format(GREETINGS, userRegisterBindingModel.getUsername());
         simpleMailMessage.setSubject(subject);
+        String activationLink = String.format(ACTIVATE_LINK, id);
 
-        String text = String.format(REGISTER_MESSAGE, System.lineSeparator());
+        String text = String.format(REGISTER_MESSAGE, System.lineSeparator(), System.lineSeparator(), activationLink);
         simpleMailMessage.setText(text);
 
         try {
@@ -53,7 +54,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-//    @Scheduled(fixedRate = ONE_DAY)
+    //    @Scheduled(fixedRate = ONE_DAY)
 //    @Async
     public void sendDailyNotifications() {
         int page = 0;

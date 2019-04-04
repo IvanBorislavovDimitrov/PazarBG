@@ -1,6 +1,7 @@
 package com.ivan.pazar.web.controller.view.user;
 
 import com.ivan.pazar.persistence.exceptions.UserException;
+import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.service.api.UserService;
 import com.ivan.pazar.web.constants.WebConstants;
@@ -14,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -59,16 +58,23 @@ public class UserRegisterController extends UserBaseController {
 
         try {
             encodePasswords(userRegisterBindingModel);
-            userService.save(modelMapper.map(userRegisterBindingModel, UserServiceBindingModel.class));
+            UserServiceModel savedUser = userService.save(modelMapper.map(userRegisterBindingModel, UserServiceBindingModel.class));
+            emailService.sendNotificationForRegistering(userRegisterBindingModel, savedUser.getId());
+
         } catch (UserException e) {
             model.addAttribute(WebConstants.PASSWORDS_NOT_MATCH, e.getMessage());
             return renderView(WebConstants.VIEWS_USER_REGISTER, model);
-        }
-        try {
-            emailService.sendNotificationForRegistering(userRegisterBindingModel);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return redirect(WebConstants.REDIRECT_INDEX);
+    }
+
+    @GetMapping("/activate/{id}")
+    public ModelAndView activateUser(@PathVariable("id") String id) {
+        userService.activateUser(id);
+
         return redirect(WebConstants.REDIRECT_INDEX);
     }
 

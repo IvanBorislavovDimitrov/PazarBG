@@ -76,6 +76,9 @@ public class User extends IdEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
     public User() {
         advertisements = new ArrayList<>();
         sentMessages = new ArrayList<>();
@@ -108,6 +111,7 @@ public class User extends IdEntity {
         setReceivedMessages(user.receivedMessages);
         setSentMessages(user.sentMessages);
         setReviews(user.reviews);
+        setActive(user.active);
     }
 
     public LocalDateTime getRegisteredAt() {
@@ -273,5 +277,13 @@ public class User extends IdEntity {
     @Override
     public String toString() {
         return username;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

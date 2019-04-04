@@ -84,15 +84,16 @@ public class UserServiceImpl implements UserServiceExtended {
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_MODERATOR));
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_ROOT));
+            user.setActive(true);
         } else {
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
         }
         user.setRegion(regionService.findByName(userServiceBindingModel.getRegion()));
         user.setTown(townService.findByName(userServiceBindingModel.getTown()));
         user.setRegisteredAt(LocalDateTime.now());
-        userRepository.save(user);
+        User savedUser = userRepository.saveAndFlush(user);
 
-        return modelMapper.map(user, UserServiceModel.class);
+        return modelMapper.map(savedUser, UserServiceModel.class);
     }
 
     @Override
@@ -235,6 +236,15 @@ public class UserServiceImpl implements UserServiceExtended {
         return user.getRoles().stream()
                 .map(role -> role.getUserRole().toString())
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public void activateUser(String id) {
+        User user = userRepository.findById(id).orElse(null);
+
+        user.setActive(true);
+
+        userRepository.save(user);
     }
 
     @Override
