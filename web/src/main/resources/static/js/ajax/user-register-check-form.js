@@ -164,7 +164,7 @@ $(document).ready(() => {
     if (townInput.val() === null) {
         townError.append('Please select a region');
     } else {
-        townInput.empty();
+        townError.empty();
     }
     townInput.on('input', () => {
         isValidTown = true;
