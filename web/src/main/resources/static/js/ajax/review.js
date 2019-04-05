@@ -10,6 +10,7 @@ $(document).ready(() => {
 
                 const myValue = ("button" + review.id);
                 reviewsSerction.append(`<button type="submit" id="${myValue}" class="btn btn-danger md-3">Delete</button>`);
+                reviewsSerction.append(`<a href="/reviews/edit?reviewId=${review.id}" class="btn btn-primary ml-3">Edit</a>`);
                 $('#' + myValue).on("click", function () {
                     let c = confirm("Post sent");
                     if (c) {

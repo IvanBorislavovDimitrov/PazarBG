@@ -14,4 +14,7 @@ public interface ReviewService {
 
     void deleteById(String reviewId);
 
+    ReviewServiceModel findById(String id);
+
+    String update(ReviewServiceModel reviewServiceModel);
 }

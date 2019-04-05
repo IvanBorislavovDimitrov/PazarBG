@@ -40,7 +40,6 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     private final ModelMapper modelMapper;
     private final AdvertisementPicturesManager advertisementPicturesManager;
     private final UserServiceExtended userService;
-    private final TownServiceExtended townService;
     private final CategoryServiceExtended categoryService;
     private final SubcategoryServiceExtended subcategoryService;
     private final VideoServiceExtended videoService;
@@ -49,12 +48,11 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     private final JsonParser jsonParser;
 
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, TownServiceExtended townService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager, RegionServiceExtended regionServiceExtended, JsonParser jsonParser) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, ModelMapper modelMapper, AdvertisementPicturesManager advertisementPicturesManager, UserServiceExtended userService, CategoryServiceExtended categoryService, SubcategoryServiceExtended subcategoryService, VideoServiceExtended videoService, VideoManager videoManager, RegionServiceExtended regionServiceExtended, JsonParser jsonParser) {
         this.advertisementRepository = advertisementRepository;
         this.modelMapper = modelMapper;
         this.advertisementPicturesManager = advertisementPicturesManager;
         this.userService = userService;
-        this.townService = townService;
         this.categoryService = categoryService;
         this.subcategoryService = subcategoryService;
         this.videoService = videoService;

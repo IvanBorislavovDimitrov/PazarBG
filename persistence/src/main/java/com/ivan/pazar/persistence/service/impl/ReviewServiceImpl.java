@@ -17,11 +17,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ReviewServiceImpl implements ReviewServiceExtended {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReviewServiceImpl.class);
@@ -70,5 +72,20 @@ public class ReviewServiceImpl implements ReviewServiceExtended {
     @Override
     public void deleteById(String reviewId) {
         reviewRepository.deleteById(reviewId);
+    }
+
+    @Override
+    public ReviewServiceModel findById(String id) {
+        return modelMapper.map(reviewRepository.findById(id).orElse(null), ReviewServiceModel.class);
+    }
+
+    @Override
+    public String update(ReviewServiceModel reviewServiceModel) {
+        Review review = reviewRepository.findById(reviewServiceModel.getId()).orElse(null);
+        review.setText(reviewServiceModel.getText());
+        String advertId = review.getAdvertisement().getId();
+        reviewRepository.save(review);
+
+        return advertId;
     }
 }

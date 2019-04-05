@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <title>Login</title>
+</head>
+<body xmlns:th="http://www.thymeleaf.org">
+<div class="mt-3">
+    <hr class="w-25"/>
+    <h1 class="text-center">Edit review</h1>
+    <hr class="w-25"/>
+    <form id="form-login" class="mx-auto w-25" th:method="patch" th:action="@{/reviews/edit}">
+        <fieldset>
+            <div class="form-group">
+                <label for="text">Text</label>
+                <textarea type="text" class="form-control" id="text"
+                          name="text" th:text="${review.text}"></textarea>
+            </div>
+            <input name="id" type="hidden" th:value="${id}"/>
+            <hr class="w-100a hr-2"/>
+            <div class="button-holder mt-4 d-flex justify-content-center">
+                <input  type="submit" class="btn btn-primary" value="Edit"/>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
