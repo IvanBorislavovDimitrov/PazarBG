@@ -11,18 +11,20 @@ $(document).ready(() => {
                 const myValue = ("button" + review.id);
                 reviewsSerction.append(`<button type="submit" id="${myValue}" class="btn btn-danger md-3">Delete</button>`);
                 $('#' + myValue).on("click", function () {
-                    alert("Post sent");
-                    $.ajax({
-                        type: 'POST',
-                        url: `/api/reviews/delete?reviewId=${review.id}`,
-                        headers: {
-                            'X-CSRF-TOKEN': _csrf_token,
-                            'CONTENT-TYPE': 'application/json;charset=UTF-8'
-                        },
-                        success: function (result) {
-                            window.location.replace(window.location.href);
-                        }
-                    });
+                    let c = confirm("Post sent");
+                    if (c) {
+                        $.ajax({
+                            type: 'POST',
+                            url: `/api/reviews/delete?reviewId=${review.id}`,
+                            headers: {
+                                'X-CSRF-TOKEN': _csrf_token,
+                                'CONTENT-TYPE': 'application/json;charset=UTF-8'
+                            },
+                            success: function (result) {
+                                window.location.replace(window.location.href);
+                            }
+                        });
+                    }
                 });
             }
             reviewsSerction.append(`<p>${review.text}</p>
