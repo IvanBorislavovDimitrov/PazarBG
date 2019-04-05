@@ -27,6 +27,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,6 +50,7 @@ public class UserServiceImpl implements UserServiceExtended {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
+    private final PasswordEncoder passwordEncoder;
     private final RoleServiceExtended roleService;
     private final RegionServiceExtended regionService;
     private final TownServiceExtended townService;
@@ -56,9 +58,10 @@ public class UserServiceImpl implements UserServiceExtended {
     private final AdvertisementPicturesManager advertisementPicturesManager;
     private final VideoManager videoManager;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleServiceImpl roleService, RegionServiceImpl regionService, TownServiceImpl townService, ProfilePictureManager profilePictureManager, AdvertisementPicturesManager advertisementPicturesManager, VideoManager videoManager) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, RoleServiceImpl roleService, RegionServiceImpl regionService, TownServiceImpl townService, ProfilePictureManager profilePictureManager, AdvertisementPicturesManager advertisementPicturesManager, VideoManager videoManager) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
         this.regionService = regionService;
         this.townService = townService;
@@ -91,6 +94,7 @@ public class UserServiceImpl implements UserServiceExtended {
         user.setRegion(regionService.findByName(userServiceBindingModel.getRegion()));
         user.setTown(townService.findByName(userServiceBindingModel.getTown()));
         user.setRegisteredAt(LocalDateTime.now());
+        user.setPassword(passwordEncoder.encode(userServiceBindingModel.getPassword()));
         User savedUser = userRepository.saveAndFlush(user);
 
         return modelMapper.map(savedUser, UserServiceModel.class);
@@ -159,7 +163,7 @@ public class UserServiceImpl implements UserServiceExtended {
         User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
         deleteRelatedContent(user);
 
-        if (!user.getPassword().equals(userChangePassword.getPassword())) {
+        if (!passwordEncoder.matches(userChangePassword.getNewPassword(), user.getPassword())) {
             InvalidPasswordException invalidPasswordException = new InvalidPasswordException();
             LOGGER.error(invalidPasswordException.toString());
             throw invalidPasswordException;
@@ -170,7 +174,7 @@ public class UserServiceImpl implements UserServiceExtended {
             throw passwordsMismatchException;
         }
 
-        user.setPassword(userChangePassword.getNewPassword());
+        user.setPassword(passwordEncoder.encode(userChangePassword.getNewPassword()));
         userRepository.saveAndFlush(user);
     }
 

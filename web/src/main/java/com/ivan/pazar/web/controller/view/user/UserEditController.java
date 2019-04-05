@@ -12,13 +12,15 @@ import com.ivan.pazar.web.model.binding.UserEditBindingModel;
 import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,7 +36,7 @@ public class UserEditController extends UserBaseController {
     private final UserConfiguration userConfiguration;
 
     @Autowired
-    public UserEditController(UserService userService, ModelMapper modelMapper, @Qualifier(value = "sha256PasswordEncoder") PasswordEncoder passwordEncoder, UserConfiguration userConfiguration) {
+    public UserEditController(UserService userService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserConfiguration userConfiguration) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -79,7 +81,6 @@ public class UserEditController extends UserBaseController {
         if (bindingResult.hasErrors()) {
             return renderView(WebConstants.VIEWS_CHANGE_PASSWORD, model);
         }
-        encodePasswords(userChangePasswordBindingModel);
         try {
             userService.tryUpdatePassword(userConfiguration.loggedUserUsername(), modelMapper.map(userChangePasswordBindingModel,
                     UserChangePassword.class));
@@ -102,11 +103,5 @@ public class UserEditController extends UserBaseController {
     @ModelAttribute(WebConstants.CHANGE_PASSWORD)
     public UserChangePasswordBindingModel userChangePasswordBindingModel() {
         return new UserChangePasswordBindingModel();
-    }
-
-    private void encodePasswords(UserChangePasswordBindingModel userChangePasswordBindingModel) {
-        userChangePasswordBindingModel.setPassword(passwordEncoder.encode(userChangePasswordBindingModel.getPassword()));
-        userChangePasswordBindingModel.setConfirmPassword(passwordEncoder.encode(userChangePasswordBindingModel.getConfirmPassword()));
-        userChangePasswordBindingModel.setNewPassword(passwordEncoder.encode(userChangePasswordBindingModel.getNewPassword()));
     }
 }

@@ -9,13 +9,15 @@ import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
 import com.ivan.pazar.web.service.api.EmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -32,7 +34,7 @@ public class UserRegisterController extends UserBaseController {
 
     @Autowired
     public UserRegisterController(UserService userService, ModelMapper modelMapper,
-                                  @Qualifier(value = "sha256PasswordEncoder") PasswordEncoder passwordEncoder, EmailService emailService) {
+                                  PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -57,7 +59,6 @@ public class UserRegisterController extends UserBaseController {
         }
 
         try {
-            encodePasswords(userRegisterBindingModel);
             UserServiceModel savedUser = userService.save(modelMapper.map(userRegisterBindingModel, UserServiceBindingModel.class));
             emailService.sendNotificationForRegistering(userRegisterBindingModel, savedUser.getId());
 
@@ -81,11 +82,5 @@ public class UserRegisterController extends UserBaseController {
     @ModelAttribute(WebConstants.USER)
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
-    }
-
-
-    private void encodePasswords(UserRegisterBindingModel userRegisterBindingModel) {
-        userRegisterBindingModel.setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
-        userRegisterBindingModel.setConfirmPassword(passwordEncoder.encode(userRegisterBindingModel.getConfirmPassword()));
     }
 }
