@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CheckForApplicationJsonContentType implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (request.getMethod().equalsIgnoreCase(HttpMethod.POST.toString().toLowerCase()) || request.getMethod().equalsIgnoreCase(HttpMethod.PATCH.toString().toLowerCase())) {
             return request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE);
         }

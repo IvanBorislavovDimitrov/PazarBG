@@ -16,17 +16,23 @@
             <li sec:authorize="isAnonymous()" class="nav-item">
                 <a class="nav-link" th:href="@{/users/register}">Register</a>
             </li>
-            <li sec:authorize="isAuthenticated()" class="nav-item">
-                <a class="nav-link" th:href="@{/users/profile}">Profile</a>
-            </li>
-            <li sec:authorize="isAuthenticated()" class="nav-item">
-                <a class="nav-link" th:href="@{/adverts/mine}">My adverts</a>
-            </li>
+
             <li sec:authorize="isAuthenticated()" class="nav-item">
                 <a class="nav-link" th:href="@{/users/logout}">Logout</a>
             </li>
             <li sec:authorize="hasAnyRole('ADMIN','ROOT')" class="nav-item">
                 <a class="nav-link" th:href="@{/admin/panel}">Admin Panel</a>
+            </li>
+            <li class="mr-3" sec:authorize="isAuthenticated()">
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{/users/profile}">Profile</a>
+                        <a class="dropdown-item" th:href="@{/adverts/mine}">My adverts</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="btn btn-warning" th:href="@{/adverts/new}">+Add advert</a>

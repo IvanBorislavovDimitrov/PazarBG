@@ -1,7 +1,9 @@
 $(document).ready(function () {
     const regionsField = $("#regions");
     const currentRegion = regionsField.val();
+
     $.getJSON("/api/regions/all", function (regions) {
+        console.log(regions);
         regions.forEach(function (region) {
             if (currentRegion !== region.name) {
                 regionsField.append("<option>" + region.name + "</option>");

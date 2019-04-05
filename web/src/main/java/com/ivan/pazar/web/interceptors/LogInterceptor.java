@@ -35,7 +35,7 @@ public class LogInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String username = userConfiguration.loggedUserUsername();
         LocalDateTime date = LocalDateTime.now();
         String requestUrl = request.getRequestURI();
