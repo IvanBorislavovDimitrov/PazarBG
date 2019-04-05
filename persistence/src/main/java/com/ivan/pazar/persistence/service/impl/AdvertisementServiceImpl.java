@@ -166,7 +166,12 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public AdvertisementPageServiceModel findAllByUsername(String username, PageRequest pageRequest) {
         Page<Advertisement> advertisementPage = advertisementRepository.findAllByAuthorUsernameAndActiveIsTrue(username, pageRequest);
 
-        return getAdvertisementHomePageServiceModel(advertisementPage);
+        AdvertisementPageServiceModel advertisementHomePageServiceModel = getAdvertisementHomePageServiceModel(advertisementPage);
+        advertisementHomePageServiceModel.getAdvertisementViewServiceModels().forEach(advertisementViewServiceModel -> {
+            advertisementViewServiceModel.setDescription(advertisementViewServiceModel.getDescription().substring(0, Math.min(advertisementViewServiceModel.getDescription().length(), MAX_LENGTH_OF_DESCRIPTION)));
+        });
+
+        return advertisementHomePageServiceModel;
     }
 
     @Override
