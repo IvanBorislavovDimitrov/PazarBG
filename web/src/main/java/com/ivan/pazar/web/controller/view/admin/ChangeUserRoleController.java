@@ -39,7 +39,7 @@ public class ChangeUserRoleController extends AdminBaseController {
     }
 
     @PostMapping("/change-user-role-confirm")
-    public ModelAndView adminChangeRoleConfirm(UserChangeRoleBindingModel userChangeRoleBindingModel, Model model) {
+    public ModelAndView adminChangeRoleConfirm(UserChangeRoleBindingModel userChangeRoleBindingModel) {
         userService.updateUserRole(modelMapper.map(userChangeRoleBindingModel, UserChangeRoleServiceModel.class));
 
         return redirect(WebConstants.REDIRECT_ADMIN_CHANGE);
