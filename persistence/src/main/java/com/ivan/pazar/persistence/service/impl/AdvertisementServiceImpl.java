@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     private static final int MAX_LENGTH_OF_DESCRIPTION = 45;
+    private static final String DOTS = "...";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdvertisementServiceImpl.class);
 
@@ -113,7 +114,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public AdvertisementPageServiceModel findAllByCategoryLikeWithPage(String categoryName, PageRequest pageRequest) {
         Page<Advertisement> advertisementPage = advertisementRepository.findAllByCategoryNameLikeAndActive(categoryName, pageRequest, true);
 
-        return getAdvertisementHomePageServiceModel(advertisementPage);
+        AdvertisementPageServiceModel advertisementHomePageServiceModel = getAdvertisementHomePageServiceModel(advertisementPage);
+        trimDescription(advertisementHomePageServiceModel);
+
+        return advertisementHomePageServiceModel;
     }
 
     @Override
@@ -168,11 +172,15 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         Page<Advertisement> advertisementPage = advertisementRepository.findAllByAuthorUsernameAndActiveIsTrue(username, pageRequest);
 
         AdvertisementPageServiceModel advertisementHomePageServiceModel = getAdvertisementHomePageServiceModel(advertisementPage);
-        advertisementHomePageServiceModel.getAdvertisementViewServiceModels().forEach(advertisementViewServiceModel -> {
-            advertisementViewServiceModel.setDescription(advertisementViewServiceModel.getDescription().substring(0, Math.min(advertisementViewServiceModel.getDescription().length(), MAX_LENGTH_OF_DESCRIPTION)));
-        });
+        trimDescription(advertisementHomePageServiceModel);
 
         return advertisementHomePageServiceModel;
+    }
+
+    private void trimDescription(AdvertisementPageServiceModel advertisementHomePageServiceModel) {
+        advertisementHomePageServiceModel.getAdvertisementViewServiceModels().forEach(advertisementViewServiceModel -> {
+            advertisementViewServiceModel.setDescription(advertisementViewServiceModel.getDescription().substring(0, Math.min(advertisementViewServiceModel.getDescription().length(), MAX_LENGTH_OF_DESCRIPTION)) + DOTS);
+        });
     }
 
     @Override

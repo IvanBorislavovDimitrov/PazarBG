@@ -35,7 +35,6 @@ public class AdvertisementHomeController extends AdvertisementBaseController {
 
         if (!category.equals("%%"))
             model.addAttribute(WebConstants.CATEGORY, category);
-        //TODO: REFACTOR
         model.addAttribute(WebConstants.PAGES, new int[advertisementsPage.getPages()]);
 
         return renderView(WebConstants.VIEWS_ADVERTS_HOME, model);
