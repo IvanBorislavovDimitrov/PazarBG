@@ -1,17 +1,42 @@
 $(document).ready(() => {
 
-    let isEmailValid = false;
-    let isUsernameValid = false;
-    let isPasswordValid = false;
-    let isConfirmPasswordValid = false;
-    let isFirstNameValid = false;
-    let isLastNameValid = false;
-    let isPhoneNumberValid = false;
-    let isValidRegion = false;
-    let isValidTown = false;
-
     const emailInput = $("#email");
     const emailAddressError = $("#email-address-error");
+
+    const usernameInput = $("#username");
+    const usernameError = $("#username-error");
+
+    const newPasswordInput = $("#password");
+    const newPasswordError = $("#password-error");
+
+    const confirmPasswordInput = $("#confirmPassword");
+    const confirmPasswordError = $("#confirmPassword-error");
+
+    const firstNameInput = $("#firstName");
+    const firstNameError = $("#firstName-error");
+
+    const lastNameInput = $("#lastName");
+    const lastNameError = $("#lastName-error");
+
+    const phoneNumberInput = $("#phoneNumber");
+    const phoneNumberError = $("#phoneNumber-error");
+
+    const regionInput = $("#regions");
+    const regionError = $("#region-error");
+
+    const townInput = $("#towns");
+    const townError = $("#town-error");
+
+    let isEmailValid = emailInput.val() !== '';
+    let isUsernameValid = usernameInput.val() !== '';
+    let isPasswordValid = newPasswordInput !== '';
+    let isConfirmPasswordValid = confirmPasswordInput.val() !== '';
+    let isFirstNameValid = firstNameInput.val() !== '';
+    let isLastNameValid = lastNameInput.val() !== '';
+    let isPhoneNumberValid = phoneNumberInput.val() !== '';
+    let isValidRegion = regionInput.val() !== '';
+    let isValidTown = townInput.val() !== '';
+
     emailInput.on('input', () => {
         const regex = /^[A-Za-z][A-Za-z.0-9]+@([A-Za-z]+(\.)){1,}[A-Za-z0-9]+$/;
         if (!emailInput.val().match(regex)) {
@@ -26,8 +51,7 @@ $(document).ready(() => {
         }
     });
 
-    const usernameInput = $("#username");
-    const usernameError = $("#username-error");
+
     usernameInput.on('input', () => {
         if (usernameInput.val().length < 3) {
             usernameError.empty();
@@ -43,8 +67,7 @@ $(document).ready(() => {
 
     const passwordsNotMatchError = $("#passwords-do-not-match");
 
-    const newPasswordInput = $("#password");
-    const newPasswordError = $("#password-error");
+
     newPasswordInput.on('input', () => {
         if (newPasswordInput.val().length < 8) {
             newPasswordError.empty();
@@ -71,8 +94,6 @@ $(document).ready(() => {
         }
     });
 
-    const confirmPasswordInput = $("#confirmPassword");
-    const confirmPasswordError = $("#confirmPassword-error");
     confirmPasswordInput.on('input', () => {
         if (confirmPasswordInput.val().length < 8) {
             confirmPasswordError.empty();
@@ -100,8 +121,7 @@ $(document).ready(() => {
         }
     });
 
-    const firstNameInput = $("#firstName");
-    const firstNameError = $("#firstName-error");
+
     firstNameInput.on('input', () => {
         if (firstNameInput.val().length < 3) {
             firstNameError.empty();
@@ -115,8 +135,7 @@ $(document).ready(() => {
         }
     });
 
-    const lastNameInput = $("#lastName");
-    const lastNameError = $("#lastName-error");
+
     lastNameInput.on('input', () => {
         if (lastNameInput.val().length < 3) {
             lastNameError.empty();
@@ -130,8 +149,6 @@ $(document).ready(() => {
         }
     });
 
-    const phoneNumberInput = $("#phoneNumber");
-    const phoneNumberError = $("#phoneNumber-error");
     phoneNumberInput.on('input', () => {
         if (phoneNumberInput.val().length !== 10) {
             phoneNumberError.empty();
@@ -145,8 +162,7 @@ $(document).ready(() => {
         }
     });
 
-    const regionInput = $("#regions");
-    const regionError = $("#region-error");
+
     console.log(regionInput.val());
     if (regionInput.val() === null) {
         regionError.append('Please select a region');
@@ -158,8 +174,7 @@ $(document).ready(() => {
         regionError.empty();
     });
 
-    const townInput = $("#towns");
-    const townError = $("#town-error");
+
     console.log(townInput.val());
     if (townInput.val() === null) {
         townError.append('Please select a region');

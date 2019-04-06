@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -193,6 +194,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
             videoService.deleteById(advertisement.getVideo().getName());
         }
 
+        advertisement.setVideo(null);
+        advertisement.setPictures(Collections.emptyList());
+        advertisementRepository.saveAndFlush(advertisement);
+
         saveVideoToAdvert(advertisementAddServiceModel, advertisement, advertisementServiceModel);
     }
 
@@ -265,7 +270,9 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     private void saveVideo(String advertisementId, MultipartFile video) {
         try {
-            videoManager.saveVideo(getVideoName(advertisementId, video), video.getBytes());
+            if (video.getBytes().length > 0) {
+                videoManager.saveVideo(getVideoName(advertisementId, video), video.getBytes());
+            }
         } catch (IOException e) {
             LOGGER.error(e.toString());
             e.printStackTrace();

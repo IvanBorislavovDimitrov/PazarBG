@@ -29,7 +29,7 @@ public class VideoServiceImpl implements VideoServiceExtended {
     @Override
     public VideoServiceModel save(VideoAddServiceModel videoAddServiceModel) {
         LOGGER.info(Messages.ADDING_VIDEO);
-        return modelMapper.map(videoRepository.save(modelMapper.map(videoAddServiceModel, Video.class)), VideoServiceModel.class);
+        return modelMapper.map(videoRepository.saveAndFlush(modelMapper.map(videoAddServiceModel, Video.class)), VideoServiceModel.class);
     }
 
     @Override

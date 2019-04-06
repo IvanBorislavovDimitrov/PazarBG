@@ -1,15 +1,30 @@
 $(document).ready(() => {
 
-    let isTitleValid = false;
-    let isValidShipment = false;
-    let isPriceValid = false;
-    let isValidState = false;
-    let isCategoryValid = true;
-    let isSubcategoryValid = true;
-
-
     const titleInput = $("#title");
     const titleError = $("#title-error");
+
+    const shipmentInput = $("#shipment");
+    const shipmentError = $("#shipment-error");
+
+    const priceInput = $("#price");
+    const priceError = $("#price-error");
+
+    const stateInput = $("#state");
+    const stateError = $("#state-error");
+
+    const categoryInput = $("#category");
+    const categoryError = $("#category-error");
+
+    const subcategoryInput = $("#subcategory");
+    const subCategoryError = $("#subcategory-error");
+
+    let isTitleValid = titleInput.val() !== '';
+    let isValidShipment = shipmentInput.val() !== '';
+    let isPriceValid = priceInput.val() !== '';
+    let isValidState = stateInput.val() !== '';
+    let isCategoryValid = categoryInput.val() !== '';
+    let isSubcategoryValid = subcategoryInput.val() !== '';
+
     titleInput.on('input', () => {
         if (titleInput.val().length < 3) {
             titleError.empty();
@@ -23,8 +38,6 @@ $(document).ready(() => {
         }
     });
 
-    const shipmentInput = $("#shipment");
-    const shipmentError = $("#shipment-error");
     if (!shipmentInput.val()) {
         shipmentError.append('Please select a shipment');
     } else {
@@ -35,8 +48,7 @@ $(document).ready(() => {
         shipmentError.empty();
     });
 
-    const priceInput = $("#price");
-    const priceError = $("#price-error");
+
     priceInput.on('input', () => {
         if (Number.parseFloat(priceInput.val()) <= 0) {
             priceError.empty();
@@ -50,8 +62,7 @@ $(document).ready(() => {
         }
     });
 
-    const stateInput = $("#state");
-    const stateError = $("#state-error");
+
     if (!stateInput.val()) {
         stateError.append('Please select a shipment');
     } else {
@@ -62,8 +73,7 @@ $(document).ready(() => {
         stateError.empty();
     });
 
-    const categoryInput = $("#category");
-    const categoryError = $("#category-error");
+
     if (!categoryInput.val()) {
         categoryError.append('Please select a category');
     } else {
@@ -74,8 +84,7 @@ $(document).ready(() => {
         categoryError.empty();
     });
 
-    const subcategoryInput = $("#subcategory");
-    const subCategoryError = $("#subcategory-error");
+
     if (!subcategoryInput .val()) {
         subCategoryError.append('Please select a subcategory');
     } else {
