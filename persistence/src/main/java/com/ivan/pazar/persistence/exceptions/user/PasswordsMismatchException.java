@@ -1,4 +1,4 @@
-package com.ivan.pazar.persistence.exceptions;
+package com.ivan.pazar.persistence.exceptions.user;
 
 public class PasswordsMismatchException extends UserException {
 

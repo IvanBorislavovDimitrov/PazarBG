@@ -6,6 +6,7 @@ import com.ivan.pazar.domain.model.enums.State;
 import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
+import com.ivan.pazar.persistence.exceptions.advertisement.AdvertisementNotFoundException;
 import com.ivan.pazar.persistence.json.JsonParser;
 import com.ivan.pazar.persistence.model.service.*;
 import com.ivan.pazar.persistence.model.service.rest.AdvertisementRestServiceModel;
@@ -65,11 +66,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public AdvertisementViewServiceModel findById(String id) {
-        Advertisement advertisement = advertisementRepository.findById(id).orElse(null);
-        if (advertisement == null) {
-            LOGGER.info(Messages.ADVERTISEMENT_IS_NULL);
-            throw new IllegalStateException();
-        }
+        Advertisement advertisement = advertisementRepository.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
 
         AdvertisementViewServiceModel advertisementViewServiceModel = modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
         RegionServiceModel regionServiceModel = regionServiceExtended.getRegionByTownName(advertisement.getAuthor().getTown().getName());
@@ -129,11 +126,8 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public void activateAdvertisement(String advertId) {
-        Advertisement advertisement = advertisementRepository.findById(advertId).orElse(null);
-        if (advertisement == null) {
-            LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
-            return;
-        }
+        Advertisement advertisement = advertisementRepository.findById(advertId).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
+
         advertisement.setActive(true);
         advertisementRepository.save(advertisement);
     }
@@ -148,11 +142,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public void incrementViews(String id) {
-        Advertisement advertisement = advertisementRepository.findById(id).orElse(null);
-        if (advertisement == null) {
-            LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
-            return;
-        }
+        Advertisement advertisement = advertisementRepository.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
 
         advertisement.setViews(advertisement.getViews() + 1);
         advertisementRepository.saveAndFlush(advertisement);
@@ -160,7 +150,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public void deleteById(String advertId) {
-        Advertisement advertisement = advertisementRepository.findById(advertId).orElse(null);
+        Advertisement advertisement = advertisementRepository.findById(advertId).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
 
         advertisementPicturesManager.deletePicturesIfExist(advertisement.getPictures());
         videoManager.deleteVideo(advertisement.getVideo() != null ? advertisement.getVideo().getName() : null);
@@ -185,7 +175,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public void edit(AdvertisementAddServiceModel advertisementAddServiceModel) {
-        Advertisement advertisement = advertisementRepository.findById(advertisementAddServiceModel.getId()).orElse(null);
+        Advertisement advertisement = advertisementRepository.findById(advertisementAddServiceModel.getId()).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
         advertisement.setCategory(categoryService.getCategoryByName(advertisementAddServiceModel.getCategory()));
         advertisement.setSubcategory(subcategoryService.getSubcategoryByName(advertisementAddServiceModel.getSubcategory()));
         advertisement.setTitle(advertisementAddServiceModel.getTitle());
@@ -211,7 +201,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     @Override
     public Advertisement getAdvertisementById(String id) {
-        return advertisementRepository.findById(id).orElse(null);
+        return advertisementRepository.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
     }
 
     private AdvertisementPageServiceModel getAdvertisementHomePageServiceModel(Page<Advertisement> advertisementPage) {

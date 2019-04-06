@@ -1,6 +1,6 @@
 package com.ivan.pazar.web.controller.view.user;
 
-import com.ivan.pazar.persistence.exceptions.UserException;
+import com.ivan.pazar.persistence.exceptions.user.UserException;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.service.api.UserService;
