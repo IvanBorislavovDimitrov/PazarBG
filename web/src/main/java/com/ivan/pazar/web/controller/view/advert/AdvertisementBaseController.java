@@ -1,6 +1,7 @@
 package com.ivan.pazar.web.controller.view.advert;
 
 import com.ivan.pazar.persistence.exceptions.advertisement.AdvertisementNotFoundException;
+import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.controller.view.BaseController;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,6 @@ public abstract class AdvertisementBaseController extends BaseController {
 
     @ExceptionHandler(value = AdvertisementNotFoundException.class)
     public ModelAndView advertisementNotFound() {
-        return null;
+        return new ModelAndView(WebConstants.NOT_FOUND);
     }
 }
