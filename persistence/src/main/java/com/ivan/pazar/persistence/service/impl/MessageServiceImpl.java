@@ -5,6 +5,7 @@ import com.ivan.pazar.domain.model.entity.Message;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.MessageAddServiceModel;
+import com.ivan.pazar.persistence.model.service.MessagePageServiceModel;
 import com.ivan.pazar.persistence.model.service.MessageServiceModel;
 import com.ivan.pazar.persistence.model.service.UserServiceModel;
 import com.ivan.pazar.persistence.repository.MessageRepository;
@@ -14,10 +15,13 @@ import com.ivan.pazar.persistence.service.service_api.UserServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -83,6 +87,30 @@ public class MessageServiceImpl implements MessageServiceExtended {
         Message message = messageRepository.findById(messageId).get();
         message.setHidden(true);
         messageRepository.saveAndFlush(message);
+    }
+
+    @Override
+    public MessagePageServiceModel findSentMessagesByUserUsername(String loggedUserUsername, PageRequest sentMessagesPageRequest) {
+        Page<Message> allBySenderUsername = messageRepository.findAllBySenderUsername(loggedUserUsername, sentMessagesPageRequest);
+
+        return getMessagePageServiceModel(allBySenderUsername);
+    }
+
+    private MessagePageServiceModel getMessagePageServiceModel(Page<Message> messagePage) {
+        MessagePageServiceModel messagePageServiceModel = new MessagePageServiceModel();
+        messagePageServiceModel.setPages(messagePage.getTotalPages());
+        messagePageServiceModel.setMessageServiceModels(messagePage.get()
+                .map(message -> modelMapper.map(message, MessageServiceModel.class))
+                .collect(Collectors.toList()));
+
+        return messagePageServiceModel;
+    }
+
+    @Override
+    public MessagePageServiceModel findReceivedMessagesByUserUsername(String loggedUserUsername, PageRequest receivedMessagePagesRequest) {
+        Page<Message> allBySenderUsername = messageRepository.findAllByReceiverUsername(loggedUserUsername, receivedMessagePagesRequest);
+
+        return getMessagePageServiceModel(allBySenderUsername);
     }
 
     @Override

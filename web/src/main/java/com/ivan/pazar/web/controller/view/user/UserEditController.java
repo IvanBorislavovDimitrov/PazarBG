@@ -13,7 +13,6 @@ import com.ivan.pazar.web.model.binding.UserRegisterBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,14 +31,12 @@ public class UserEditController extends UserBaseController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
     private final UserConfiguration userConfiguration;
 
     @Autowired
-    public UserEditController(UserService userService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserConfiguration userConfiguration) {
+    public UserEditController(UserService userService, ModelMapper modelMapper, UserConfiguration userConfiguration) {
         this.userService = userService;
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
         this.userConfiguration = userConfiguration;
     }
 
