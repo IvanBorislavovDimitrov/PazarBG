@@ -1,8 +1,6 @@
 package com.ivan.pazar.web.controller.view.advert;
 
-import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
-import com.ivan.pazar.persistence.model.service.AdvertisementViewServiceModel;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
 import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.AdvertisementBindingModel;

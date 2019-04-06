@@ -78,5 +78,6 @@ public final class WebConstants {
 
     // Errors
     public static final String NOT_FOUND = "errors/not-found";
+    public static final String INTERNAL_SERVER_ERROR = "errors/internal-server-error";
 
 }

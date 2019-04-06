@@ -20,12 +20,10 @@ import java.io.IOException;
 public class CategoryController extends BaseController {
 
     private final CategoryService categoryService;
-    private final ModelMapper modelMapper;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, ModelMapper modelMapper) {
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/new")
