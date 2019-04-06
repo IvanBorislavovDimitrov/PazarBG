@@ -8,6 +8,10 @@ img {
     max-height: 700px;
 }
 
+body {
+    background-image: url("/images/cool-background.png");
+}
+
 .quantity {
     float: left;
     margin-right: 15px;
