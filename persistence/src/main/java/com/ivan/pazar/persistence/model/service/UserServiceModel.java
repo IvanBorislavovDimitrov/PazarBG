@@ -1,8 +1,6 @@
 package com.ivan.pazar.persistence.model.service;
 
-import com.ivan.pazar.domain.model.entity.Region;
 import com.ivan.pazar.domain.model.entity.Role;
-import com.ivan.pazar.domain.model.entity.Town;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,8 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 public class UserServiceModel extends IdServiceModel {
-
-    private String id;
 
     private String email;
 
@@ -25,9 +21,9 @@ public class UserServiceModel extends IdServiceModel {
 
     private String websiteAddress;
 
-    private Region region;
+    private RegionServiceModel region;
 
-    private Town town;
+    private TownServiceModel town;
 
     private String description;
 
@@ -55,16 +51,6 @@ public class UserServiceModel extends IdServiceModel {
         reviews = new ArrayList<>();
         favouriteAdvertisements = new ArrayList<>();
         roles = new HashSet<>();
-    }
-
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -115,19 +101,19 @@ public class UserServiceModel extends IdServiceModel {
         this.websiteAddress = websiteAddress;
     }
 
-    public Region getRegion() {
+    public RegionServiceModel getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(RegionServiceModel region) {
         this.region = region;
     }
 
-    public Town getTown() {
+    public TownServiceModel getTown() {
         return town;
     }
 
-    public void setTown(Town town) {
+    public void setTown(TownServiceModel town) {
         this.town = town;
     }
 
@@ -193,14 +179,6 @@ public class UserServiceModel extends IdServiceModel {
 
     public void setFavouriteAdvertisements(List<AdvertisementServiceModel> favouriteAdvertisements) {
         this.favouriteAdvertisements = favouriteAdvertisements;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     @Override

@@ -12,10 +12,7 @@ import com.ivan.pazar.persistence.exceptions.user.EmailTakenException;
 import com.ivan.pazar.persistence.exceptions.user.InvalidPasswordException;
 import com.ivan.pazar.persistence.exceptions.user.PasswordsMismatchException;
 import com.ivan.pazar.persistence.exceptions.user.PhoneNumberTakenException;
-import com.ivan.pazar.persistence.model.service.MessageServiceModel;
-import com.ivan.pazar.persistence.model.service.UserChangePassword;
-import com.ivan.pazar.persistence.model.service.UserChangeRoleServiceModel;
-import com.ivan.pazar.persistence.model.service.UserServiceModel;
+import com.ivan.pazar.persistence.model.service.*;
 import com.ivan.pazar.persistence.model.service.register.UserServiceBindingModel;
 import com.ivan.pazar.persistence.repository.UserRepository;
 import com.ivan.pazar.persistence.service.service_api.RegionServiceExtended;
@@ -119,15 +116,32 @@ public class UserServiceImpl implements UserServiceExtended {
     public UserServiceModel findUserByUsername(String username) {
         User user = userRepository.findByUsername(username).orElse(null);
 
-        return modelMapper.map(user, UserServiceModel.class);
-    }
+        UserServiceModel userServiceModel = new UserServiceModel();
+        userServiceModel.setAdvertisements(user.getAdvertisements()
+                .stream()
+                .map(advertisement -> modelMapper.map(advertisement, AdvertisementServiceModel.class))
+                .collect(Collectors.toList()));
+        userServiceModel.setDescription(user.getDescription());
+        userServiceModel.setEmail(user.getEmail());
+        userServiceModel.setFirstName(user.getFirstName());
+        userServiceModel.setLastName(user.getLastName());
+        userServiceModel.setUsername(user.getUsername());
+        userServiceModel.setPhoneNumber(user.getPhoneNumber());
+        userServiceModel.setProfilePictureName(user.getProfilePictureName());
+        userServiceModel.setReceivedMessages(user.getReceivedMessages().stream()
+                .map(message -> modelMapper.map(message, MessageServiceModel.class))
+                .collect(Collectors.toList()));
+        userServiceModel.setSentMessages(user.getSentMessages()
+                .stream()
+                .map(message -> modelMapper.map(message, MessageServiceModel.class))
+                .collect(Collectors.toList()));
+        userServiceModel.setRegion(modelMapper.map(user.getRegion(), RegionServiceModel.class));
+        userServiceModel.setTown(modelMapper.map(user.getTown(), TownServiceModel.class));
+        userServiceModel.setReviews(user.getReviews().stream()
+                .map(review -> modelMapper.map(review, ReviewServiceModel.class))
+                .collect(Collectors.toList()));
+        userServiceModel.setWebsiteAddress(user.getWebsiteAddress());
 
-
-    @Override
-    public UserServiceModel findUserByUsername(String username, PageRequest pageRequest) {
-        User user = userRepository.findByUsername(username).orElse(null);
-
-        UserServiceModel userServiceModel = modelMapper.map(user, UserServiceModel.class);
         mapMessages(user, userServiceModel);
 
         return userServiceModel;

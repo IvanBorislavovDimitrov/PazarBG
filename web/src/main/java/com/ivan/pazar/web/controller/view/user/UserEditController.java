@@ -90,8 +90,8 @@ public class UserEditController extends UserBaseController {
     }
 
     @PostMapping("/edit/picture")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView updateProfilePicture(@RequestParam("picture") MultipartFile picture) {
-
         userService.updateUserPicture(userConfiguration.loggedUserUsername(), picture);
 
         return redirect(WebConstants.REDIRECT_USER_PROFILE);

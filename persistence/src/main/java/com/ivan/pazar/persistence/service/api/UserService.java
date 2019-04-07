@@ -22,8 +22,6 @@ public interface UserService {
 
     UserServiceModel findUserByUsername(String username);
 
-    UserServiceModel findUserByUsername(String username, PageRequest pageRequest);
-
     void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel);
 
     void tryUpdatePassword(String loggedUserUsername, UserChangePassword userChangePassword);
