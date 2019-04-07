@@ -3,7 +3,7 @@
     <div th:if="${adverts.size() > 0}">
         <div class="row">
             <div th:remove="tag" th:each="advert : ${adverts}">
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4 mt-3">
                     <div class="card h-100">
                         <a th:href="@{|/adverts/${advert.id}|}">
                             <img th:if="${advert.pictures.size() > 0}" class="card-img-top"

@@ -6,8 +6,8 @@
         <div th:each="advert : ${adverts}">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-2 text-center">
-                    <img class="img-responsive" th:src="@{|/content/${advert.pictures[0]}|}" alt="prewiew" width="120"
-                         height="80">
+                    <img class="img-responsive border border-dark rounded" th:src="@{|/content/${advert.pictures[0]}|}" alt="prewiew" width="170"
+                         height="130">
                 </div>
                 <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
                     <h4 class="product-name"><strong th:text="${advert.title}"></strong></h4>
@@ -21,7 +21,8 @@
                     </div>
 
                     <div class="col-2 col-sm-2 col-md-2 text-right">
-                        <a type="button" class="btn btn-outline-success btn-xs" th:href="@{|/adverts/${advert.id}|}">
+                        <a type="button btn-success" class="btn btn-outline-success btn-xs"
+                           th:href="@{|/adverts/${advert.id}|}">
                             <i class="fa fa-trash" aria-hidden="true">View</i>
                         </a>
                     </div>

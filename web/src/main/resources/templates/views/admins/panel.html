@@ -1,4 +1,4 @@
-<table class="table table-hover" xmlns:th="http://www.thymeleaf.org">
+<table class="table table-hover mt-3 border border-dark rounded" xmlns:th="http://www.thymeleaf.org">
     <thead>
     <tr>
         <th scope="col">Action</th>
@@ -10,11 +10,11 @@
         <th scope="row">Change user role</th>
         <td><a th:href="@{/admin/change-user-role}" class="btn btn-danger">Change User Role</a></td>
     </tr>
-    <tr class="table-active">
+    <tr class="table-warning">
         <th scope="row">Add category</th>
         <td><a th:href="@{/categories/new}" class="btn btn-danger">Add category</a></td>
     </tr>
-    <tr class="table-active">
+    <tr class="table-danger">
         <th scope="row">Add subcategory</th>
         <td><a th:href="@{/subcategories/new}" class="btn btn-danger">Add subcategory</a></td>
     </tr>
@@ -22,11 +22,11 @@
         <th scope="row">Add region</th>
         <td><a th:href="@{/regions/add}" class="btn btn-danger">Add region</a></td>
     </tr>
-    <tr class="table-active">
+    <tr class="table-warning">
         <th scope="row">Add town</th>
         <td><a th:href="@{/towns/add}" class="btn btn-danger">Add town</a></td>
     </tr>
-    <tr class="table-active">
+    <tr class="table-danger">
         <th scope="row">Confirm adds</th>
         <td><a th:href="@{/admin/adds-to-confirm}" class="btn btn-danger">View non-confirmed adds</a></td>
     </tr>
