@@ -2,6 +2,7 @@ package com.ivan.pazar.web.constants;
 
 public final class WebConstants {
 
+
     private WebConstants() {
 
     }
@@ -65,6 +66,7 @@ public final class WebConstants {
     public static final String VIEWS_VIEW_AND_REPLY_MESSAGE = "views/messages/view-and-reply";
     public static final String VIEWS_MY_ADVERTS = "views/users/my-adverts";
     public static final String VIEWS_EDIT_REVIEW = "views/reviews/edit-review";
+    public static final String VIEWS_OTHER_USER_PROFILE = "views/users/other-profile";
 
     // Redirects
     public static final String REDIRECT_INDEX = "";

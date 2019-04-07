@@ -71,7 +71,7 @@ public class UserProfileController extends UserBaseController {
                 modelMapper.map(userService.findUserByUsername(username), UserProfileViewModel.class);
         model.addAttribute(WebConstants.USER, userProfileViewModel);
 
-        return renderView(WebConstants.VIEWS_USER_PROFILE, model);
+        return renderView(WebConstants.VIEWS_OTHER_USER_PROFILE, model);
     }
 
     private void trimMessages(UserProfileViewModel userProfileViewModel) {
