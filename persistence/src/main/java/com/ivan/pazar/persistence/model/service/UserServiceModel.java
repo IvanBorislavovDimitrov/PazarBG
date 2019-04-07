@@ -181,6 +181,14 @@ public class UserServiceModel extends IdServiceModel {
         this.favouriteAdvertisements = favouriteAdvertisements;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return username;

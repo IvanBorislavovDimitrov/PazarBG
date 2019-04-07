@@ -20,6 +20,19 @@
             <li sec:authorize="hasAnyRole('ADMIN','ROOT')" class="nav-item">
                 <a class="nav-link" th:href="@{/admin/panel}">Admin Panel</a>
             </li>
+            <li sec:authorize="hasAnyRole('MODERATOR')" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Moderator
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{/categories/new}">Add category</a>
+                    <a class="dropdown-item" th:href="@{/subcategories/new}">Add subcategory</a>
+                    <a class="dropdown-item" th:href="@{/regions/add}">Add region</a>
+                    <a class="dropdown-item" th:href="@{/towns/add}">Add town</a>
+                    <a class="dropdown-item" th:href="@{/adverts/adds-to-confirm}">Confirm adds</a>
+                </div>
+            </li>
             <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">

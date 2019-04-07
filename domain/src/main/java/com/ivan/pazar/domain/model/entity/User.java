@@ -55,20 +55,11 @@ public class User extends IdEntity {
     @OneToMany(mappedBy = "receiver", targetEntity = Message.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Message> receivedMessages;
 
-    @ManyToMany(mappedBy = "usersSearches", targetEntity = Advertisement.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Advertisement> searchedAdvertisements;
-
     @Column(name = "profile_picture")
     private String profilePictureName;
 
-    @OneToMany(mappedBy = "author", targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Comment> comments;
-
     @OneToMany(mappedBy = "user", targetEntity = Review.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews;
-
-    @ManyToMany(mappedBy = "usersFavourites", targetEntity = Advertisement.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Advertisement> favouriteAdvertisements;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
@@ -83,9 +74,6 @@ public class User extends IdEntity {
         advertisements = new ArrayList<>();
         sentMessages = new ArrayList<>();
         receivedMessages = new ArrayList<>();
-        searchedAdvertisements = new ArrayList<>();
-        comments = new ArrayList<>();
-        favouriteAdvertisements = new ArrayList<>();
         roles = new HashSet<>();
         reviews = new ArrayList<>();
     }
@@ -104,10 +92,7 @@ public class User extends IdEntity {
         setDescription(user.description);
         setAdvertisements(user.advertisements);
         setRoles(user.roles);
-        setFavouriteAdvertisements(user.favouriteAdvertisements);
-        setComments(user.comments);
         setProfilePictureName(user.profilePictureName);
-        setSearchedAdvertisements(user.searchedAdvertisements);
         setReceivedMessages(user.receivedMessages);
         setSentMessages(user.sentMessages);
         setReviews(user.reviews);
@@ -218,36 +203,12 @@ public class User extends IdEntity {
         this.receivedMessages = receivedMessages;
     }
 
-    public List<Advertisement> getSearchedAdvertisements() {
-        return searchedAdvertisements;
-    }
-
-    public void setSearchedAdvertisements(List<Advertisement> searchedAdvertisements) {
-        this.searchedAdvertisements = searchedAdvertisements;
-    }
-
     public String getProfilePictureName() {
         return profilePictureName;
     }
 
     public void setProfilePictureName(String profilePictureName) {
         this.profilePictureName = profilePictureName;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Advertisement> getFavouriteAdvertisements() {
-        return favouriteAdvertisements;
-    }
-
-    public void setFavouriteAdvertisements(List<Advertisement> favouriteAdvertisements) {
-        this.favouriteAdvertisements = favouriteAdvertisements;
     }
 
     public Set<Role> getRoles() {

@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body">
                     <div sec:authorize="hasAnyRole('ROOT','ADMIN','MODERATOR')" th:unless="${advert.active}">
-                        <form class="mt-3" th:method="post" th:action="@{/admin/confirm-add(advertId=${advert.id})}">
+                        <form class="mt-3" th:method="post" th:action="@{/adverts/confirm-add(advertId=${advert.id})}">
                             <div class="row">
                                 <input type="submit" class="btn btn-success" value="Confirm Add">
                             </div>

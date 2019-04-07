@@ -49,9 +49,6 @@ public class Advertisement extends IdEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<User> usersFavourites;
 
-    @OneToMany(mappedBy = "advertisement", targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Comment> comments;
-
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
@@ -82,7 +79,6 @@ public class Advertisement extends IdEntity {
 
     public Advertisement() {
         usersSearches = new ArrayList<>();
-        comments = new ArrayList<>();
         usersFavourites = new ArrayList<>();
         pictures = new ArrayList<>();
         reviews = new ArrayList<>();
@@ -163,14 +159,6 @@ public class Advertisement extends IdEntity {
 
     public void setUsersFavourites(List<User> usersFavourites) {
         this.usersFavourites = usersFavourites;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     public Category getCategory() {
