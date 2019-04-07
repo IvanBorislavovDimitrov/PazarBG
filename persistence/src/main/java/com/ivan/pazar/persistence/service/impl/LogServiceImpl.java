@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class LogServiceModelImpl implements LogServiceExtended {
+public class LogServiceImpl implements LogServiceExtended {
 
     private static final int FIVE_DAYS = 5;
 
     private final LogRepository logRepository;
     private final ModelMapper modelMapper;
 
-    public LogServiceModelImpl(LogRepository logRepository, ModelMapper modelMapper) {
+    public LogServiceImpl(LogRepository logRepository, ModelMapper modelMapper) {
         this.logRepository = logRepository;
         this.modelMapper = modelMapper;
     }
