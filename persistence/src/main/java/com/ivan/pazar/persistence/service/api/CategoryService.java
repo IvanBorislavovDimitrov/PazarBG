@@ -9,5 +9,5 @@ public interface CategoryService {
 
     CategoryServiceModel save(CategoryAddServiceModel categoryAddServiceModel);
 
-    List<CategoryServiceModel> getAll();
+    List<CategoryServiceModel> findAll();
 }

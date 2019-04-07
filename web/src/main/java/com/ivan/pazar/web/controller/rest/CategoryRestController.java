@@ -26,7 +26,7 @@ public class CategoryRestController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<CategoryRestViewModel> categories() throws IOException {
 
-        return categoryService.getAll().stream()
+        return categoryService.findAll().stream()
                 .map(categoryServiceModel -> modelMapper.map(categoryServiceModel, CategoryRestViewModel.class))
                 .collect(Collectors.toList());
     }

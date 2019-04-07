@@ -36,18 +36,14 @@ public class CategoryServiceImpl implements CategoryServiceExtended {
     }
 
     @Override
-    public List<CategoryServiceModel> getAll() {
+    public List<CategoryServiceModel> findAll() {
         return categoryRepository.findAll().stream()
                 .map(category -> modelMapper.map(category, CategoryServiceModel.class))
                 .collect(Collectors.toList());
     }
 
-    public Category findByName(String category) {
-        return categoryRepository.findByName(category);
-    }
-
     @Override
-    public Category getCategoryByName(String category) {
+    public Category findCategoryByName(String category) {
         return categoryRepository.findByName(category);
     }
 }

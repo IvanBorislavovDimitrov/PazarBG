@@ -4,5 +4,5 @@ import com.ivan.pazar.domain.model.entity.Category;
 import com.ivan.pazar.persistence.service.api.CategoryService;
 
 public interface CategoryServiceExtended extends CategoryService {
-    Category getCategoryByName(String category);
+    Category findCategoryByName(String category);
 }

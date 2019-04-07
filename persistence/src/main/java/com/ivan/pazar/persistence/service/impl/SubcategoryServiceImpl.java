@@ -37,7 +37,7 @@ public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
     public SubcategoryServiceModel save(SubcategoryAddServiceModel subcategoryAddServiceModel) {
         LOGGER.info(Messages.ADDING_SUBCATEGORY);
         Subcategory subcategory = modelMapper.map(subcategoryAddServiceModel, Subcategory.class);
-        subcategory.setCategory(categoryService.findByName(subcategoryAddServiceModel.getCategory()));
+        subcategory.setCategory(categoryService.findCategoryByName(subcategoryAddServiceModel.getCategory()));
 
         return modelMapper.map(subcategoryRepository.save(subcategory), SubcategoryServiceModel.class);
     }

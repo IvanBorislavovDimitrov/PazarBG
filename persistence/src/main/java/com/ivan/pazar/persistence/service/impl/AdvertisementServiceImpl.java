@@ -85,7 +85,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         advertisement.setPictures(new ArrayList<>());
         advertisement.setVideo(null);
         User user = userService.getUserByUsername(username);
-        Category category = categoryService.getCategoryByName(advertisementAddServiceModel.getCategory());
+        Category category = categoryService.findCategoryByName(advertisementAddServiceModel.getCategory());
         Subcategory subcategory = subcategoryService.getSubcategoryByName(advertisementAddServiceModel.getSubcategory());
         advertisement.setAuthor(user);
         advertisement.setCategory(category);
@@ -176,7 +176,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     @Override
     public void edit(AdvertisementAddServiceModel advertisementAddServiceModel) {
         Advertisement advertisement = advertisementRepository.findById(advertisementAddServiceModel.getId()).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
-        advertisement.setCategory(categoryService.getCategoryByName(advertisementAddServiceModel.getCategory()));
+        advertisement.setCategory(categoryService.findCategoryByName(advertisementAddServiceModel.getCategory()));
         advertisement.setSubcategory(subcategoryService.getSubcategoryByName(advertisementAddServiceModel.getSubcategory()));
         advertisement.setTitle(advertisementAddServiceModel.getTitle());
         advertisement.setShipment(Shipment.valueOf(advertisementAddServiceModel.getShipment()));
