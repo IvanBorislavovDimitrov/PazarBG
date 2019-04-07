@@ -86,7 +86,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         advertisement.setVideo(null);
         User user = userService.getUserByUsername(username);
         Category category = categoryService.findCategoryByName(advertisementAddServiceModel.getCategory());
-        Subcategory subcategory = subcategoryService.getSubcategoryByName(advertisementAddServiceModel.getSubcategory());
+        Subcategory subcategory = subcategoryService.findSubcategoryByName(advertisementAddServiceModel.getSubcategory());
         advertisement.setAuthor(user);
         advertisement.setCategory(category);
         advertisement.setSubcategory(subcategory);
@@ -169,7 +169,8 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     private void trimDescription(AdvertisementPageServiceModel advertisementHomePageServiceModel) {
         advertisementHomePageServiceModel.getAdvertisementViewServiceModels().forEach(advertisementViewServiceModel -> {
-            advertisementViewServiceModel.setDescription(advertisementViewServiceModel.getDescription().substring(0, Math.min(advertisementViewServiceModel.getDescription().length(), MAX_LENGTH_OF_DESCRIPTION)) + DOTS);
+            if (advertisementViewServiceModel.getDescription() != null)
+                advertisementViewServiceModel.setDescription(advertisementViewServiceModel.getDescription().substring(0, Math.min(advertisementViewServiceModel.getDescription().length(), MAX_LENGTH_OF_DESCRIPTION)) + DOTS);
         });
     }
 
@@ -177,7 +178,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     public void edit(AdvertisementAddServiceModel advertisementAddServiceModel) {
         Advertisement advertisement = advertisementRepository.findById(advertisementAddServiceModel.getId()).orElseThrow(() -> new AdvertisementNotFoundException(Messages.ADVERTISEMENT_IS_NULL));
         advertisement.setCategory(categoryService.findCategoryByName(advertisementAddServiceModel.getCategory()));
-        advertisement.setSubcategory(subcategoryService.getSubcategoryByName(advertisementAddServiceModel.getSubcategory()));
+        advertisement.setSubcategory(subcategoryService.findSubcategoryByName(advertisementAddServiceModel.getSubcategory()));
         advertisement.setTitle(advertisementAddServiceModel.getTitle());
         advertisement.setShipment(Shipment.valueOf(advertisementAddServiceModel.getShipment()));
         advertisement.setPrice(advertisementAddServiceModel.getPrice());
@@ -208,7 +209,9 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         List<AdvertisementViewServiceModel> advertisementViewServiceModels = advertisementPage.getContent().stream()
                 .map(advertisement -> {
                     AdvertisementViewServiceModel advertisementViewServiceModel = modelMapper.map(advertisement, AdvertisementViewServiceModel.class);
-                    advertisementViewServiceModel.setUserUsername(advertisement.getAuthor().getUsername());
+                    if (advertisement.getAuthor() != null) {
+                        advertisementViewServiceModel.setUserUsername(advertisement.getAuthor().getUsername());
+                    }
 
                     return advertisementViewServiceModel;
                 })
@@ -223,18 +226,22 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
 
     private AdvertisementRestServiceModel mapAdvertisement(Advertisement advertisement) {
         AdvertisementRestServiceModel advertisementRestServiceModel = modelMapper.map(advertisement, AdvertisementRestServiceModel.class);
-        advertisementRestServiceModel.setDescription(advertisement.getDescription().substring(0, Math.min(MAX_LENGTH_OF_DESCRIPTION, advertisement.getDescription().length())));
+        if (advertisement.getDescription() != null) {
+            advertisementRestServiceModel.setDescription(advertisement.getDescription().substring(0, Math.min(MAX_LENGTH_OF_DESCRIPTION, advertisement.getDescription().length())));
+        }
         advertisementRestServiceModel.setPicture(getLastAdvertisementPicture(advertisement.getPictures()));
         if (advertisement.getVideo() != null) {
             advertisementRestServiceModel.setVideo(advertisement.getVideo().getName());
         }
-        advertisementRestServiceModel.setUserUsername(advertisement.getAuthor().getUsername());
+        if (advertisement.getAuthor() != null) {
+            advertisementRestServiceModel.setUserUsername(advertisement.getAuthor().getUsername());
+        }
 
         return advertisementRestServiceModel;
     }
 
     private Video saveVideo(AdvertisementAddServiceModel advertisementAddServiceModel, Advertisement advertisement, String advertisementServiceModelId) {
-        if (advertisementAddServiceModel.getVideo().getSize() == 0) {
+        if (advertisementAddServiceModel.getVideo() == null || advertisementAddServiceModel.getVideo().getSize() == 0) {
             LOGGER.error(Messages.ADVERTISEMENT_IS_NULL);
             return null;
         }
@@ -248,7 +255,10 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
     }
 
     private void savePicturesIfNeeded(String advertisementServiceModelId, AdvertisementAddServiceModel advertisementAddServiceModel, AdvertisementServiceModel advertisementServiceModel, List<MultipartFile> photos, Advertisement advertisement) {
-        if (photos.get(0).getSize() == 0) {
+        if (advertisementAddServiceModel == null || advertisement == null || advertisementServiceModel == null) {
+            return;
+        }
+        if (photos.isEmpty() || photos.get(0).isEmpty()) {
             return;
         }
         List<String> picturesNames = getPicturesNames(advertisementServiceModelId, advertisementAddServiceModel.getPhotos());

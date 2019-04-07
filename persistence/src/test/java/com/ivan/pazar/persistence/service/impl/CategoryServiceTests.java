@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 
 import static org.mockito.Mockito.*;
 
-public class CategoryServiceUnitTests {
+public class CategoryServiceTests {
 
     @Mock
     private CategoryRepository categoryRepository;
