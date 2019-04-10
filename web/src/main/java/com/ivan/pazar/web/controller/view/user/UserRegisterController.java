@@ -29,15 +29,13 @@ public class UserRegisterController extends UserBaseController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
     @Autowired
     public UserRegisterController(UserService userService, ModelMapper modelMapper,
-                                  PasswordEncoder passwordEncoder, EmailService emailService) {
+                                  EmailService emailService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
     }
 

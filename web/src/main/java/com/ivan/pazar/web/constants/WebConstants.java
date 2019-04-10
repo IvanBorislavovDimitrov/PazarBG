@@ -3,6 +3,7 @@ package com.ivan.pazar.web.constants;
 public final class WebConstants {
 
 
+
     private WebConstants() {
 
     }
@@ -42,6 +43,7 @@ public final class WebConstants {
     public static final String RECEIVED_MESSAGE_PAGE = "receivedMessagePage";
     public static final String TOTAL_SENT_MESSAGES_PAGES_COUNT = "sentMessagePageCount";
     public static final String TOTAL_RECEIVED_MESSAGES_PAGES_COUNT = "receivedMessagePageCount";
+    public static final String ADVERTISED = "advertised";
 
     // Pages
     public static final String VIEW_INDEX = "views/index";
@@ -67,6 +69,7 @@ public final class WebConstants {
     public static final String VIEWS_MY_ADVERTS = "views/users/my-adverts";
     public static final String VIEWS_EDIT_REVIEW = "views/reviews/edit-review";
     public static final String VIEWS_OTHER_USER_PROFILE = "views/users/other-profile";
+    public static final String VIEWS_ADVERTISE_REGISTER = "views/advert-register";
 
     // Redirects
     public static final String REDIRECT_INDEX = "";
@@ -77,6 +80,7 @@ public final class WebConstants {
     public static final String REDIRECT_USER_PROFILE = "users/profile";
     public static final String REDIRECT_ADMIN_CHANGE = "admin/change-user-role";
     public static final String REDIRECT_TO_ADVERT = "adverts/%s";
+    public static final String REDIRECT_TO_ADVERT_REGISTER = "/advertise/register";
 
     // Errors
     public static final String NOT_FOUND = "errors/not-found";
