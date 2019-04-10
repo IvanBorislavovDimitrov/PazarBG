@@ -67,8 +67,4 @@ public class RegionServiceImpl implements RegionServiceExtended {
         return regionRepository.findByName(name);
     }
 
-    @Override
-    public Region getRegionByName(String region) {
-        return regionRepository.findByName(region);
-    }
 }

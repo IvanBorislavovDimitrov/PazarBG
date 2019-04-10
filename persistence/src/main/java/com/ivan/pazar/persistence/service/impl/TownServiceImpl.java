@@ -54,7 +54,7 @@ public class TownServiceImpl implements TownServiceExtended {
     public TownServiceModel save(TownAddServiceModel townAddServiceModel) {
         LOGGER.info(Messages.ADDING_TOWN);
         Town town = modelMapper.map(townAddServiceModel, Town.class);
-        town.setRegion(regionService.getRegionByName(townAddServiceModel.getRegion()));
+        town.setRegion(regionService.findByName(townAddServiceModel.getRegion()));
 
         return modelMapper.map(townRepository.save(town), TownServiceModel.class);
     }
