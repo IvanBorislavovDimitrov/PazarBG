@@ -5,6 +5,4 @@ import com.ivan.pazar.persistence.service.api.TownService;
 
 public interface TownServiceExtended extends TownService {
     Town findByName(String town);
-
-    Town getTownByName(String town);
 }

@@ -10,6 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -41,5 +44,24 @@ public class SubcategoryServiceTests {
         verify(subcategoryRepository).save(any());
     }
 
+    @Test
+    public void subcategoryService_getAll_expectAll() {
+        when(subcategoryRepository.findAll()).thenReturn(Arrays.asList(mock(Subcategory.class)));
+        assertEquals(1, subcategoryService.getAll().size());
+    }
 
+
+    @Test
+    public void subcategoryService_findByCategory_expectSome() {
+        when(subcategoryRepository.findAllByCategoryNameLike(any())).thenReturn(Arrays.asList(mock(Subcategory.class)));
+        assertEquals(1, subcategoryService.getAllByCategory(any()).size());
+    }
+
+    @Test
+    public void subcategoryService_findCategoryByName_expectCategoryFound() {
+        Subcategory subcategory = mock(Subcategory.class);
+        when(subcategoryRepository.findByName(anyString())).thenReturn(subcategory);
+        Subcategory subcategoryByName = subcategoryService.findSubcategoryByName("123");
+        assertEquals(subcategory, subcategoryByName);
+    }
 }
