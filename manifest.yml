@@ -1,0 +1,10 @@
+---
+applications:
+- name: pazar-bg
+  memory: 1GB
+  random-route: true
+  path: \web\target\web-1.0-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud,postgresql
+  services:
+  - pazar_bg_db
