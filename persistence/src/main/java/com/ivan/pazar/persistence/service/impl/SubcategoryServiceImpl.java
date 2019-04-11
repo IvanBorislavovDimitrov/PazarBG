@@ -5,6 +5,7 @@ import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.SubcategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.SubcategoryServiceModel;
 import com.ivan.pazar.persistence.repository.SubcategoryRepository;
+import com.ivan.pazar.persistence.service.service_api.CategoryServiceExtended;
 import com.ivan.pazar.persistence.service.service_api.SubcategoryServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -24,10 +25,10 @@ public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
 
     private final SubcategoryRepository subcategoryRepository;
     private final ModelMapper modelMapper;
-    private final CategoryServiceImpl categoryService;
+    private final CategoryServiceExtended categoryService;
 
     @Autowired
-    public SubcategoryServiceImpl(SubcategoryRepository subcategoryRepository, ModelMapper modelMapper, CategoryServiceImpl categoryService) {
+    public SubcategoryServiceImpl(SubcategoryRepository subcategoryRepository, ModelMapper modelMapper, CategoryServiceExtended categoryService) {
         this.subcategoryRepository = subcategoryRepository;
         this.modelMapper = modelMapper;
         this.categoryService = categoryService;
