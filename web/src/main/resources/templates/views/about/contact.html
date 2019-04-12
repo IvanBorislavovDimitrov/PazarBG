@@ -1,0 +1,26 @@
+<div class="container contact-form mt-5" xmlns:th="http://www.w3.org/1999/xhtml">
+    <form method="post">
+        <h3>Drop Us a Message</h3>
+        <div class="row">
+            <div class="col-md-6" th:object="${user}">
+                <div class="form-group">
+                    <input th:value="*{username}" type="text" name="username" class="form-control" placeholder="Username *" />
+                </div>
+                <div class="form-group">
+                    <input th:value="*{email}" type="text" name="txtEmail" class="form-control" placeholder="Your Email *" />
+                </div>
+                <div class="form-group">
+                    <input th:value="*{phoneNumber}" type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number *" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="btnSubmit" class="btn btn-success" value="Send Message" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
