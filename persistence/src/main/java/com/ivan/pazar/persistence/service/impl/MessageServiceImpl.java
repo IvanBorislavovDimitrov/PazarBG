@@ -69,6 +69,7 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
     @Override
     public void replyMessage(String advertId, MessageAddServiceModel messageAddServiceModel, String loggedUserUsername, String sender) {
+        LOGGER.info(Messages.REPLYING_MESSAGE);
         Advertisement advertisement = advertisementService.getAdvertisementById(advertId);
         User senderUser = userService.getUserByUsername(sender);
         User loggedUser = userService.getUserByUsername(loggedUserUsername);
@@ -84,6 +85,7 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
     @Override
     public void hide(String messageId) {
+        LOGGER.info(Messages.HIDING_MESSAGE);
         Message message = messageRepository.findById(messageId).get();
         message.setHidden(true);
         messageRepository.saveAndFlush(message);
@@ -91,12 +93,14 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
     @Override
     public MessagePageServiceModel findSentMessagesByUserUsername(String loggedUserUsername, PageRequest sentMessagesPageRequest) {
+        LOGGER.info(Messages.FINDING_SENT_MESSAGE_BY_USERNAME);
         Page<Message> allBySenderUsername = messageRepository.findAllBySenderUsername(loggedUserUsername, sentMessagesPageRequest);
 
         return getMessagePageServiceModel(allBySenderUsername);
     }
 
     private MessagePageServiceModel getMessagePageServiceModel(Page<Message> messagePage) {
+        LOGGER.info(Messages.GETTING_MESSAGE_PAGE_SERVICE_MODEL);
         MessagePageServiceModel messagePageServiceModel = new MessagePageServiceModel();
         messagePageServiceModel.setPages(messagePage.getTotalPages());
         messagePageServiceModel.setMessageServiceModels(messagePage.get()
@@ -108,6 +112,7 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
     @Override
     public MessagePageServiceModel findReceivedMessagesByUserUsername(String loggedUserUsername, PageRequest receivedMessagePagesRequest) {
+        LOGGER.info(Messages.FINDING_RECEIVED_MESSAGES_BY_USERNAME);
         Page<Message> allBySenderUsername = messageRepository.findAllByReceiverUsername(loggedUserUsername, receivedMessagePagesRequest);
 
         return getMessagePageServiceModel(allBySenderUsername);
@@ -115,6 +120,7 @@ public class MessageServiceImpl implements MessageServiceExtended {
 
     @Override
     public MessageServiceModel findById(String id) {
+        LOGGER.info(Messages.FINDING_A_MESSAGE_BY_ID);
         Message message = messageRepository.findById(id).get();
         MessageServiceModel messageServiceModel = modelMapper.map(message, MessageServiceModel.class);
         messageServiceModel.setSender(modelMapper.map(message.getSender(), UserServiceModel.class));

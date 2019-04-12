@@ -58,6 +58,7 @@ public class ReviewServiceImpl implements ReviewServiceExtended {
 
     @Override
     public List<ReviewRestServiceModel> getReviewsByAdvertisementId(String advertisementId) {
+        LOGGER.info(Messages.GETTING_REVIEWS_BY_ADVERTISEMENT_ID);
         return reviewRepository.findAllByAdvertisementId(advertisementId).stream().map(review -> {
             ReviewRestServiceModel reviewRestServiceModel = new ReviewRestServiceModel();
             reviewRestServiceModel.setId(review.getId());
@@ -76,11 +77,13 @@ public class ReviewServiceImpl implements ReviewServiceExtended {
 
     @Override
     public ReviewServiceModel findById(String id) {
+        LOGGER.info(Messages.FINDING_REVIEW_BY_ID);
         return modelMapper.map(reviewRepository.findById(id).orElse(null), ReviewServiceModel.class);
     }
 
     @Override
     public String update(ReviewServiceModel reviewServiceModel) {
+        LOGGER.info(Messages.UPDATING_REVIEW);
         Review review = reviewRepository.findById(reviewServiceModel.getId()).orElse(null);
         review.setText(reviewServiceModel.getText());
         String advertId = review.getAdvertisement().getId();

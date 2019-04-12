@@ -34,16 +34,19 @@ public class VideoServiceImpl implements VideoServiceExtended {
 
     @Override
     public void deleteById(String name) {
+        LOGGER.info(Messages.DELETING_VIDEO_BY_ID);
         videoRepository.deleteByName(name);
     }
 
     @Override
     public Video findById(String id) {
+        LOGGER.info(Messages.FINDING_VIDEO_BY_ID);
         return videoRepository.findById(id).orElse(null);
     }
 
     @Override
     public void updateVideo(Video videoEntity) {
+        LOGGER.info(Messages.UPDATING_VIDEO);
         videoRepository.saveAndFlush(videoEntity);
     }
 }

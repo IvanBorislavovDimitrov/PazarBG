@@ -61,6 +61,7 @@ public class TownServiceImpl implements TownServiceExtended {
 
     @Override
     public List<TownRestServiceModel> getAllByRegionRest(String region) {
+        LOGGER.info(Messages.GETTING_ALL_TOWNS_BY_REGION);
         return townRepository.findAllByRegionNameLike(region)
                 .stream()
                 .map(town -> modelMapper.map(town, TownRestServiceModel.class))
@@ -69,6 +70,7 @@ public class TownServiceImpl implements TownServiceExtended {
 
     @Override
     public Town findByName(String town) {
+        LOGGER.info(Messages.FINDING_TOWN_BY_NAME);
         return townRepository.findByName(town);
     }
 

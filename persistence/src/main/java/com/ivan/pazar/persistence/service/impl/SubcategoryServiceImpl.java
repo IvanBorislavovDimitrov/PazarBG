@@ -45,6 +45,7 @@ public class SubcategoryServiceImpl implements SubcategoryServiceExtended {
 
     @Override
     public List<SubcategoryServiceModel> getAll() {
+        LOGGER.info(Messages.GETTING_SUBCATEGORIES);
         return subcategoryRepository.findAll().stream()
                 .map(subcategory -> modelMapper.map(subcategory, SubcategoryServiceModel.class))
                 .collect(Collectors.toList());

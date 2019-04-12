@@ -5,6 +5,7 @@ import com.ivan.pazar.persistence.constants.Messages;
 import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.model.service.CategoryServiceModel;
 import com.ivan.pazar.persistence.repository.CategoryRepository;
+import com.ivan.pazar.persistence.service.api.MessageService;
 import com.ivan.pazar.persistence.service.service_api.CategoryServiceExtended;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ public class CategoryServiceImpl implements CategoryServiceExtended {
 
     @Override
     public List<CategoryServiceModel> findAll() {
+        LOGGER.info(Messages.FINDING_ALL_CATEGORIES);
         return categoryRepository.findAll().stream()
                 .map(category -> modelMapper.map(category, CategoryServiceModel.class))
                 .collect(Collectors.toList());
@@ -44,6 +46,7 @@ public class CategoryServiceImpl implements CategoryServiceExtended {
 
     @Override
     public Category findCategoryByName(String category) {
+        LOGGER.info(Messages.FINDING_CATEGORY_BY_ID);
         return categoryRepository.findByName(category);
     }
 }

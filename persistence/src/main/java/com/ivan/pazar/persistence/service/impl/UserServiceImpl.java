@@ -75,17 +75,20 @@ public class UserServiceImpl implements UserServiceExtended {
         String profilePictureName = getProfilePictureName(userServiceBindingModel);
         user.setProfilePictureName(profilePictureName);
         if (profilePictureName != null) {
+            LOGGER.info(Messages.PROFILE_PICTURE_IS_NOT_NULL);
             user.setProfilePictureName(profilePictureName);
             executeInNewThread(() -> savePicture(profilePictureName, userServiceBindingModel.getProfilePicture()));
         }
 
         if (userRepository.count() == 0) {
+            LOGGER.info(Messages.REGISTERING_ROOT);
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_ADMIN));
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_MODERATOR));
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_ROOT));
             user.setActive(true);
         } else {
+            LOGGER.info(Messages.REGISTERING_USER);
             user.getRoles().add(roleService.getByUserRole(UserRole.ROLE_USER));
         }
         user.setRegion(regionService.findByName(userServiceBindingModel.getRegion()));
@@ -99,21 +102,25 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public boolean isEmailFree(String email) {
+        LOGGER.info(Messages.CHECKING_FOR_FREE_EMAIL);
         return !userRepository.existsByEmail(email);
     }
 
     @Override
     public boolean isUsernameFree(String username) {
+        LOGGER.info(Messages.CHECKING_FOR_FREE_USERNAME);
         return !userRepository.existsByUsername(username);
     }
 
     @Override
     public boolean isPhoneNumberFree(String phoneNumber) {
+        LOGGER.info(Messages.CHECKING_PHONE_NUMBER_IS_FREE);
         return !userRepository.existsByPhoneNumber(phoneNumber);
     }
 
     @Override
     public UserServiceModel findUserByUsername(String username) {
+        LOGGER.info(Messages.FINDING_USER_BY_USERNAME);
         User user = userRepository.findByUsername(username).orElse(null);
 
         UserServiceModel userServiceModel = new UserServiceModel();
@@ -149,6 +156,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public void updateUser(String loggedUserUsername, UserServiceBindingModel userServiceBindingModel) {
+        LOGGER.info(Messages.UPDATING_USER);
         User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
         if (!canUpdateEmail(user, userServiceBindingModel.getEmail())) {
             EmailTakenException emailTakenException = new EmailTakenException();
@@ -214,6 +222,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public List<UserServiceModel> findAllByUsernameContaining(String prefix) {
+        LOGGER.info(Messages.FINDING_USER_BY_USERNAME_CONTAINING);
         return userRepository.findAllByUsernameContaining(prefix).stream()
                 .filter(user -> user.getRoles().stream().noneMatch(role -> role.getUserRole() == UserRole.ROLE_ROOT))
                 .map(user -> modelMapper.map(user, UserServiceModel.class))
@@ -222,6 +231,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public void updateUserRole(UserChangeRoleServiceModel userChangeRoleServiceModel) {
+        LOGGER.info(Messages.UPDATING_USER_ROLE);
         User user = userRepository.findByUsername(userChangeRoleServiceModel.getUsername()).orElse(null);
         Set<Role> roles = new HashSet<>();
         userChangeRoleServiceModel.getRoles()
@@ -236,6 +246,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public void deleteByUsername(String username) {
+        LOGGER.info(Messages.DELETING_USER_BY_USERNAME);
         User user = userRepository.findByUsername(username).orElse(null);
         if (user.getProfilePictureName() != null) {
             try {
@@ -250,6 +261,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public Set<String> getRolesForUser(String username) {
+        LOGGER.info(Messages.GETTING_ROLES_FOR_USER);
         User user = userRepository.findByUsername(username).orElse(null);
         return user.getRoles().stream()
                 .map(role -> role.getUserRole().toString())
@@ -258,6 +270,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public void activateUser(String id) {
+        LOGGER.info(Messages.ACTIVATING_USER);
         User user = userRepository.findById(id).orElse(null);
 
         user.setActive(true);
@@ -267,17 +280,20 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public void deleteNonActivatedUsers() {
+        LOGGER.info(Messages.DELETING_NON_ACTIVE_USERS);
         userRepository.deleteAllByActiveIsFalse();
     }
 
     @Override
     public List<String> getUsersEmails(PageRequest pageRequest) {
+        LOGGER.info(Messages.GETTING_USERS_EMAILS);
         return userRepository.findAll(pageRequest).stream()
                 .map(User::getEmail)
                 .collect(Collectors.toList());
     }
 
     private void mapMessages(User user, UserServiceModel userServiceModel) {
+        LOGGER.info(Messages.MAPPING_MESSAGES);
         userServiceModel.getSentMessages().clear();
         user.getSentMessages()
                 .stream()
@@ -299,17 +315,25 @@ public class UserServiceImpl implements UserServiceExtended {
     }
 
     private boolean canUpdatePhoneNumber(User user, String phoneNumber) {
+        LOGGER.info(Messages.CAN_UPDATE_PHONE_NUMBER);
         if (user.getPhoneNumber().equals(phoneNumber)) {
+            LOGGER.info(Messages.PHONE_NUMBER_CAN_BE_UPDATED);
             return true;
         }
+
+        LOGGER.info(Messages.PHONE_NUMBER_CANNOT_BE_UPDATED);
 
         return isPhoneNumberFree(phoneNumber);
     }
 
     private boolean canUpdateEmail(User user, String email) {
+        LOGGER.info(Messages.CAN_UPDATE_EMAIL);
         if (user.getEmail().equals(email)) {
+            LOGGER.info(Messages.MAIL_CAN_BE_UPDATED);
             return true;
         }
+
+        LOGGER.info(Messages.CANNOT_UPDATE_EMAIL);
 
         return isEmailFree(email);
     }
@@ -319,6 +343,7 @@ public class UserServiceImpl implements UserServiceExtended {
     }
 
     private void savePicture(String profilePictureName, MultipartFile multipartPicture) {
+        LOGGER.info(Messages.SAVING_PROFILE_PICTURE);
         byte[] bytes;
         try {
             bytes = multipartPicture.getBytes();
@@ -330,6 +355,7 @@ public class UserServiceImpl implements UserServiceExtended {
     }
 
     private void checkUserServiceModelValid(UserServiceBindingModel userRegisterServiceModel) {
+        LOGGER.info(Messages.CHECKING_FOR_VALID_USER_SERVICE_MODEL);
         if (!userRegisterServiceModel.getPassword().equals(userRegisterServiceModel.getConfirmPassword())) {
             PasswordsMismatchException passwordsMismatchException = new PasswordsMismatchException();
             LOGGER.error(passwordsMismatchException.toString());
@@ -338,7 +364,9 @@ public class UserServiceImpl implements UserServiceExtended {
     }
 
     private String getProfilePictureName(UserServiceBindingModel userRegisterServiceModel) {
+        LOGGER.info(Messages.GETTING_PROFILE_PICTURE);
         if (userRegisterServiceModel.getProfilePicture().isEmpty()) {
+            LOGGER.warn(Messages.NO_PROFILE_PICTURE_PROVIDED);
             return null;
         }
         return USER_PROFILE_PICTURE_PREFIX + userRegisterServiceModel.getUsername() + "." +
@@ -346,10 +374,12 @@ public class UserServiceImpl implements UserServiceExtended {
     }
 
     private void deleteRelatedContent(User user) {
+        LOGGER.info(Messages.DELETING_RELATED_CONTENT);
         List<Advertisement> advertisements = user.getAdvertisements();
         advertisements.forEach(advertisement -> {
             advertisementPicturesManager.deletePicturesIfExist(advertisement.getPictures());
             if (advertisement.getVideo() != null) {
+                LOGGER.warn(Messages.NO_VIDEO_FOUND);
                 videoManager.deleteVideo(advertisement.getVideo().getName());
             }
         });
@@ -357,6 +387,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     @Override
     public User getUserByUsername(String username) {
+        LOGGER.info(Messages.GETTING_USER_BY_USERNAME);
         return userRepository.findByUsername(username).orElse(null);
     }
 

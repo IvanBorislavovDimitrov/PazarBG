@@ -35,6 +35,7 @@ public class RegionServiceImpl implements RegionServiceExtended {
 
     @PostConstruct
     public void init() {
+        LOGGER.info(Messages.INITIALIZING_REGIONS);
         if (regionRepository.count() == 0) {
             Region region = new Region();
             region.setName(INIT_REGION);
@@ -52,6 +53,7 @@ public class RegionServiceImpl implements RegionServiceExtended {
 
     @Override
     public List<RegionRestServiceModel> getAllRegionsRest() {
+        LOGGER.info(Messages.GETTING_ALL_REGIONS);
         return regionRepository.findAll()
                 .stream()
                 .map(region -> modelMapper.map(region, RegionRestServiceModel.class))
@@ -60,6 +62,7 @@ public class RegionServiceImpl implements RegionServiceExtended {
 
     @Override
     public RegionServiceModel getRegionByTownName(String townName) {
+        LOGGER.info(Messages.GETTING_REGION_BY_TOWN_NAME);
         return modelMapper.map(regionRepository.findByTownName(townName), RegionServiceModel.class);
     }
 

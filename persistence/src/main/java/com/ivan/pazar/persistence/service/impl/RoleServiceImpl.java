@@ -30,6 +30,7 @@ public class RoleServiceImpl implements RoleServiceExtended {
 
     @PostConstruct
     public void initRoles() {
+        LOGGER.info(Messages.INITIALIZING_ROLES);
         createRolesIfNotExist();
     }
 
@@ -49,6 +50,7 @@ public class RoleServiceImpl implements RoleServiceExtended {
     }
 
     public Role getByUserRole(UserRole userRole) {
+        LOGGER.info(Messages.GETTING_BY_USER_ROLE);
         return roleRepository.getByUserRole(userRole);
     }
 }
