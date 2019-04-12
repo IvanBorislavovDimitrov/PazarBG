@@ -69,6 +69,7 @@ public final class WebConstants {
     public static final String VIEWS_EDIT_REVIEW = "views/reviews/edit-review";
     public static final String VIEWS_OTHER_USER_PROFILE = "views/users/other-profile";
     public static final String VIEWS_ADVERTISE_REGISTER = "views/advert-register";
+    public static final String VIEWS_ABOUT_US = "views/about/us";
 
     // Redirects
     public static final String REDIRECT_INDEX = "";
