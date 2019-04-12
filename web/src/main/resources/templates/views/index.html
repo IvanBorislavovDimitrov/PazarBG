@@ -5,6 +5,51 @@
     <script type="text/javascript" src="/js/ajax/index-page.js"></script>
 </head>
 <body xmlns:th="http://www.thymeleaf.org">
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var _csrf_token = /*[[${_csrf.token}]]*/ '';
+    var cookiesAccepted = /*[[${session.cookies}]]*/'';
+    /*]]>*/
+    if (!cookiesAccepted) {
+        (function f() {
+            $(document).ready(() => {
+                const cookies = $("#cookies");
+                const accept = $("#accept");
+                cookies.modal('show');
+                accept.on('click', () => {
+                    $.ajax({
+                        type: 'POST',
+                        url: `/cookies/accept`,
+                        headers: {
+                            'X-CSRF-TOKEN': _csrf_token,
+                            'CONTENT-TYPE': 'application/json;charset=UTF-8'
+                        },
+                    });
+                });
+            });
+        })();
+    }
+</script>
+
+<div id="cookies" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cookies</h4>
+            </div>
+            <div class="modal-body">
+                <p>We use cookies, please consent.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="accept" type="button" class="btn btn-success" data-dismiss="modal">Accept</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
 
     <div class="row">
@@ -48,4 +93,5 @@
         </div>
     </div>
 </div>
+
 </body>

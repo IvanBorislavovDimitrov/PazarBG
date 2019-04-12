@@ -2,8 +2,6 @@ package com.ivan.pazar.web.constants;
 
 public final class WebConstants {
 
-
-
     private WebConstants() {
 
     }
@@ -44,6 +42,7 @@ public final class WebConstants {
     public static final String TOTAL_SENT_MESSAGES_PAGES_COUNT = "sentMessagePageCount";
     public static final String TOTAL_RECEIVED_MESSAGES_PAGES_COUNT = "receivedMessagePageCount";
     public static final String ADVERTISED = "advertised";
+    public static final String COOKIES = "cookies";
 
     // Pages
     public static final String VIEW_INDEX = "views/index";
