@@ -12,6 +12,6 @@ public class AboutUsController extends BaseController {
 
     @GetMapping("/about-us")
     public ModelAndView aboutUs(Model model) {
-        return new ModelAndView(WebConstants.VIEWS_ABOUT_US);
+        return  renderView(WebConstants.VIEWS_ABOUT_US, model);
     }
 }

@@ -10,9 +10,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.ivan.pazar.web.constants.WebConstants.ONE_DAY;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -53,8 +56,9 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    //    @Scheduled(fixedRate = ONE_DAY)
-//    @Async
+    @Scheduled(fixedRate = ONE_DAY)
+    @Async
+    @Override
     public void sendDailyNotifications() {
         int page = 0;
         PageRequest pageRequest = PageRequest.of(page, WebConstants.DEFAULT_USERS_SIZE, Sort.by(Sort.Order.asc(WebConstants.ID)));
