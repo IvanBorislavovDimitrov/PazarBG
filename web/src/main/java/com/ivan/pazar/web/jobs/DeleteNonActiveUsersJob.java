@@ -17,7 +17,7 @@ public class DeleteNonActiveUsersJob {
         this.userService = userService;
     }
 
-    @Scheduled(fixedRate = WebConstants.ONE_DAY)
+    @Scheduled(cron = WebConstants.THREE_AM_EVERY_DAY)
     @Async
     public void deleteNonActiveUsers() {
         userService.deleteNonActivatedUsers();

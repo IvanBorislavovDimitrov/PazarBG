@@ -18,7 +18,7 @@ public class DeleteOldLogsJob {
         this.logService = logService;
     }
 
-    @Scheduled(fixedRate = WebConstants.ONE_DAY)
+    @Scheduled(cron = WebConstants.THREE_AM_EVERY_DAY)
     @Async
     @Transactional
     public void deleteOldLogs() {

@@ -1,7 +1,8 @@
 ---
 applications:
 - name: pazar-bg
-  memory: 1GB
+  memory: 2GB
+  disk_quota: 2GB
   random-route: true
   path: \web\target\web-1.0-SNAPSHOT.jar
   env:

@@ -17,8 +17,6 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Properties;
 
-import static com.ivan.pazar.web.constants.WebConstants.ONE_DAY;
-
 @Service
 public class EmailServiceImpl implements EmailService {
 
@@ -47,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
 
         Properties props = javaMailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.auth", "false");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
     }
@@ -74,7 +72,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    @Scheduled(fixedRate = ONE_DAY)
+    @Scheduled(cron = WebConstants.THREE_AM_EVERY_DAY)
     @Async
     @Override
     public void sendDailyNotifications() {

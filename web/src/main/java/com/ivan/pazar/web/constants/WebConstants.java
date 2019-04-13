@@ -2,7 +2,6 @@ package com.ivan.pazar.web.constants;
 
 public final class WebConstants {
 
-
     private WebConstants() {
 
     }
@@ -33,7 +32,6 @@ public final class WebConstants {
     public static final String MESSAGE = "message";
     public static final String SENDER = "sender";
     public static final int DEFAULT_MESSAGE_SIZE = 20;
-    public static final int ONE_DAY = 1000 * 60 * 60 * 24;
     public static final String SENT_MESSAGES = "sentMessages";
     public static final String RECEIVED_MESSAGES = "receivedMessages";
     public static final String TOTAL_SENT_MESSAGES_PAGES = "totalSentMessagePages";
@@ -44,6 +42,7 @@ public final class WebConstants {
     public static final String TOTAL_RECEIVED_MESSAGES_PAGES_COUNT = "receivedMessagePageCount";
     public static final String ADVERTISED = "advertised";
     public static final String COOKIES = "cookies";
+    public static final String THREE_AM_EVERY_DAY = "0 0 3 * * ?";
 
     // Pages
     public static final String VIEW_INDEX = "views/index";
