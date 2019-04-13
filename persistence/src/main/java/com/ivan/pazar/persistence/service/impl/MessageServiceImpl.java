@@ -4,6 +4,7 @@ import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.domain.model.entity.Message;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.persistence.constants.Messages;
+import com.ivan.pazar.persistence.constants.PersistenceConstants;
 import com.ivan.pazar.persistence.model.service.MessageAddServiceModel;
 import com.ivan.pazar.persistence.model.service.MessagePageServiceModel;
 import com.ivan.pazar.persistence.model.service.MessageServiceModel;
@@ -104,7 +105,12 @@ public class MessageServiceImpl implements MessageServiceExtended {
         MessagePageServiceModel messagePageServiceModel = new MessagePageServiceModel();
         messagePageServiceModel.setPages(messagePage.getTotalPages());
         messagePageServiceModel.setMessageServiceModels(messagePage.get()
-                .map(message -> modelMapper.map(message, MessageServiceModel.class))
+                .map(message -> {
+                    MessageServiceModel messageServiceModel = modelMapper.map(message, MessageServiceModel.class);
+                    messageServiceModel.setContent(message.getContent() != null ? message.getContent().substring(0, Math.min(PersistenceConstants.MAX_TITLE_LENGTH, message.getContent().length())) : message.getContent());
+
+                    return messageServiceModel;
+                })
                 .collect(Collectors.toList()));
 
         return messagePageServiceModel;

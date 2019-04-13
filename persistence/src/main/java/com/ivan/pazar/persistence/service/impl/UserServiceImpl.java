@@ -5,6 +5,7 @@ import com.ivan.pazar.domain.model.entity.Role;
 import com.ivan.pazar.domain.model.entity.User;
 import com.ivan.pazar.domain.model.enums.UserRole;
 import com.ivan.pazar.persistence.constants.Messages;
+import com.ivan.pazar.persistence.constants.PersistenceConstants;
 import com.ivan.pazar.persistence.dao.advertisements.AdvertisementPicturesManager;
 import com.ivan.pazar.persistence.dao.user.ProfilePictureManager;
 import com.ivan.pazar.persistence.dao.videos.VideoManager;
@@ -128,7 +129,9 @@ public class UserServiceImpl implements UserServiceExtended {
                 .stream()
                 .map(advertisement -> modelMapper.map(advertisement, AdvertisementServiceModel.class))
                 .collect(Collectors.toList()));
-        userServiceModel.setDescription(user.getDescription());
+        userServiceModel.setDescription(user.getDescription() != null ?
+                user.getDescription().substring(0, Math.min(user.getDescription().length(),
+                        PersistenceConstants.MAX_TITLE_LENGTH)) : user.getDescription());
         userServiceModel.setEmail(user.getEmail());
         userServiceModel.setFirstName(user.getFirstName());
         userServiceModel.setLastName(user.getLastName());

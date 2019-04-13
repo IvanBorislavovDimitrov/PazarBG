@@ -8,12 +8,24 @@ $(document).ready(() => {
     const phoneNumberInput = $("#phoneNumber");
     const phoneNumberError = $("#phoneNumber-error");
 
-    let isEmailValid = false;
-    let isUsernameValid = false;
-    let isPhoneNumberValid = false;
+
+    const regex = /^[A-Za-z][A-Za-z.0-9]+@([A-Za-z]+(\.)){1,}[A-Za-z0-9]+$/;
+
+    let isEmailValid = emailInput.val().match(regex);
+    let isUsernameValid = usernameInput.val().length > 3;
+    let isPhoneNumberValid = phoneNumberInput.val().match(/^\+\d{3,}$/);
+
+    if (isEmailValid){
+        console.log(true)
+    }
+    if (isUsernameValid) {
+        console.log(true);
+    }
+    if (isPhoneNumberValid) {
+        console.log(true);
+    }
 
     emailInput.on('input', () => {
-        const regex = /^[A-Za-z][A-Za-z.0-9]+@([A-Za-z]+(\.)){1,}[A-Za-z0-9]+$/;
         if (!emailInput.val().match(regex)) {
             emailAddressError.empty();
             emailInput.addClass('is-invalid');

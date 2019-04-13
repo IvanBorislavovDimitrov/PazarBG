@@ -12,5 +12,5 @@ public final class PersistenceConstants {
     public static final String PROFILE_PICTURES_DIR = "profile-pictures";
     public static final String ADVERTISEMENTS_DIR = "advertisements";
     public static final String VIDEO_DIR = "videos";
-
+    public static final int MAX_TITLE_LENGTH = 30;
 }
