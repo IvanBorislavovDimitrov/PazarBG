@@ -2,6 +2,7 @@ package com.ivan.pazar.web.controller.review;
 
 import com.ivan.pazar.domain.model.entity.Advertisement;
 import com.ivan.pazar.persistence.repository.*;
+import com.ivan.pazar.web.controller.AdvertCreator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class ReviewAddControllerTests extends ReviewBaseMethods {
+public class ReviewAddControllerTests {
 
     @Autowired
     public MockMvc mockMvc;
@@ -55,7 +56,9 @@ public class ReviewAddControllerTests extends ReviewBaseMethods {
     @WithMockUser(value = "pesho", roles = {"USER"})
     public void testReviewAddController_addReview_reviewAdded() throws Exception {
 
-        Advertisement demoAdvertisement = createDemoAdvertisement(subcategoryRepository, categoryRepository, userRepository, regionRepository, townRepository, advertisementRepository);
+        AdvertCreator advertCreator = new AdvertCreator();
+
+        Advertisement demoAdvertisement = advertCreator.createDemoAdvertisement(subcategoryRepository, categoryRepository, userRepository, regionRepository, townRepository, advertisementRepository);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/reviews/add")
                 .with(csrf())
