@@ -33,16 +33,10 @@ public class ReviewAddController extends ReviewBaseController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/add")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView reviewAdd(Model model) {
-
-        return renderView(WebConstants.VIEWS_REVIEW_ADD, model);
-    }
-
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView reviewAddConfirm(@ModelAttribute(WebConstants.REVIEW) @Valid ReviewAddViewModel reviewAddViewModel, @RequestParam("advertId") String advertId, BindingResult bindingResult, Model model) {
+    public ModelAndView reviewAddConfirm(@ModelAttribute(WebConstants.REVIEW) @Valid ReviewAddViewModel reviewAddViewModel,
+                                         @RequestParam("advertId") String advertId, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return renderView(WebConstants.VIEWS_REVIEW_ADD, model);
         }

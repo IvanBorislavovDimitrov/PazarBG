@@ -34,7 +34,7 @@ public class ReviewEditController extends ReviewBaseController {
     public ModelAndView editReview(@RequestParam("reviewId") String reviewId, Model model) {
         ReviewServiceModel reviewServiceModel = reviewService.findById(reviewId);
         if (!reviewServiceModel.getUser().getUsername().equals(userConfiguration.loggedUserUsername())) {
-            // TODO: Implement forbidden logic
+            redirect(WebConstants.REDIRECT_INDEX);
         }
         ReviewViewModel reviewViewModel = modelMapper.map(reviewServiceModel, ReviewViewModel.class);
 
