@@ -4,12 +4,14 @@ import com.ivan.pazar.persistence.model.service.CategoryAddServiceModel;
 import com.ivan.pazar.persistence.service.api.CategoryService;
 import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.controller.view.BaseController;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,13 +29,13 @@ public class CategoryController extends BaseController {
     }
 
     @GetMapping("/new")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     public ModelAndView addCategory(Model model) {
         return renderView(WebConstants.VIEWS_CATEGORY_ADD, model);
     }
 
     @PostMapping("/new")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     public ModelAndView addCategoryConfirm(@RequestParam("name") String name,
                                            @RequestParam("multipartPicture") MultipartFile picture) throws IOException {
         CategoryAddServiceModel categoryAddServiceModel = new CategoryAddServiceModel();

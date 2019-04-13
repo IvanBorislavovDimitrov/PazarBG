@@ -69,12 +69,6 @@ public class ChangeUserRoleControllerTests {
                 .andExpect(model().attribute("view", "views/admins/change-user-role-confirm"));
     }
 
-    //
-//    private String username;
-//
-//    private Set<UserRole> roles;
-
-
     @Test
     @WithMockUser(value = "pesho", roles = {"ADMIN", "ROOT"})
     public void changeUserRoleController_changeUserRoleConfirmPost_roleChanged() throws Exception {
