@@ -25,6 +25,18 @@ public class EmailServiceImpl implements EmailService {
     private static final String GREETINGS = "Greetings, %s.";
     private static final String DAILY_MESSAGE = "Hello! Visit our website Bazar-BG and publish a new advertisement";
     private static final String ACTIVATE_LINK = "http://localhost:8000/users/activate/%s";
+    private static final String HOST = "smtp.gmail.com";
+    private static final int PORT = 587;
+    private static final String USERNAME = "automaticmailsendercommunity@gmail.com";
+    private static final String PASSWORD = "123456sender";
+    private static final String TRANSPORT_PROTOCOL_KEY = "mail.transport.protocol";
+    private static final String TRANSPORT_PROTOCOL_VALUE = "smtp";
+    private static final String AUTH_KEY = "mail.smtp.auth";
+    private static final String AUTH_VALUE = "false";
+    private static final String STARTTLS_ENABLE_KEY = "mail.smtp.starttls.enable";
+    private static final String STARTTLS_ENABLE_VALUE = "true";
+    private static final String MAIL_DEBUG_KEY = "mail.debug";
+    private static final String MAIL_DEBUG_VALUE = "true";
 
     private final JavaMailSenderImpl javaMailSender;
     private final UserService userService;
@@ -37,17 +49,17 @@ public class EmailServiceImpl implements EmailService {
 
     @PostConstruct
     public void init() {
-        javaMailSender.setHost("smtp.gmail.com");
-        javaMailSender.setPort(587);
+        javaMailSender.setHost(HOST);
+        javaMailSender.setPort(PORT);
 
-        javaMailSender.setUsername("automaticmailsendercommunity@gmail.com");
-        javaMailSender.setPassword("123456sender");
+        javaMailSender.setUsername(USERNAME);
+        javaMailSender.setPassword(PASSWORD);
 
         Properties props = javaMailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "false");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
+        props.put(TRANSPORT_PROTOCOL_KEY, TRANSPORT_PROTOCOL_VALUE);
+        props.put(AUTH_KEY, AUTH_VALUE);
+        props.put(STARTTLS_ENABLE_KEY, STARTTLS_ENABLE_VALUE);
+        props.put(MAIL_DEBUG_KEY, MAIL_DEBUG_VALUE);
     }
 
     @Override
