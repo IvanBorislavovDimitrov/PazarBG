@@ -30,13 +30,13 @@ public class RegionAddController extends RegionBaseController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     public ModelAndView addRegion(Model model) {
         return renderView(WebConstants.VIEWS_ADD_REGION, model);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     public ModelAndView addRegionConfirm(@Valid @ModelAttribute(WebConstants.REGION) RegionAddBindingModel regionAddBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return renderView(WebConstants.VIEWS_ADD_REGION, model);
