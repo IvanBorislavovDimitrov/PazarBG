@@ -7,7 +7,7 @@
                     <div class="card h-100">
                         <a th:href="@{|/adverts/${advert.id}|}">
                             <img th:if="${advert.pictures.size() > 0}" class="card-img-top"
-                                 th:src="@{|/content/${advert.pictures[0]}|}" alt="picture not found"></a>
+                                style="max-height: 250px;" th:src="@{|/content/${advert.pictures[0]}|}" alt="picture not found"></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a th:href="@{|/adverts/${advert.id}|}" th:text="${advert.title}"></a>

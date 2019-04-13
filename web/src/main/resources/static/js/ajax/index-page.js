@@ -2,10 +2,10 @@ $(document).ready(function () {
     $.getJSON("/api/adverts/best-recent", function (adverts) {
         const bestRecentAdverts = $('#best-recent-adverts');
         adverts.forEach((advert) => {
-            bestRecentAdverts.append(`<div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="/adverts/${advert.id}"><img class="card-img-top" src="/content/${advert.picture}" alt=""></a>
-                        <div class="card-body">
+            bestRecentAdverts.append(`<div class="col-lg-4 mt-3" style="height: 362px;">
+                    <div class="card mt-3" style="height: 362px;">
+                        <a href="/adverts/${advert.id}"><img class="card-img-top" style="max-height: 150px" src="/content/${advert.picture}" alt=""></a>
+                        <div class="card-body" >
                             <h4 class="card-title">
                                 <a href="/adverts/${advert.id}">${advert.title}</a>
                             </h4>
