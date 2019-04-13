@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Properties;
 
 import static com.ivan.pazar.web.constants.WebConstants.ONE_DAY;
 
@@ -26,13 +28,28 @@ public class EmailServiceImpl implements EmailService {
     private static final String DAILY_MESSAGE = "Hello! Visit our website Bazar-BG and publish a new advertisement";
     private static final String ACTIVATE_LINK = "http://localhost:8000/users/activate/%s";
 
-    private final JavaMailSender javaMailSender;
+    private final JavaMailSenderImpl javaMailSender;
     private final UserService userService;
 
     @Autowired
-    public EmailServiceImpl(JavaMailSender javaMailSender, UserService userService) {
-        this.javaMailSender = javaMailSender;
+    public EmailServiceImpl(UserService userService) {
+        javaMailSender = new JavaMailSenderImpl();
         this.userService = userService;
+    }
+
+    @PostConstruct
+    public void init() {
+        javaMailSender.setHost("smtp.gmail.com");
+        javaMailSender.setPort(587);
+
+        javaMailSender.setUsername("automaticmailsendercommunity@gmail.com");
+        javaMailSender.setPassword("123456sender");
+
+        Properties props = javaMailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
     }
 
     @Override
@@ -41,6 +58,7 @@ public class EmailServiceImpl implements EmailService {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userRegisterBindingModel.getEmail());
         simpleMailMessage.setFrom(DEFAULT_MAIL_SENDER);
+
 
         String subject = String.format(GREETINGS, userRegisterBindingModel.getUsername());
         simpleMailMessage.setSubject(subject);
