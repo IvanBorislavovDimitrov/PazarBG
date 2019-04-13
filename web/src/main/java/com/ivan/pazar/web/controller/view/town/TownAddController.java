@@ -35,14 +35,14 @@ public class TownAddController extends TownBaseController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     public ModelAndView addTown(Model model) {
 
         return renderView(WebConstants.VIEWS_ADD_TOWN, model);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     public ModelAndView addTownConfirm(@Valid @ModelAttribute(WebConstants.TOWN) TownAddBindingModel townAddBindingModel, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return renderView(WebConstants.VIEWS_ADD_TOWN, model);
