@@ -44,7 +44,7 @@ public class UserRegisterBindingModel {
     @Size(min = 3, message = INVALID_FIRST_NAME)
     private String lastName;
 
-    @Size(min = 10, max = 10, message = INVALID_PHONE_NUMBER)
+    @Size(min = 3, max = 20, message = INVALID_PHONE_NUMBER)
     @FreePhoneNumber(message = PHONE_NUMBER_TAKEN)
     private String phoneNumber;
 

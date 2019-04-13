@@ -2,6 +2,7 @@ package com.ivan.pazar.web.constants;
 
 public final class WebConstants {
 
+
     private WebConstants() {
 
     }
@@ -43,6 +44,7 @@ public final class WebConstants {
     public static final String ADVERTISED = "advertised";
     public static final String COOKIES = "cookies";
     public static final String THREE_AM_EVERY_DAY = "0 0 3 * * ?";
+    public static final String CONTACT_US_FORM = "contactUs";
 
     // Pages
     public static final String VIEW_INDEX = "views/index";

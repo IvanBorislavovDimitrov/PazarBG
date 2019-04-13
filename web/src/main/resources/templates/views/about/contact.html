@@ -1,24 +1,40 @@
+<head>
+    <script type="text/javascript" src="/js/ajax/contact-us-check-form.js"></script>
+</head>
 <div class="container contact-form mt-5" xmlns:th="http://www.w3.org/1999/xhtml">
-    <form method="post">
+    <form id="contact" th:method="post" th:action="@{/contact-us}">
         <h3>Drop Us a Message</h3>
         <div class="row">
             <div class="col-md-6" th:object="${user}">
                 <div class="form-group">
-                    <input th:value="*{username}" type="text" name="username" class="form-control" placeholder="Username *" />
+                    <input th:value="*{username}" type="text" id="username" name="username" class="form-control"
+                           placeholder="Username *"/>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('username')}"
+                           th:text="${error}"></small>
+                    <small class="form-text text-danger" id="username-error"></small>
                 </div>
                 <div class="form-group">
-                    <input th:value="*{email}" type="text" name="txtEmail" class="form-control" placeholder="Your Email *" />
+                    <input th:value="*{email}" type="text" name="email" id="email" class="form-control"
+                           placeholder="Your Email *"/>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('email')}"
+                           th:text="${error}"></small>
+                    <small class="form-text text-danger" id="email-address-error"></small>
                 </div>
                 <div class="form-group">
-                    <input th:value="*{phoneNumber}" type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number *" />
+                    <input th:value="*{phoneNumber}" type="text" id="phoneNumber" name="phoneNumber"
+                           class="form-control" placeholder="Your Phone Number *"/>
+                    <small class="form-text text-danger" th:each="error : ${#fields.errors('phoneNumber')}"
+                           th:text="${error}"></small>
+                    <small class="form-text text-danger" id="phoneNumber-error"></small>
                 </div>
                 <div class="form-group">
-                    <input type="submit" name="btnSubmit" class="btn btn-success" value="Send Message" />
+                    <input type="submit" name="btnSubmit" id="submit" class="btn btn-success" value="Send Message"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                    <textarea name="content" id="content" class="form-control" placeholder="Your Message *"
+                              style="width: 100%; height: 150px;"></textarea>
                 </div>
             </div>
         </div>

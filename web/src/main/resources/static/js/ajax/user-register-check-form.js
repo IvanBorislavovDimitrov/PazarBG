@@ -150,18 +150,17 @@ $(document).ready(() => {
     });
 
     phoneNumberInput.on('input', () => {
-        if (phoneNumberInput.val().length !== 10) {
-            phoneNumberError.empty();
-            phoneNumberInput.addClass('is-invalid');
-            phoneNumberError.append("Invalid Phone Number. Must be 10 symbols long!");
-            isPhoneNumberValid = false;
-        } else {
+        if (phoneNumberInput.val().match(/^\+\d{3,}$/)) {
             phoneNumberError.empty();
             phoneNumberInput.removeClass('is-invalid');
             isPhoneNumberValid = true;
+        } else {
+            phoneNumberError.empty();
+            phoneNumberInput.addClass('is-invalid');
+            phoneNumberError.append("Invalid Phone Number. Must start with + and be more than 3 symbols long!");
+            isPhoneNumberValid = false;
         }
     });
-
 
     console.log(regionInput.val());
     if (regionInput.val() === null) {
@@ -173,7 +172,6 @@ $(document).ready(() => {
         isValidRegion = true;
         regionError.empty();
     });
-
 
     console.log(townInput.val());
     if (townInput.val() === null) {
@@ -189,7 +187,7 @@ $(document).ready(() => {
     const registerUserForm = $("#user-form");
 
     registerUserForm.submit((event) => {
-        if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isFirstNameValid
+        if (isUsernameValid && isEmailValid && isPasswordValid && isPhoneNumberValid && isConfirmPasswordValid && isFirstNameValid
             && isLastNameValid && isValidRegion && isValidTown) {
             $(this).unbind('submit').submit();
         } else {
