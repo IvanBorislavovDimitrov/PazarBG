@@ -1,4 +1,4 @@
-package com.ivan.pazar.web.controller;
+package com.ivan.pazar.web.controller.about;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
@@ -19,26 +20,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:test.properties")
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-public class HomeControllerTests {
+public class AboutUsControllerTests {
 
     @Autowired
     public MockMvc mockMvc;
 
     @Test
-    public void testIndex_Index_returnsIndexPage() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(view().name("base-layout"));
+    public void testAboutUsController_aboutUs_aboutIs() throws Exception {
+        mockMvc.perform(get("/about-us"))
+                .andExpect(view().name("base-layout"))
+                .andExpect(model().attribute("view", "views/about/us"));
     }
 
-    @Test
-    public void homeController_advertiseRegister_userAdvertised() throws Exception {
-        mockMvc.perform(get("/advertise/register"))
-                .andExpect(view().name("views/advert-register"));
-    }
-
-    @Test
-    public void homeController_continueAsGuest_continuedAsGuest() throws Exception {
-        mockMvc.perform(get("/continue-as-guest"))
-                .andExpect(view().name("redirect:/"));
-    }
 }

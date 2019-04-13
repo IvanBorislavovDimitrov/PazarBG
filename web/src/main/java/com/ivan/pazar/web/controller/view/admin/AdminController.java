@@ -9,12 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController extends AdminBaseController {
 
-
     @GetMapping("/panel")
     public ModelAndView adminView(Model model) {
 
         return renderView(WebConstants.VIEWS_ADMIN_PANEL, model);
     }
-
 
 }
