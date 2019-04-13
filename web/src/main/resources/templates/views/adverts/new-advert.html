@@ -28,9 +28,12 @@
             <div class="form-group">
                 <label for="shipment">*Select</label>
                 <select class="form-control" id="shipment" name="shipment">
-                    <option disabled="disabled" selected="selected">Shipment</option>
-                    <option>PAID_BY_THE_SELLER</option>
-                    <option>PAID_BY_THE_BUYER</option>
+                    <option selected disabled th:if="*{shipment == null}">Shipment</option>
+
+                    <option th:if="*{shipment == 'Paid by the seller'}">PAID_BY_THE_SELLER</option>
+                    <option th:if="*{shipment == 'Paid by the buyer'}">PAID_BY_THE_BUYER</option>
+                    <option th:if="*{shipment != 'Paid by the seller'}">PAID_BY_THE_SELLER</option>
+                    <option th:if="*{shipment != 'Paid by the buyer'}">PAID_BY_THE_BUYER</option>
                 </select>
                 <small class="form-text text-danger" id="shipment-error"></small>
             </div>
@@ -55,16 +58,19 @@
             <div class="form-group">
                 <label for="state">State</label>
                 <select class="form-control" id="state" name="state">
-                    <option disabled="disabled" selected="selected">State</option>
-                    <option>NEW</option>
-                    <option>USED</option>
+                    <option th:if="*{state == null}" disabled="disabled" selected="selected">State</option>
+                    <option th:if="*{state == 'NEW'}">NEW</option>
+                    <option th:if="*{state == 'USED'}">USED</option>
+                    <option th:if="*{state != 'NEW'}">NEW</option>
+                    <option th:if="*{state != 'USED'}">USED</option>
                 </select>
                 <small class="form-text text-danger" id="state-error"></small>
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category">
-                    <option disabled="disabled" selected="selected">Category</option>
+                    <option th:if="*{category == null}" disabled="disabled" selected="selected">Category</option>
+                    <option th:if="*{category != null}" selected="selected" th:text="*{category}"></option>
                 </select>
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('category')}"
                        th:text="${error}">
@@ -74,7 +80,8 @@
             <div class="form-group">
                 <label for="subcategory">Subcategory</label>
                 <select class="form-control" id="subcategory" name="subcategory">
-                    <option selected disabled>Subcategory</option>
+                    <option th:if="*{subcategory == null}" selected disabled>Subcategory</option>
+                    <option th:if="*{subcategory != null}" selected="selected" th:text="*{subcategory}"></option>
                 </select>
                 <small class="form-text text-danger" th:each="error : ${#fields.errors('subcategory')}"
                        th:text="${error}">
@@ -85,11 +92,17 @@
                 <label for="photos">Choose Photos</label>
                 <input type="file" class="form-control-file" id="photos"
                        name="photos" multiple>
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('photos')}"
+                       th:text="${error}">
+                </small>
             </div>
             <div class="form-group">
                 <label for="video">Choose Video</label>
                 <input type="file" class="form-control-file" id="video"
                        name="video">
+                <small class="form-text text-danger" th:each="error : ${#fields.errors('video')}"
+                       th:text="${error}">
+                </small>
             </div>
             <hr class="w-100 hr-2"/>
             <div class="button-holder mt-4 d-flex justify-content-center">

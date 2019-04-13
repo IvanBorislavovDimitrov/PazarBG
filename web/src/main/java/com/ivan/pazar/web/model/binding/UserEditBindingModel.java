@@ -24,7 +24,7 @@ public class UserEditBindingModel {
     @NotEmpty(message = INVALID_LAST_NAME)
     private String lastName;
 
-    @Size(min = 10, max = 10, message = INVALID_PHONE_NUMBER)
+    @Size(min = 3, max = 20, message = INVALID_PHONE_NUMBER)
     private String phoneNumber;
 
     private String websiteAddress;

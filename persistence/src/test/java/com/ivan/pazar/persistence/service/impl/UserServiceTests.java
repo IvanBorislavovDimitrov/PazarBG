@@ -144,7 +144,7 @@ public class UserServiceTests {
         when(user.getPassword()).thenReturn("123");
         when(userChangePassword.getConfirmPassword()).thenReturn("123");
         when(userChangePassword.getNewPassword()).thenReturn("123");
-        when(userChangePassword.getConfirmPassword()).thenReturn("123");
+        when(userChangePassword.getPassword()).thenReturn("123");
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
         userService.tryUpdatePassword("user", userChangePassword);
         verify(userRepository).saveAndFlush(user);

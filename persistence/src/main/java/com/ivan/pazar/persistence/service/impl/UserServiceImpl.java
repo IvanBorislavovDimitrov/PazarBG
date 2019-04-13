@@ -188,7 +188,7 @@ public class UserServiceImpl implements UserServiceExtended {
         User user = userRepository.findByUsername(loggedUserUsername).orElse(null);
         deleteRelatedContent(user);
 
-        if (!passwordEncoder.matches(userChangePassword.getNewPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(userChangePassword.getPassword(), user.getPassword())) {
             InvalidPasswordException invalidPasswordException = new InvalidPasswordException();
             LOGGER.error(invalidPasswordException.toString());
             throw invalidPasswordException;

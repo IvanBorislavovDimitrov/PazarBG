@@ -20,10 +20,16 @@ $(document).ready(() => {
 
     let isTitleValid = titleInput.val() !== '';
     let isValidShipment = shipmentInput.val() !== '';
-    let isPriceValid = priceInput.val() !== '';
+    let isPriceValid = !isNaN(priceInput.val()) && priceInput.val() !== '';
     let isValidState = stateInput.val() !== '';
     let isCategoryValid = categoryInput.val() !== '';
     let isSubcategoryValid = subcategoryInput.val() !== '';
+
+    if (!isTitleValid) {
+        titleError.empty();
+        titleInput.addClass('is-invalid');
+        titleError.append("Invalid Title!");
+    }
 
     titleInput.on('input', () => {
         if (titleInput.val().length < 3) {
@@ -48,6 +54,11 @@ $(document).ready(() => {
         shipmentError.empty();
     });
 
+    if (!isPriceValid) {
+        priceError.empty();
+        priceInput.addClass('is-invalid');
+        priceError.append("Invalid price!");
+    }
 
     priceInput.on('input', () => {
         if (Number.parseFloat(priceInput.val()) <= 0) {
@@ -85,12 +96,12 @@ $(document).ready(() => {
     });
 
 
-    if (!subcategoryInput .val()) {
+    if (!subcategoryInput.val()) {
         subCategoryError.append('Please select a subcategory');
     } else {
         subCategoryError.empty();
     }
-    subcategoryInput .on('input', () => {
+    subcategoryInput.on('input', () => {
         isSubcategoryValid = true;
         subCategoryError.empty();
     });

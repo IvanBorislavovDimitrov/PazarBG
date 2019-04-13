@@ -21,6 +21,15 @@ public class AdvertisementViewModel {
     private String state;
     private String category;
     private String subcategory;
+    private List<String> photos;
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
 
     public String getCategory() {
         return category;

@@ -3,6 +3,7 @@ package com.ivan.pazar.web.controller.view.advert;
 import com.ivan.pazar.persistence.model.service.AdvertisementAddServiceModel;
 import com.ivan.pazar.persistence.model.service.AdvertisementPageServiceModel;
 import com.ivan.pazar.persistence.service.api.AdvertisementService;
+import com.ivan.pazar.web.config.UserConfiguration;
 import com.ivan.pazar.web.constants.WebConstants;
 import com.ivan.pazar.web.model.binding.AdvertisementBindingModel;
 import com.ivan.pazar.web.model.view.AdvertisementViewModel;
@@ -26,18 +27,24 @@ public class AdvertisementEditController extends AdvertisementBaseController {
     private final AdvertisementService advertisementService;
     private final ModelMapper modelMapper;
     private final Pagination pagination;
+    private final UserConfiguration userConfiguration;
 
     @Autowired
-    public AdvertisementEditController(AdvertisementService advertisementService, ModelMapper modelMapper, Pagination pagination) {
+    public AdvertisementEditController(AdvertisementService advertisementService, ModelMapper modelMapper, Pagination pagination, UserConfiguration userConfiguration) {
         this.advertisementService = advertisementService;
         this.modelMapper = modelMapper;
         this.pagination = pagination;
+        this.userConfiguration = userConfiguration;
     }
 
     @GetMapping("/edit")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView edit(@RequestParam("advertId") String advertId, Model model) {
         AdvertisementViewModel advertisementViewModel = modelMapper.map(advertisementService.findById(advertId), AdvertisementViewModel.class);
+        String loggedUserUsername = userConfiguration.loggedUserUsername();
+        if (!loggedUserUsername.equals(advertisementViewModel.getUserUsername())) {
+            return redirect(WebConstants.REDIRECT_INDEX);
+        }
         model.addAttribute(WebConstants.ADVERT, advertisementViewModel);
 
         return renderView(WebConstants.VIEWS_EDIT_ADVERT, model);
@@ -68,6 +75,7 @@ public class AdvertisementEditController extends AdvertisementBaseController {
 
         return renderView(WebConstants.VIEWS_ADVERTS_HOME, model);
     }
+
     @PostMapping("/confirm-add")
     @PreAuthorize("hasAnyRole('ADMIN', 'ROOT', 'MODERATOR')")
     public ModelAndView confirmAdd(@RequestParam("advertId") String advertId) {

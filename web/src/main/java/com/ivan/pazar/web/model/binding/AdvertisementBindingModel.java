@@ -1,6 +1,8 @@
 package com.ivan.pazar.web.model.binding;
 
+import com.ivan.pazar.persistence.validation_annotations.ValidPicturesExtensions;
 import com.ivan.pazar.persistence.validation_annotations.ValidShipment;
+import com.ivan.pazar.persistence.validation_annotations.ValidVideo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
@@ -15,6 +17,8 @@ public class AdvertisementBindingModel {
     private static final String INVALID_STATE = "Invalid state";
     private static final String INVALID_CATEGORY = "Invalid category";
     private static final String INVALID_SUBCATEGORY = "Invalid subcategory";
+    private static final String INVALID_PICTURES = "One or more pictures are not JPEG, PNG or JPG";
+    private static final String INVALID_VIDEO_FORMAT = "Invalid video format.";
 
     private String id;
 
@@ -37,8 +41,10 @@ public class AdvertisementBindingModel {
     @NotEmpty(message = INVALID_CATEGORY)
     private String category;
 
+    @ValidVideo(message = INVALID_VIDEO_FORMAT)
     private MultipartFile video;
 
+    @ValidPicturesExtensions(message = INVALID_PICTURES)
     private List<MultipartFile> photos;
 
     @NotEmpty(message = INVALID_SUBCATEGORY)
