@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
     private static final String REGISTER_MESSAGE = "Thank you for registering  in our website Bazar-BG. We will ensure you with the best user experience you have ever imagined!%s Kind regards!%sActivate: %s";
     private static final String GREETINGS = "Greetings, %s.";
     private static final String DAILY_MESSAGE = "Hello! Visit our website Bazar-BG and publish a new advertisement";
-    private static final String ACTIVATE_LINK = "http://localhost:8000/users/activate/%s";
+    private static final String ACTIVATE_LINK = "http://pazar-ivan.cfapps.io/users/activate/%s";
     private static final String HOST = "smtp.gmail.com";
     private static final int PORT = 587;
     private static final String USERNAME = "automaticmailsendercommunity@gmail.com";
