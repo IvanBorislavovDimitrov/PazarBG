@@ -14,6 +14,9 @@ public class CheckForApplicationJsonContentType implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (request.getMethod().equalsIgnoreCase(HttpMethod.POST.toString().toLowerCase()) || request.getMethod().equalsIgnoreCase(HttpMethod.PATCH.toString().toLowerCase())) {
+            if (request.getContentType() == null) {
+                return false;
+            }
             return request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE);
         }
 

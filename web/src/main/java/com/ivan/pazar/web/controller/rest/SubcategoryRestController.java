@@ -4,7 +4,6 @@ import com.ivan.pazar.persistence.service.api.SubcategoryService;
 import com.ivan.pazar.web.model.view.rest.SubcategoryRestViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

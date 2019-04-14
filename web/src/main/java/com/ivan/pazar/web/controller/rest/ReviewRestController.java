@@ -51,7 +51,11 @@ public class ReviewRestController {
 
     @PostMapping("/delete")
     public ModelAndView deleteConfirm(@RequestParam("reviewId") String reviewId) {
-        reviewService.deleteById(reviewId);
+        try {
+            reviewService.deleteById(reviewId);
+        } catch (Exception e) {
+
+        }
 
         return new ModelAndView("redirect:/" + WebConstants.REDIRECT_INDEX);
     }
