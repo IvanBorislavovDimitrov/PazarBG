@@ -116,7 +116,7 @@ public class MessageControllerTests {
                 .param("advertId", demoAdvertisement.getId())
                 .param("sender", "koko")
                 .param("receiver", "pesho")
-        .param("content", "1231dsaf"))
+                .param("content", "1231dsaf"))
                 .andExpect(view().name("redirect:/users/profile"));
 
     }

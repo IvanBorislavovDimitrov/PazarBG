@@ -368,7 +368,7 @@ public class UserServiceImpl implements UserServiceExtended {
 
     private String getProfilePictureName(UserServiceBindingModel userRegisterServiceModel) {
         LOGGER.info(Messages.GETTING_PROFILE_PICTURE);
-        if (userRegisterServiceModel.getProfilePicture().isEmpty()) {
+        if (userRegisterServiceModel.getProfilePicture() == null || userRegisterServiceModel.getProfilePicture().isEmpty()) {
             LOGGER.warn(Messages.NO_PROFILE_PICTURE_PROVIDED);
             return null;
         }
