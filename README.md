@@ -1,5 +1,5 @@
-# PazarBG
-A website for products buying and selling e.g. PazarBG [![Build Status](https://travis-ci.org/IvanBorislavovDimitrov/PazarBG.svg?branch=master)](https://travis-ci.org/IvanBorislavovDimitrov/PazarBG)
+# PazarBG [![Build Status](https://travis-ci.org/IvanBorislavovDimitrov/PazarBG.svg?branch=master)](https://travis-ci.org/IvanBorislavovDimitrov/PazarBG)
+A website for products buying and selling e.g. PazarBG 
 
 A final project for Java MVC Frameworks @SoftUni
 
