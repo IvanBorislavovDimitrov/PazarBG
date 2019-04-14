@@ -258,7 +258,7 @@ public class AdvertisementServiceImpl implements AdvertisementServiceExtended {
         if (advertisementAddServiceModel == null || advertisement == null || advertisementServiceModel == null) {
             return;
         }
-        if (photos.isEmpty() || photos.get(0).isEmpty()) {
+        if (photos == null || photos.isEmpty() || photos.get(0).isEmpty()) {
             return;
         }
         List<String> picturesNames = getPicturesNames(advertisementServiceModelId, advertisementAddServiceModel.getPhotos());

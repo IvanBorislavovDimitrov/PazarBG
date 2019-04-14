@@ -15,6 +15,9 @@ public class ValidVideoValidator implements ConstraintValidator<ValidVideo, Mult
 
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
+        if (file == null) {
+            return true;
+        }
         String fileNameExtension = Utils.getFileNameExtension(file.getOriginalFilename());
         if (fileNameExtension == null) {
             return true;
