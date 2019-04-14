@@ -3,6 +3,8 @@ A website for products buying and selling e.g. PazarBG
 
 A final project for Java MVC Frameworks @SoftUni
 
+Deployed on CloudFoundry -> http://pazar-ivan.cfapps.io/
+
 ![index](https://user-images.githubusercontent.com/32311354/56091176-f2f7e500-5eb3-11e9-83f2-4bcb449be9cc.PNG)
 ![profile](https://user-images.githubusercontent.com/32311354/56091181-00ad6a80-5eb4-11e9-9313-f4302d2c6b56.PNG)
 ![contactUd](https://user-images.githubusercontent.com/32311354/56091185-07d47880-5eb4-11e9-9507-87905febcb36.PNG)
